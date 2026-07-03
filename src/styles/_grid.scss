@@ -1,0 +1,36 @@
+// Mirrors the breakpoint-keyed parts of src/theme/grid.ts (`containerPadding`,
+// `sectionSpacing`) — same unavoidable literal-value duplication as
+// _breakpoints.scss, for the same reason: these values only ever change
+// *inside* a `@media` block, so they can't be delivered as CSS custom
+// properties. `grid.maxContentWidth`/`grid.gutter`/`grid.columns` don't
+// have this problem (they're single values, not breakpoint-keyed) and are
+// available as ordinary `--h360-grid-*` custom properties instead — see
+// `cssVariables.ts`.
+@import 'breakpoints';
+
+$container-padding-mobile: 16px;
+$container-padding-tablet: 24px;
+
+$section-spacing-mobile: 32px;
+$section-spacing-tablet: 48px;
+$section-spacing-desktop: 64px;
+
+@mixin container-padding {
+  padding-inline: $container-padding-mobile;
+
+  @include from-tablet {
+    padding-inline: $container-padding-tablet;
+  }
+}
+
+@mixin section-spacing {
+  padding-block: $section-spacing-mobile;
+
+  @include from-tablet {
+    padding-block: $section-spacing-tablet;
+  }
+
+  @include from-desktop {
+    padding-block: $section-spacing-desktop;
+  }
+}

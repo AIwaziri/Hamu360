@@ -1,0 +1,12 @@
+@import '../../styles/tokens';
+@import '../../styles/string-utils';
+
+.root {
+  width: 100%;
+}
+
+@each $key in $spacing-keys {
+  .spacing#{capitalize($key)} {
+    padding-block: space($key);
+  }
+}

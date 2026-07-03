@@ -1,13 +1,10 @@
-// Mirrors src/theme/tokens.ts spacingTokens — keep the two in sync.
-// SCSS and TS token files can't share a single source at build time under
-// SPFx's default gulp/sass pipeline (no build-time JSON->SCSS step is wired
-// up), so this duplication is intentional; update both together.
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 16px;
-$spacing-lg: 24px;
-$spacing-xl: 32px;
-
-$breakpoint-sm: 480px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 1024px;
+// Superseded by the Sprint 1 design system — kept as a pointer file rather
+// than deleted, since Sprint 0's own ARCHITECTURE.md flagged this exact
+// spot as "revisit once the token list grows large enough to make manual
+// TS/SCSS sync error-prone." That's now: spacing and breakpoints moved to a
+// CSS-variable-driven token system (colors, spacing, radius, shadows,
+// motion, grid, z-index, opacity all included) instead of one-off SCSS
+// literals.
+//
+// Spacing:    use `space($key)` from `_tokens.scss` (e.g. `gap: space(md);`).
+// Breakpoints: use the `from-*` mixins from `_breakpoints.scss`.

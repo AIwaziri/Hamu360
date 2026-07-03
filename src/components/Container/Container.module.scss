@@ -1,0 +1,20 @@
+@import '../../styles/grid';
+
+.root {
+  width: 100%;
+  margin-inline: auto;
+  @include container-padding;
+}
+
+.maxWidthLaptop {
+  max-width: 1024px;
+}
+
+.maxWidthDesktop {
+  // Matches the approved wireframe's `.shell { max-width: 1180px; }` exactly.
+  max-width: 1180px;
+}
+
+.maxWidthFull {
+  max-width: none;
+}

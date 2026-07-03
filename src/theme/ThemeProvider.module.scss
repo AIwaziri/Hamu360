@@ -1,0 +1,10 @@
+// `display: contents` makes this wrapper invisible to layout — it exists
+// purely to host the `--h360-*` CSS custom properties `ThemeProvider` sets
+// on it, and must never introduce an extra box that could affect a
+// consuming web part's flex/grid sizing. Safe across all Evergreen browsers
+// SPFx targets (Edge/Chrome/Safari current); the old Safari `display:
+// contents` accessibility-tree bugs this technique used to require caution
+// around were fixed years ago.
+.root {
+  display: contents;
+}

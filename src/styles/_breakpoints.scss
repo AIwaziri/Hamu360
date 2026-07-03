@@ -1,0 +1,41 @@
+// Mirrors src/theme/breakpoints.ts exactly — keep both in sync when either
+// changes. This duplication is unavoidable, not an oversight: CSS custom
+// properties (how every other token category reaches SCSS, via
+// ThemeProvider) cannot be used inside an `@media` feature query per spec,
+// so breakpoint *thresholds* are the one token category that must be
+// literal values in both TypeScript and SCSS. See ARCHITECTURE.md's
+// "Responsive philosophy" section.
+//
+// smallMobile (0) is the mobile-first base and needs no media query of its
+// own — it's just the styles you write with no mixin at all.
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 1024px;
+$breakpoint-desktop: 1280px;
+
+// Mobile-first: each mixin applies its content from that breakpoint *up*.
+// Always write the smallMobile/base styles unwrapped, then layer these on
+// top for larger viewports — never the other way around.
+@mixin from-mobile {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin from-tablet {
+  @media (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin from-laptop {
+  @media (min-width: $breakpoint-laptop) {
+    @content;
+  }
+}
+
+@mixin from-desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}

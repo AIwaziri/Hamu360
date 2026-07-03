@@ -62,7 +62,13 @@
 
     "typeRoots": ["./node_modules/@types", "./node_modules/@microsoft"],
     "types": ["webpack-env"],
-    "lib": ["es5", "dom", "es2015.collection", "es2015.promise"]
+    // "target" stays es5 for output syntax (broad transpilation safety), but
+    // "lib" separately controls which runtime APIs TypeScript assumes exist.
+    // es2017.object adds Object.entries/values typings — natively available
+    // in every Evergreen browser SPFx 1.23 targets (no IE11 support, no
+    // polyfill needed), used by the design system's token->CSS-variable
+    // flattening in src/theme/cssVariables.ts.
+    "lib": ["es5", "dom", "es2015.collection", "es2015.promise", "es2017.object"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -1,0 +1,82 @@
+@import '../../styles/tokens';
+@import '../../styles/string-utils';
+@import '../../styles/breakpoints';
+
+.root {
+  display: grid;
+  width: 100%;
+}
+
+@each $key in $spacing-keys {
+  .gap#{capitalize($key)} {
+    gap: space($key);
+  }
+}
+
+// Mobile-first column ramps: `columns` is the count from `laptop` up; every
+// option resolves to fewer columns below that automatically, per the
+// "Everything must be mobile-first" requirement — a consumer never has to
+// think about the mobile/tablet step down themselves.
+.columns1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.columns2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.columns3 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include from-laptop {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.columns4 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include from-laptop {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.columns6 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include from-laptop {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.columns12 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @include from-laptop {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  @include from-desktop {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}

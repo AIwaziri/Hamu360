@@ -1,0 +1,8 @@
+// SCSS-side counterpart to src/utils/capitalize.ts — same job (`'md'` ->
+// `'Md'`), needed here so `@each` loops that generate CSS Module utility
+// classes (`.gap#{capitalize($key)}`) produce camelCase class names.
+// SPFx's sass task warns on any non-camelCase local class name, so every
+// generated class across Stack/Section/Grid/Spacer goes through this.
+@function capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}

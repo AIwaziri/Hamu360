@@ -1,0 +1,98 @@
+// The SCSS-side half of the design token bridge. `ThemeProvider` (see
+// src/theme/ThemeProvider.tsx + cssVariables.ts) injects the actual token
+// *values* as `--h360-*` CSS custom properties at runtime; this file only
+// knows the *names*, never a value. That's what keeps this file safe from
+// ever drifting out of sync on values — there's nothing here to drift.
+//
+// Two things live here:
+//   1. Ergonomic SCSS variables that alias a `var(--h360-...)` call, so a
+//      component writes `color: $color-text-primary;` instead of
+//      `color: var(--h360-color-text-primary);` — same result, fewer
+//      chances to typo a variable name with no autocomplete.
+//   2. Key-name lists (`$spacing-keys`, `$radius-keys`, ...) used by
+//      _mixins.scss and any component's `.module.scss` to generate a
+//      family of utility classes with a single `@each` loop instead of
+//      hand-writing one class per token.
+
+// --- Color ---
+$color-primary: var(--h360-color-primary);
+$color-secondary: var(--h360-color-secondary);
+$color-accent: var(--h360-color-accent);
+$color-success: var(--h360-color-success);
+$color-success-background: var(--h360-color-success-background);
+$color-warning: var(--h360-color-warning);
+$color-warning-background: var(--h360-color-warning-background);
+$color-danger: var(--h360-color-danger);
+$color-danger-background: var(--h360-color-danger-background);
+$color-info: var(--h360-color-info);
+$color-info-background: var(--h360-color-info-background);
+$color-surface: var(--h360-color-surface);
+$color-surface-subtle: var(--h360-color-surface-subtle);
+$color-background: var(--h360-color-background);
+$color-border: var(--h360-color-border);
+$color-text-primary: var(--h360-color-text-primary);
+$color-text-secondary: var(--h360-color-text-secondary);
+$color-text-on-primary: var(--h360-color-text-on-primary);
+$color-muted: var(--h360-color-muted);
+$color-hover: var(--h360-color-hover);
+$color-active: var(--h360-color-active);
+$color-disabled: var(--h360-color-disabled);
+$color-focus: var(--h360-color-focus);
+
+// --- Spacing ---
+// Keys mirror the exported keys of src/theme/spacing.ts's `spacing` object.
+$spacing-keys: none, xxs, xs, sm, md, lg, xl, xxl, xxxl;
+
+@function space($key) {
+  @return var(--h360-space-#{$key});
+}
+
+// --- Radius ---
+$radius-keys: small, medium, large, xl, pill, circle;
+
+@function radius($key) {
+  @return var(--h360-radius-#{$key});
+}
+
+// --- Shadow ---
+$shadow-keys: elevation-0, elevation-1, elevation-2, elevation-3, elevation-4, hover, dropdown, modal;
+
+@function shadow($key) {
+  @return var(--h360-shadow-#{$key});
+}
+
+// --- Motion ---
+@function duration($key) {
+  @return var(--h360-duration-#{$key});
+}
+
+@function ease($key) {
+  @return var(--h360-ease-#{$key});
+}
+
+@function motion($key) {
+  @return var(--h360-motion-#{$key});
+}
+
+// --- z-index ---
+@function z($key) {
+  @return var(--h360-z-#{$key});
+}
+
+// --- Opacity ---
+@function token-opacity($key) {
+  @return var(--h360-opacity-#{$key});
+}
+
+// --- Typography ---
+// Roles mirror the exported keys of src/theme/typography.ts's `typography` object.
+$typography-roles: display, heading-xl, heading-l, heading-m, heading-s, title, body-large, body, body-small, caption,
+  label, button, code;
+
+@mixin typography($role) {
+  font-family: var(--h360-font-#{$role}-family);
+  font-size: var(--h360-font-#{$role}-size);
+  font-weight: var(--h360-font-#{$role}-weight);
+  line-height: var(--h360-font-#{$role}-line-height);
+  letter-spacing: var(--h360-font-#{$role}-letter-spacing);
+}

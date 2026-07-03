@@ -1,0 +1,22 @@
+@import '../../styles/tokens';
+@import '../../styles/string-utils';
+
+.root {
+  flex-shrink: 0;
+}
+
+.flexible {
+  flex: 1 1 auto;
+}
+
+@each $key in $spacing-keys {
+  .vertical#{capitalize($key)} {
+    height: space($key);
+    width: 100%;
+  }
+
+  .horizontal#{capitalize($key)} {
+    width: space($key);
+    height: 100%;
+  }
+}

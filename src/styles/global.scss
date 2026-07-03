@@ -1,0 +1,9 @@
+// Minimal, non-visual baseline reset. Deliberately does not style any
+// component or layout — that is out of scope for the Sprint 0 foundation.
+// Feature web parts opt into this by importing it once at their entry point;
+// it is not auto-injected by the build.
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

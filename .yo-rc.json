@@ -1,0 +1,23 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "hamu360",
+    "environment": "spo",
+    "packageManager": "npm",
+    "skipFeatureDeployment": true,
+    "useGulp": true,
+    "componentType": "webpart",
+    "template": "react",
+    "componentName": "Hamu360Shell",
+    "componentDescription": "Hamu360 platform bootstrap shell (foundation placeholder, no feature UI)",
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.22.2",
+    "sdksVersions": {},
+    "version": "1.23.2",
+    "libraryName": "hamu-360",
+    "libraryId": "ede44c9c-ab30-4a8f-b8dd-41976e7dffeb",
+    "solutionShortDescription": "hamu360 description",
+    "isDomainIsolated": false
+  }
+}

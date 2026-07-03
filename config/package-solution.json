@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "hamu-360-client-side-solution",
+    "id": "ede44c9c-ab30-4a8f-b8dd-41976e7dffeb",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.23.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "hamu360 description"
+      },
+      "longDescription": {
+        "default": "hamu360 description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "hamu-360 Feature",
+        "description": "The feature that activates elements of the hamu-360 solution.",
+        "id": "8de0841b-56c1-48a6-b3a3-b43bb96033d0",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/hamu-360.sppkg"
+  }
+}

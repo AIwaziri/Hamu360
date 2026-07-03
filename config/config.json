@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "hamu-360-shell-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/hamu360Shell/Hamu360ShellWebPart.js",
+          "manifest": "./src/webparts/hamu360Shell/Hamu360ShellWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "Hamu360ShellWebPartStrings": "lib/webparts/hamu360Shell/loc/{locale}.js"
+  }
+}

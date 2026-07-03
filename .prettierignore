@@ -1,0 +1,11 @@
+lib
+lib-*
+dist
+temp
+solution
+release
+node_modules
+coverage
+*.sppkg
+src/**/loc/*.js
+src/**/*.module.scss.ts

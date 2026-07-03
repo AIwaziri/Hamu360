@@ -1,0 +1,13 @@
+// Mirrors src/theme/tokens.ts spacingTokens — keep the two in sync.
+// SCSS and TS token files can't share a single source at build time under
+// SPFx's default gulp/sass pipeline (no build-time JSON->SCSS step is wired
+// up), so this duplication is intentional; update both together.
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;

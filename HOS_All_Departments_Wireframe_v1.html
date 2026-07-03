@@ -1,0 +1,2495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hamu Legal — HOS Wireframes · All Departments v2</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #eceae4;
+        min-height: 100vh;
+      }
+      :root {
+        --g: #ddaa39;
+        --gl: #f5e4b0;
+        --gd: #b8861a;
+        --nv: #0d1f3c;
+        --nv2: #1a3160;
+        --t1: #2c2c2a;
+        --t2: #555759;
+        --t3: #888780;
+        --sf: #f8f7f4;
+        --wh: #ffffff;
+        --bd: #e8e6e0;
+        --red: #a32d2d;
+        --redbg: #fcebeb;
+        --grn: #3b6d11;
+        --grnbg: #eaf3de;
+        --blu: #185fa5;
+        --blubg: #e6f1fb;
+        --amb: #854f0b;
+        --ambbg: #fff4e5;
+      }
+      .shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }
+      .shell-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      .shell-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--nv);
+      }
+      .shell-sub {
+        font-size: 11px;
+        color: var(--t3);
+        margin-top: 2px;
+      }
+      .v-badge {
+        font-size: 10px;
+        background: var(--gl);
+        padding: 5px 12px;
+        border-radius: 6px;
+        color: var(--gd);
+        font-weight: 600;
+      }
+
+      /* SELECTOR */
+      .selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 18px;
+      }
+      .sel-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 13px;
+        border-radius: 8px;
+        border: 1.5px solid var(--bd);
+        background: var(--wh);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        color: var(--t2);
+        user-select: none;
+      }
+      .sel-btn:hover {
+        border-color: var(--g);
+      }
+      .sel-btn.active {
+        background: var(--nv);
+        border-color: var(--nv);
+        color: var(--wh);
+      }
+      .sel-btn .av {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .sel-btn.active .av {
+        background: var(--g);
+        color: var(--nv);
+      }
+      .sel-btn:not(.active) .av {
+        background: var(--gl);
+        color: var(--gd);
+      }
+      .sel-dept {
+        font-size: 8.5px;
+        opacity: 0.65;
+        margin-left: 1px;
+      }
+      .frame-label {
+        background: var(--nv);
+        color: var(--g);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        padding: 6px 14px;
+        border-radius: 6px 6px 0 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* INTRANET FRAME */
+      .hos {
+        background: var(--sf);
+        border-radius: 0 8px 8px 8px;
+        border: 0.5px solid var(--bd);
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(13, 31, 60, 0.1);
+      }
+
+      /* NAV */
+      .nav {
+        background: var(--nv);
+        display: flex;
+        align-items: center;
+        height: 48px;
+        padding: 0 18px;
+        gap: 3px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: 16px;
+        flex-shrink: 0;
+      }
+      .lm {
+        width: 27px;
+        height: 27px;
+        background: var(--g);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--nv);
+      }
+      .lt {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .ls {
+        color: var(--g);
+        font-size: 8px;
+        letter-spacing: 0.08em;
+      }
+      .ni {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 10.5px;
+        padding: 5px 9px;
+        border-radius: 5px;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .ni.on {
+        background: rgba(221, 170, 57, 0.18);
+        color: var(--g);
+      }
+      .ni i {
+        font-size: 11px;
+      }
+      .nav-r {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+      .srch {
+        background: rgba(255, 255, 255, 0.09);
+        border: 0.5px solid rgba(255, 255, 255, 0.15);
+        border-radius: 5px;
+        padding: 4px 9px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: 120px;
+      }
+      .nav-av {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--g);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--nv);
+      }
+
+      /* HERO */
+      .hero {
+        background: var(--nv);
+        padding: 20px 18px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        right: -60px;
+        top: -60px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: 80px;
+        bottom: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: rgba(221, 170, 57, 0.06);
+      }
+      .hcon {
+        position: relative;
+        z-index: 2;
+      }
+      .hgreet {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        margin-bottom: 2px;
+      }
+      .htitle {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+      .htitle span {
+        color: var(--g);
+      }
+      .hcards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .hc {
+        background: rgba(255, 255, 255, 0.07);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: 9px 9px 0 0;
+        padding: 12px 13px;
+      }
+      .hcl {
+        color: var(--g);
+        font-size: 8.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .hcl i {
+        font-size: 12px;
+      }
+
+      /* MP message */
+      .mp-card {
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+      }
+      .mp-photo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--g);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--nv);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+      .mp-name {
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 1px;
+      }
+      .mp-role {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 8px;
+        margin-bottom: 6px;
+      }
+      .mp-msg {
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 9.5px;
+        line-height: 1.6;
+        font-style: italic;
+      }
+      .mp-date {
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 8px;
+        margin-top: 5px;
+      }
+
+      /* announcements */
+      .anr {
+        display: flex;
+        gap: 6px;
+        padding: 4px 0;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+      }
+      .anr:last-child {
+        border: none;
+      }
+      .anr-d {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--g);
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .anr-t {
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 9.5px;
+        line-height: 1.45;
+        flex: 1;
+      }
+      .anr-dt {
+        color: rgba(255, 255, 255, 0.33);
+        font-size: 8px;
+        margin-top: 1px;
+      }
+
+      /* quick links */
+      .qlg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+      .ql {
+        background: rgba(255, 255, 255, 0.07);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        padding: 5px 7px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 9.5px;
+      }
+      .qli {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        background: rgba(221, 170, 57, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .qli i {
+        font-size: 10px;
+        color: var(--g);
+      }
+
+      /* BODY */
+      .body {
+        padding: 14px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+      }
+      .srow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .slbl {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--t3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex: 1;
+      }
+      .slbl::after {
+        content: "";
+        flex: 1;
+        height: 0.5px;
+        background: var(--bd);
+      }
+      .va {
+        font-size: 9.5px;
+        color: var(--gd);
+        white-space: nowrap;
+        margin-left: 8px;
+      }
+
+      /* privacy note */
+      .priv-note {
+        background: var(--blubg);
+        border: 0.5px solid #b5d4f4;
+        border-radius: 7px;
+        padding: 8px 12px;
+        font-size: 9.5px;
+        color: var(--blu);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .priv-note i {
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      /* hub cards */
+      .hubs {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+      .hub-card {
+        background: var(--wh);
+        border: 0.5px solid var(--bd);
+        border-radius: 9px;
+        padding: 13px 10px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hub-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2.5px;
+        background: var(--g);
+        border-radius: 9px 9px 0 0;
+      }
+      .hub-ic {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        margin: 0 auto 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hub-ic i {
+        font-size: 17px;
+      }
+      .hub-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--t1);
+        line-height: 1.3;
+      }
+      .hub-sub {
+        font-size: 8.5px;
+        color: var(--t3);
+        margin-top: 2px;
+      }
+
+      /* four col */
+      .four {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 9px;
+      }
+      .wc {
+        background: var(--wh);
+        border: 0.5px solid var(--bd);
+        border-radius: 9px;
+        padding: 11px;
+      }
+      .wt {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--t1);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .wt i {
+        font-size: 14px;
+        color: var(--g);
+      }
+
+      /* events */
+      .ev-row {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 6px;
+        align-items: flex-start;
+      }
+      .ev-row:last-child {
+        margin: 0;
+      }
+      .ev-box {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background: var(--gl);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ev-d {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gd);
+        line-height: 1;
+      }
+      .ev-m {
+        font-size: 6.5px;
+        color: var(--gd);
+        letter-spacing: 0.04em;
+      }
+      .ev-title {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--t1);
+      }
+      .ev-sub {
+        font-size: 8.5px;
+        color: var(--t3);
+      }
+
+      /* joiners */
+      .jr {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 0;
+        border-bottom: 0.5px solid var(--bd);
+      }
+      .jr:last-child {
+        border: none;
+      }
+      .jav {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--gl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8.5px;
+        font-weight: 700;
+        color: var(--gd);
+        flex-shrink: 0;
+      }
+      .jname {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--t1);
+      }
+      .jrole {
+        font-size: 8.5px;
+        color: var(--t3);
+      }
+      .jbadge {
+        background: var(--grnbg);
+        color: var(--grn);
+        font-size: 7px;
+        font-weight: 700;
+        padding: 2px 5px;
+        border-radius: 3px;
+        white-space: nowrap;
+        margin-left: auto;
+      }
+
+      /* reg updates */
+      .rr {
+        display: flex;
+        gap: 6px;
+        padding: 5px 0;
+        border-bottom: 0.5px solid var(--bd);
+        align-items: flex-start;
+      }
+      .rr:last-child {
+        border: none;
+      }
+      .rrdot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--amb);
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+      .rrtxt {
+        font-size: 9.5px;
+        color: var(--t1);
+        line-height: 1.5;
+        flex: 1;
+      }
+      .rrdate {
+        font-size: 8px;
+        color: var(--t3);
+      }
+
+      /* wins */
+      .wr {
+        display: flex;
+        gap: 6px;
+        padding: 5px 0;
+        border-bottom: 0.5px solid var(--bd);
+        align-items: flex-start;
+      }
+      .wr:last-child {
+        border: none;
+      }
+      .wric {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: var(--gl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .wric i {
+        font-size: 11px;
+        color: var(--gd);
+      }
+      .wrtag {
+        display: inline-block;
+        background: var(--gl);
+        color: var(--gd);
+        font-size: 7px;
+        font-weight: 700;
+        padding: 1px 5px;
+        border-radius: 3px;
+        margin-bottom: 2px;
+      }
+      .wrtxt {
+        font-size: 9.5px;
+        color: var(--t1);
+        line-height: 1.45;
+      }
+
+      /* HUB PAGE */
+      .hub-page {
+        display: none;
+        padding: 14px 18px;
+        flex-direction: column;
+        gap: 13px;
+      }
+      .hub-page.on {
+        display: flex;
+      }
+      .hub-hdr {
+        background: var(--nv);
+        border-radius: 9px;
+        padding: 15px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hub-hname {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .hub-hsub {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 10px;
+        margin-top: 2px;
+      }
+      .hub-hbadge {
+        background: rgba(221, 170, 57, 0.2);
+        border: 0.5px solid rgba(221, 170, 57, 0.4);
+        border-radius: 6px;
+        padding: 4px 10px;
+        color: var(--g);
+        font-size: 9px;
+        font-weight: 600;
+      }
+
+      /* practice tiles */
+      .pg {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .pc {
+        background: var(--wh);
+        border: 0.5px solid var(--bd);
+        border-radius: 9px;
+        padding: 11px;
+        position: relative;
+        overflow: hidden;
+      }
+      .pc::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2.5px;
+        background: var(--g);
+        border-radius: 9px 9px 0 0;
+      }
+      .pcc {
+        font-size: 8px;
+        font-weight: 700;
+        color: var(--gd);
+        letter-spacing: 0.1em;
+        margin-bottom: 2px;
+      }
+      .pcn {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--t1);
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .pcs {
+        font-size: 8.5px;
+        color: var(--t3);
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .pcs i {
+        font-size: 10px;
+      }
+      .pcl {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .lav {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--gl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 6px;
+        font-weight: 700;
+        color: var(--gd);
+      }
+      .lnm {
+        font-size: 8.5px;
+        color: var(--t2);
+      }
+
+      /* two col */
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        gap: 11px;
+      }
+
+      /* doc rows */
+      .dr {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 0;
+        border-bottom: 0.5px solid var(--bd);
+      }
+      .dr:last-child {
+        border: none;
+      }
+      .dic {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .dic i {
+        font-size: 12px;
+      }
+      .dic.g {
+        background: var(--gl);
+      }
+      .dic.g i {
+        color: var(--gd);
+      }
+      .dic.b {
+        background: var(--blubg);
+      }
+      .dic.b i {
+        color: var(--blu);
+      }
+      .dic.gr {
+        background: var(--grnbg);
+      }
+      .dic.gr i {
+        color: var(--grn);
+      }
+      .dn {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--t1);
+        flex: 1;
+        line-height: 1.3;
+      }
+      .dm {
+        font-size: 8.5px;
+        color: var(--t3);
+      }
+      .dt {
+        font-size: 8.5px;
+        color: var(--t3);
+        white-space: nowrap;
+        margin-left: auto;
+      }
+
+      /* metrics */
+      .mg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        margin-bottom: 7px;
+      }
+      .mb {
+        background: var(--sf);
+        border-radius: 6px;
+        padding: 7px;
+        text-align: center;
+      }
+      .mn {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--t1);
+      }
+      .ml {
+        font-size: 7.5px;
+        color: var(--t3);
+      }
+
+      /* calendar mini */
+      .cr {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 5px;
+        align-items: flex-start;
+      }
+      .cb {
+        width: 28px;
+        height: 28px;
+        border-radius: 5px;
+        background: var(--gl);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .cd {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gd);
+        line-height: 1;
+      }
+      .cm {
+        font-size: 6px;
+        color: var(--gd);
+      }
+      .ce {
+        font-size: 9.5px;
+        font-weight: 600;
+        color: var(--t1);
+      }
+      .cs {
+        font-size: 8px;
+        color: var(--t3);
+      }
+
+      /* stat row */
+      .stats6 {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 7px;
+      }
+      .stat {
+        background: var(--wh);
+        border: 0.5px solid var(--bd);
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+      .stat-num {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--t1);
+        margin-bottom: 2px;
+      }
+      .stat-lbl {
+        font-size: 8px;
+        color: var(--t3);
+      }
+
+      /* h360 summary rows */
+      .h360r {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 0.5px solid var(--bd);
+      }
+      .h360r:last-child {
+        border: none;
+      }
+      .h360lbl {
+        font-size: 10px;
+        color: var(--t2);
+      }
+      .h360val {
+        font-size: 10.5px;
+        font-weight: 600;
+        color: var(--t1);
+      }
+
+      /* approval items */
+      .ap-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 0;
+        border-bottom: 0.5px solid var(--bd);
+      }
+      .ap-item:last-child {
+        border: none;
+      }
+      .ap-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--red);
+        flex-shrink: 0;
+      }
+      .ap-name {
+        font-size: 10px;
+        color: var(--t1);
+        flex: 1;
+      }
+      .ap-from {
+        font-size: 8.5px;
+        color: var(--t3);
+      }
+      .ap-btn {
+        background: var(--nv);
+        color: #fff;
+        font-size: 8px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+
+      /* badge */
+      .badge {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 8px;
+        font-weight: 700;
+      }
+      .badge-r {
+        background: var(--redbg);
+        color: var(--red);
+      }
+      .badge-g {
+        background: var(--grnbg);
+        color: var(--grn);
+      }
+      .badge-b {
+        background: var(--blubg);
+        color: var(--blu);
+      }
+      .badge-a {
+        background: var(--gl);
+        color: var(--gd);
+      }
+
+      /* scard */
+      .scard-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .scard-item {
+        font-size: 10px;
+        color: var(--t2);
+        padding: 5px 8px;
+        background: var(--sf);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .scard-item i {
+        font-size: 11px;
+        color: var(--t3);
+      }
+
+      /* finance big cards */
+      .fin-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+      .fin-card {
+        background: var(--wh);
+        border: 0.5px solid var(--bd);
+        border-radius: 10px;
+        padding: 16px;
+        text-align: center;
+      }
+      .fin-card i {
+        font-size: 26px;
+        color: var(--g);
+        margin-bottom: 7px;
+        display: block;
+      }
+      .fin-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--t1);
+        margin-bottom: 2px;
+      }
+      .fin-sub {
+        font-size: 9px;
+        color: var(--t3);
+      }
+      .fin-arr {
+        font-size: 9.5px;
+        color: var(--gd);
+        margin-top: 5px;
+      }
+
+      /* FOOTER */
+      .foot {
+        background: var(--nv);
+        padding: 8px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .ft {
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 7.5px;
+        letter-spacing: 0.04em;
+      }
+      .ft span {
+        color: var(--g);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="shell-header">
+        <div>
+          <div class="shell-title">Hamu OS — Department wireframes</div>
+          <div class="shell-sub">
+            Select a person or department to see exactly what they will see when
+            they log in
+          </div>
+        </div>
+        <div class="v-badge">V1 Wireframe · June 2026</div>
+      </div>
+
+      <div class="selector">
+        <div class="sel-btn active" onclick="go('home', this)">
+          <div class="av">HL</div>
+          <div>
+            <div>Home page</div>
+            <div class="sel-dept">All staff — identical for everyone</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('hamu360', this)">
+          <div class="av">FW</div>
+          <div>
+            <div>MP — Hamu360</div>
+            <div class="sel-dept">Managing Partner dashboard</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('legal', this)">
+          <div class="av">EA</div>
+          <div>
+            <div>Legal hub</div>
+            <div class="sel-dept">Legal Team</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('finance', this)">
+          <div class="av">SA</div>
+          <div>
+            <div>Finance hub</div>
+            <div class="sel-dept">Finance team</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('operations', this)">
+          <div class="av">OPS</div>
+          <div>
+            <div>Operations hub</div>
+            <div class="sel-dept">Operations team</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('people', this)">
+          <div class="av">HR</div>
+          <div>
+            <div>People & Culture hub</div>
+            <div class="sel-dept">HR team</div>
+          </div>
+        </div>
+        <div class="sel-btn" onclick="go('ithelp', this)">
+          <div class="av">IT</div>
+          <div>
+            <div>IT help desk</div>
+            <div class="sel-dept">All staff · self-service</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-label" id="frame-label">
+        <i class="ti ti-home"></i> Home page — All staff
+      </div>
+
+      <div class="hos">
+        <!-- SHARED NAV -->
+        <div class="nav">
+          <div class="logo">
+            <div class="lm">H</div>
+            <div>
+              <div class="lt">HAMU LEGAL</div>
+              <div class="ls">TRUST & EXCELLENCE</div>
+            </div>
+          </div>
+          <div class="ni on"><i class="ti ti-home"></i> Home</div>
+          <div class="ni"><i class="ti ti-scale"></i> Legal</div>
+          <div class="ni"><i class="ti ti-report-money"></i> Finance</div>
+          <div class="ni"><i class="ti ti-settings"></i> Operations</div>
+          <div class="ni"><i class="ti ti-users"></i> People</div>
+          <div class="ni"><i class="ti ti-brain"></i> Knowledge</div>
+          <div class="ni"><i class="ti ti-help-circle"></i> IT help</div>
+          <div class="nav-r">
+            <div class="srch"><i class="ti ti-search"></i> Search HOS…</div>
+            <div class="nav-av" id="nav-av">HL</div>
+          </div>
+        </div>
+
+        <!-- ═══ HOME PAGE ═══ -->
+        <div id="page-home">
+          <div class="hero">
+            <div class="hcon">
+              <div class="hgreet">TUESDAY, 24 JUNE 2026</div>
+              <div class="htitle">Good morning, <span>Hamu Legal.</span></div>
+              <div class="hcards">
+                <div class="hc">
+                  <div class="hcl">
+                    <i class="ti ti-message-circle"></i> Message from Fali
+                  </div>
+                  <div class="mp-card">
+                    <div class="mp-photo">FW</div>
+                    <div>
+                      <div class="mp-name">Saadatu Hamu Aliyu</div>
+                      <div class="mp-role">Managing Partner</div>
+                      <div class="mp-msg">
+                        "This week we move into our new home at Wuse 2. It is a
+                        symbol of everything we are building together — an
+                        institution, not just a firm. Let's make it count."
+                      </div>
+                      <div class="mp-date">Tuesday, 24 June 2026</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hc">
+                  <div class="hcl">
+                    <i class="ti ti-speakerphone"></i> Firm announcements
+                  </div>
+                  <div class="anr">
+                    <div class="anr-d"></div>
+                    <div>
+                      <div class="anr-t">
+                        New office — Wuse 2 handover confirmed July 1
+                      </div>
+                      <div class="anr-dt">Today · From Fali</div>
+                    </div>
+                  </div>
+                  <div class="anr">
+                    <div class="anr-d"></div>
+                    <div>
+                      <div class="anr-t">
+                        Deborah Tatama joins CC practice — welcome!
+                      </div>
+                      <div class="anr-dt">Jun 22 · People & Culture</div>
+                    </div>
+                  </div>
+                  <div class="anr">
+                    <div class="anr-d"></div>
+                    <div>
+                      <div class="anr-t">
+                        Q2 QBR — Friday July 4, 10am, Conference Room A
+                      </div>
+                      <div class="anr-dt">Jun 20 · From Fali</div>
+                    </div>
+                  </div>
+                  <div class="anr">
+                    <div class="anr-d"></div>
+                    <div>
+                      <div class="anr-t">
+                        HOS beta launch — all-staff walkthrough July 14
+                      </div>
+                      <div class="anr-dt">Jun 18 · IT Admin</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hc">
+                  <div class="hcl"><i class="ti ti-bolt"></i> Quick links</div>
+                  <div class="qlg">
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-folder-open"></i></div>
+                      Open matter
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-file-plus"></i></div>
+                      New document
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-template"></i></div>
+                      Templates
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-report-money"></i></div>
+                      Raise invoice
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-book"></i></div>
+                      Precedents
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-users"></i></div>
+                      Staff directory
+                    </div>
+                    <div class="ql">
+                      <div class="qli"><i class="ti ti-device-laptop"></i></div>
+                      IT help desk
+                    </div>
+                    <div class="ql">
+                      <div class="qli">
+                        <i class="ti ti-calendar-event"></i>
+                      </div>
+                      Book a room
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <div>
+              <div class="srow">
+                <div class="slbl">Team hubs — go to your workspace</div>
+              </div>
+              <div class="hubs">
+                <div class="hub-card">
+                  <div class="hub-ic" style="background: var(--blubg)">
+                    <i class="ti ti-scale" style="color: var(--blu)"></i>
+                  </div>
+                  <div class="hub-name">Legal</div>
+                  <div class="hub-sub">CC · GRC · IP · DR</div>
+                </div>
+                <div class="hub-card">
+                  <div class="hub-ic" style="background: var(--grnbg)">
+                    <i class="ti ti-report-money" style="color: var(--grn)"></i>
+                  </div>
+                  <div class="hub-name">Finance</div>
+                  <div class="hub-sub">Billing · Reports · Budget</div>
+                </div>
+                <div class="hub-card">
+                  <div class="hub-ic" style="background: var(--ambbg)">
+                    <i class="ti ti-settings" style="color: var(--amb)"></i>
+                  </div>
+                  <div class="hub-name">Operations</div>
+                  <div class="hub-sub">CX · Admin · Procurement</div>
+                </div>
+                <div class="hub-card">
+                  <div class="hub-ic" style="background: var(--gl)">
+                    <i class="ti ti-heart" style="color: var(--gd)"></i>
+                  </div>
+                  <div class="hub-name">People & Culture</div>
+                  <div class="hub-sub">HR · Recruitment · Performance</div>
+                </div>
+                <div class="hub-card" style="border-color: var(--g)">
+                  <div class="hub-ic" style="background: var(--nv)">
+                    <i class="ti ti-chart-dots" style="color: var(--g)"></i>
+                  </div>
+                  <div class="hub-name">Hamu360</div>
+                  <div class="hub-sub">MP dashboard</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="srow">
+                <div class="slbl">What's happening at Hamu Legal</div>
+              </div>
+              <div class="four">
+                <div class="wc">
+                  <div class="wt">
+                    <i class="ti ti-calendar"></i> Upcoming events
+                  </div>
+                  <div class="ev-row">
+                    <div class="ev-box">
+                      <div class="ev-d">1</div>
+                      <div class="ev-m">JUL</div>
+                    </div>
+                    <div>
+                      <div class="ev-title">New office — Wuse 2</div>
+                      <div class="ev-sub">All-hands move day</div>
+                    </div>
+                  </div>
+                  <div class="ev-row">
+                    <div class="ev-box">
+                      <div class="ev-d">4</div>
+                      <div class="ev-m">JUL</div>
+                    </div>
+                    <div>
+                      <div class="ev-title">Q2 QBR</div>
+                      <div class="ev-sub">10am · Conference Room A</div>
+                    </div>
+                  </div>
+                  <div class="ev-row">
+                    <div class="ev-box">
+                      <div class="ev-d">14</div>
+                      <div class="ev-m">JUL</div>
+                    </div>
+                    <div>
+                      <div class="ev-title">HOS staff walkthrough</div>
+                      <div class="ev-sub">All staff · 2pm</div>
+                    </div>
+                  </div>
+                  <div class="ev-row">
+                    <div class="ev-box">
+                      <div class="ev-d">30</div>
+                      <div class="ev-m">JUN</div>
+                    </div>
+                    <div>
+                      <div class="ev-title">Performance review deadline</div>
+                      <div class="ev-sub">Submit to HR</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wc">
+                  <div class="wt">
+                    <i class="ti ti-user-plus"></i> New joiners
+                  </div>
+                  <div class="jr">
+                    <div class="jav">DT</div>
+                    <div>
+                      <div class="jname">Deborah Tatama</div>
+                      <div class="jrole">CC · Associate</div>
+                    </div>
+                    <div class="jbadge">Jun 2026</div>
+                  </div>
+                  <div class="jr">
+                    <div class="jav">SA</div>
+                    <div>
+                      <div class="jname">Saadatu Hamu Aliyu</div>
+                      <div class="jrole">Finance · CFO</div>
+                    </div>
+                    <div class="jbadge">Jun 2026</div>
+                  </div>
+                  <div class="jr">
+                    <div
+                      class="jav"
+                      style="background: var(--nv); color: var(--g)"
+                    >
+                      IA
+                    </div>
+                    <div>
+                      <div class="jname">IT Admin</div>
+                      <div class="jrole">Digital Operations & Systems</div>
+                    </div>
+                    <div class="jbadge">Jun 2026</div>
+                  </div>
+                  <div
+                    style="
+                      margin-top: 7px;
+                      padding: 6px 8px;
+                      background: var(--sf);
+                      border-radius: 5px;
+                      font-size: 8.5px;
+                      color: var(--t3);
+                      display: flex;
+                      align-items: center;
+                      gap: 5px;
+                    "
+                  >
+                    <i class="ti ti-cake"></i> Birthdays & work anniversaries —
+                    coming in V2
+                  </div>
+                </div>
+                <div class="wc">
+                  <div class="wt">
+                    <i class="ti ti-news"></i> Regulatory updates
+                  </div>
+                  <div class="rr">
+                    <div class="rrdot"></div>
+                    <div>
+                      <div class="rrtxt">
+                        CBN issues new fintech licensing framework — tighter
+                        compliance requirements from Q3
+                      </div>
+                      <div class="rrdate">Jun 20 · GRC</div>
+                    </div>
+                  </div>
+                  <div class="rr">
+                    <div class="rrdot"></div>
+                    <div>
+                      <div class="rrtxt">
+                        NITDA releases updated NDPR implementation framework —
+                        DPO obligations expanded
+                      </div>
+                      <div class="rrdate">Jun 15 · IP</div>
+                    </div>
+                  </div>
+                  <div class="rr">
+                    <div class="rrdot"></div>
+                    <div>
+                      <div class="rrtxt">
+                        SEC Nigeria publishes new capital market operator
+                        guidelines — effective August 2026
+                      </div>
+                      <div class="rrdate">Jun 10 · GRC</div>
+                    </div>
+                  </div>
+                  <div class="rr">
+                    <div class="rrdot"></div>
+                    <div>
+                      <div class="rrtxt">
+                        FCCPC issues consumer protection notice — fintech and
+                        e-commerce operators
+                      </div>
+                      <div class="rrdate">Jun 5 · GRC</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wc">
+                  <div class="wt"><i class="ti ti-trophy"></i> Firm wins</div>
+                  <div class="wr">
+                    <div class="wric"><i class="ti ti-award"></i></div>
+                    <div>
+                      <div class="wrtag">RANKING</div>
+                      <div class="wrtxt">
+                        Hamu Legal ranked in IFLR1000 — Nigeria Dispute
+                        Resolution 2026
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wr">
+                    <div class="wric"><i class="ti ti-handshake"></i></div>
+                    <div>
+                      <div class="wrtag">NEW CLIENT</div>
+                      <div class="wrtxt">
+                        HNI Fintech retained Hamu Legal for CBN licensing
+                        advisory
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wr">
+                    <div class="wric"><i class="ti ti-file-check"></i></div>
+                    <div>
+                      <div class="wrtag">MATTER CLOSED</div>
+                      <div class="wrtxt">
+                        IP Assignment Deed completed — Griot Studios transaction
+                        closed
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wr">
+                    <div class="wric"><i class="ti ti-star"></i></div>
+                    <div>
+                      <div class="wrtag">KNOWLEDGE</div>
+                      <div class="wrtxt">
+                        New precedent added — Gas sector licence acquisition
+                        agreement
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ HAMU360 ═══ -->
+        <div id="page-hamu360" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">Hamu360 — Managing Partner dashboard</div>
+              <div class="hub-hsub">
+                Good morning, Fali. Here is your firm, right now.
+              </div>
+            </div>
+            <div class="hub-hbadge">MANAGING PARTNER · CONFIDENTIAL</div>
+          </div>
+          <div class="stats6">
+            <div class="stat">
+              <div class="stat-num">35</div>
+              <div class="stat-lbl">Active matters</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" style="color: var(--grn)">₦82m</div>
+              <div class="stat-lbl">Q2 revenue</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" style="color: var(--red)">₦24m</div>
+              <div class="stat-lbl">Outstanding invoices</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num" style="color: var(--red)">7</div>
+              <div class="stat-lbl">Open approvals</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">22</div>
+              <div class="stat-lbl">Staff count</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">4</div>
+              <div class="stat-lbl">Practice areas</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 11px">
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-bell-ringing" style="color: var(--red)"></i>
+                Approvals centre — 7 pending
+              </div>
+              <div class="ap-item">
+                <div class="ap-dot"></div>
+                <div>
+                  <div class="ap-name">Esosa — DR client advice letter</div>
+                  <div class="ap-from">Dispute Resolution · 2h ago</div>
+                </div>
+                <div class="ap-btn">Review</div>
+              </div>
+              <div class="ap-item">
+                <div class="ap-dot"></div>
+                <div>
+                  <div class="ap-name">Yewande — GRC compliance memo</div>
+                  <div class="ap-from">GRC · 4h ago</div>
+                </div>
+                <div class="ap-btn">Review</div>
+              </div>
+              <div class="ap-item">
+                <div class="ap-dot"></div>
+                <div>
+                  <div class="ap-name">Justin — Invoice #HL-2026-041</div>
+                  <div class="ap-from">Finance · Yesterday</div>
+                </div>
+                <div class="ap-btn">Review</div>
+              </div>
+              <div class="ap-item">
+                <div class="ap-dot"></div>
+                <div>
+                  <div class="ap-name">
+                    Procurement — Office supplies ₦85,000
+                  </div>
+                  <div class="ap-from">Operations · Yesterday</div>
+                </div>
+                <div class="ap-btn">Review</div>
+              </div>
+              <div class="ap-item" style="color: var(--t3)">
+                <div class="ap-dot" style="background: var(--bd)"></div>
+                <div class="ap-name">+ 3 more items awaiting your action</div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt"><i class="ti ti-scale"></i> Legal summary</div>
+              <div class="h360r">
+                <div class="h360lbl">CC — Corporate & Commercial</div>
+                <div class="h360val">
+                  12 matters <span class="badge badge-g">Active</span>
+                </div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">GRC — Governance, Risk & Compliance</div>
+                <div class="h360val">
+                  8 matters <span class="badge badge-g">Active</span>
+                </div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">IP — Intellectual Property</div>
+                <div class="h360val">
+                  6 matters <span class="badge badge-a">Review</span>
+                </div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">DR — Dispute Resolution</div>
+                <div class="h360val">
+                  9 matters <span class="badge badge-g">Active</span>
+                </div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Upcoming deadlines</div>
+                <div class="h360val" style="color: var(--red)">3 this week</div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px"
+          >
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-report-money"></i> Finance summary
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Q2 revenue billed</div>
+                <div class="h360val" style="color: var(--grn)">₦82,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Collections received</div>
+                <div class="h360val">₦41m (50%)</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Outstanding receivables</div>
+                <div class="h360val" style="color: var(--red)">₦24,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Q2 target</div>
+                <div class="h360val">₦189,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Invoices overdue 30+ days</div>
+                <div class="h360val" style="color: var(--red)">₦8,500,000</div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt"><i class="ti ti-users"></i> People & culture</div>
+              <div class="h360r">
+                <div class="h360lbl">Total headcount</div>
+                <div class="h360val">22 staff</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Open positions</div>
+                <div class="h360val">2 (DR lateral, GRC)</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Performance reviews due</div>
+                <div class="h360val" style="color: var(--red)">June 30</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Pending leave requests</div>
+                <div class="h360val">3</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">New joiners this quarter</div>
+                <div class="h360val">2 (Deborah, Saadatu)</div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-settings"></i> Operations & CX
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Open IT requests</div>
+                <div class="h360val">4</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Procurement approvals pending</div>
+                <div class="h360val" style="color: var(--red)">2</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Office move status</div>
+                <div class="h360val" style="color: var(--grn)">
+                  On track — July 1
+                </div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Client satisfaction score</div>
+                <div class="h360val">4.7 / 5</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Open client escalations</div>
+                <div class="h360val">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ LEGAL HUB ═══ -->
+        <div id="page-legal" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">Legal hub — workstreams</div>
+              <div class="hub-hsub">
+                Client matters · Documents · Templates · Precedents · Deadlines
+              </div>
+            </div>
+            <div class="hub-hbadge">35 ACTIVE MATTERS</div>
+          </div>
+          <div>
+            <div class="srow"><div class="slbl">Workstreams</div></div>
+            <div class="pg">
+              <div class="pc">
+                <div class="pcc">CC</div>
+                <div class="pcn">Corporate & Commercial</div>
+                <div class="pcs">
+                  <i class="ti ti-folder"></i> 12 matters · 3 deadlines this
+                  week
+                </div>
+                <div class="pcl">
+                  <div class="lav">DT</div>
+                  <div class="lnm">Deborah Tatama</div>
+                </div>
+              </div>
+              <div class="pc">
+                <div class="pcc">GRC</div>
+                <div class="pcn">Governance, Risk & Compliance</div>
+                <div class="pcs">
+                  <i class="ti ti-folder"></i> 8 matters · CBN licence pending
+                </div>
+                <div class="pcl">
+                  <div class="lav">YA</div>
+                  <div class="lnm">Yewande Adedigba</div>
+                </div>
+              </div>
+              <div class="pc">
+                <div class="pcc">IP</div>
+                <div class="pcn">Intellectual Property & Data Privacy</div>
+                <div class="pcs">
+                  <i class="ti ti-folder"></i> 6 matters · 2 DPO retainers
+                </div>
+                <div class="pcl">
+                  <div class="lav">AI</div>
+                  <div class="lnm">Awuese Iorchor</div>
+                </div>
+              </div>
+              <div class="pc">
+                <div class="pcc">DR</div>
+                <div class="pcn">Dispute Resolution</div>
+                <div class="pcs">
+                  <i class="ti ti-folder"></i> 9 matters · Hearing Jul 8
+                </div>
+                <div class="pcl">
+                  <div class="lav">EA</div>
+                  <div class="lnm">Esosa Aibueku</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="two">
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-file-text"></i> Recent matter documents
+                </div>
+                <div class="dr">
+                  <div class="dic g"><i class="ti ti-file-text"></i></div>
+                  <div>
+                    <div class="dn">SPL Retainer Agreement — Draft v2</div>
+                    <div class="dm">CC · Deborah · Awaiting MP review</div>
+                  </div>
+                  <div class="dt">2h ago</div>
+                </div>
+                <div class="dr">
+                  <div class="dic b"><i class="ti ti-scale"></i></div>
+                  <div>
+                    <div class="dn">NDPR Compliance Audit — TechCorp</div>
+                    <div class="dm">GRC · Yewande · Submitted</div>
+                  </div>
+                  <div class="dt">4h ago</div>
+                </div>
+                <div class="dr">
+                  <div class="dic g"><i class="ti ti-certificate"></i></div>
+                  <div>
+                    <div class="dn">IP Assignment Deed — Griot Studios</div>
+                    <div class="dm">IP · Awuese · Under review</div>
+                  </div>
+                  <div class="dt">Yesterday</div>
+                </div>
+                <div class="dr">
+                  <div class="dic gr"><i class="ti ti-gavel"></i></div>
+                  <div>
+                    <div class="dn">Shareholder Dispute Brief — Respondent</div>
+                    <div class="dm">DR · Esosa · Filed</div>
+                  </div>
+                  <div class="dt">Jun 23</div>
+                </div>
+              </div>
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-alert-triangle" style="color: var(--red)"></i>
+                  Upcoming deadlines
+                </div>
+                <div class="dr">
+                  <div class="dic" style="background: var(--redbg)">
+                    <i class="ti ti-clock" style="color: var(--red)"></i>
+                  </div>
+                  <div>
+                    <div class="dn">CBN licence response — HNI Fintech</div>
+                    <div class="dm">GRC · Due Jun 30</div>
+                  </div>
+                  <span class="badge badge-r">3 days</span>
+                </div>
+                <div class="dr">
+                  <div class="dic" style="background: var(--redbg)">
+                    <i class="ti ti-clock" style="color: var(--red)"></i>
+                  </div>
+                  <div>
+                    <div class="dn">Court hearing — Shareholder dispute</div>
+                    <div class="dm">DR · Federal High Court</div>
+                  </div>
+                  <span class="badge badge-r">Jul 8</span>
+                </div>
+                <div class="dr">
+                  <div class="dic" style="background: var(--gl)">
+                    <i class="ti ti-clock" style="color: var(--gd)"></i>
+                  </div>
+                  <div>
+                    <div class="dn">Retainer renewal — SPL Group</div>
+                    <div class="dm">CC · Annual review</div>
+                  </div>
+                  <span class="badge badge-a">Jul 15</span>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="wc">
+                <div class="wt"><i class="ti ti-building"></i> Client hub</div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-address-book"></i> Client directory
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-file-description"></i> Client documents
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-clock-check"></i> Matter status tracker
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-mail"></i> Client communications
+                  </div>
+                </div>
+              </div>
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-books"></i> Legal resources
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-bookmark"></i> Precedents library
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-template"></i> Document templates
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-microscope"></i> Research library
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-list-check"></i> SOPs & workflows
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ FINANCE HUB ═══ -->
+        <div id="page-finance" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">Finance hub</div>
+              <div class="hub-hsub">
+                Saadatu Hamu Aliyu (CFO) · Justin Chukwudi (Finance Officer)
+              </div>
+            </div>
+            <div class="hub-hbadge">Q2 REVENUE: ₦82M</div>
+          </div>
+          <div>
+            <div class="srow">
+              <div class="slbl">Finance systems — click to open</div>
+            </div>
+            <div class="fin-grid">
+              <div class="fin-card">
+                <i class="ti ti-brand-xero" style="color: #13b5ea"></i>
+                <div class="fin-name">Xero</div>
+                <div class="fin-sub">Accounting & bookkeeping</div>
+                <div class="fin-arr">Open Xero →</div>
+              </div>
+              <div class="fin-card">
+                <i class="ti ti-wallet" style="color: #6b46c1"></i>
+                <div class="fin-name">Bujeti</div>
+                <div class="fin-sub">Budget management & spend control</div>
+                <div class="fin-arr">Open Bujeti →</div>
+              </div>
+              <div class="fin-card">
+                <i class="ti ti-building-bank" style="color: var(--blu)"></i>
+                <div class="fin-name">Banking</div>
+                <div class="fin-sub">Bank accounts & transfers</div>
+                <div class="fin-arr">Open banking →</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 11px">
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-chart-bar"></i> Financial overview
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Q2 revenue billed</div>
+                <div class="h360val" style="color: var(--grn)">₦82,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Q2 target</div>
+                <div class="h360val">₦189,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Collections received</div>
+                <div class="h360val">₦41,000,000 (50%)</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Outstanding receivables</div>
+                <div class="h360val" style="color: var(--red)">₦24,000,000</div>
+              </div>
+              <div class="h360r">
+                <div class="h360lbl">Invoices overdue 30+ days</div>
+                <div class="h360val" style="color: var(--red)">₦8,500,000</div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-file-invoice"></i> Invoice management
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-plus"></i> Create new invoice
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-list"></i> Invoice repository
+                    <span class="badge badge-r" style="margin-left: auto"
+                      >12 overdue</span
+                    >
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-clock"></i> Collections tracker
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-discount"></i> Discount approvals
+                  </div>
+                </div>
+              </div>
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-files"></i> Finance resources
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-chart-line"></i> Financial reports
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-calculator"></i> Budget tracking
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-book-2"></i> Finance policies
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-users"></i> Client billing profiles
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ OPERATIONS HUB ═══ -->
+        <div id="page-operations" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">Operations hub</div>
+              <div class="hub-hsub">
+                Office administration · Client experience · Procurement ·
+                Facilities
+              </div>
+            </div>
+            <div class="hub-hbadge">4 OPEN REQUESTS</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 11px">
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-dashboard"></i> Operations dashboard
+                </div>
+                <div class="mg" style="grid-template-columns: 1fr 1fr 1fr 1fr">
+                  <div class="mb">
+                    <div class="mn" style="color: var(--red)">4</div>
+                    <div class="ml">Open requests</div>
+                  </div>
+                  <div class="mb">
+                    <div class="mn">2</div>
+                    <div class="ml">Active projects</div>
+                  </div>
+                  <div class="mb">
+                    <div class="mn">1</div>
+                    <div class="ml">Vendor reviews</div>
+                  </div>
+                  <div class="mb">
+                    <div class="mn" style="color: var(--grn)">✓</div>
+                    <div class="ml">Office status</div>
+                  </div>
+                </div>
+              </div>
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-mood-smile"></i> Client experience (CX)
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-star"></i> Client feedback tracker
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-headset"></i> Service requests
+                    <span class="badge badge-r" style="margin-left: auto"
+                      >2 open</span
+                    >
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-chart-line"></i> Client satisfaction reports
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-alert-circle"></i> Escalations log
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-building"></i> Office administration
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-shopping-cart"></i> Procurement requests
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-tools"></i> Asset register
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-home-2"></i> Facilities management
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-plane"></i> Travel & logistics
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-calendar-event"></i> Meeting room booking
+                  </div>
+                </div>
+              </div>
+              <div class="wc">
+                <div class="wt">
+                  <i class="ti ti-briefcase"></i> Vendor management
+                </div>
+                <div class="scard-list">
+                  <div class="scard-item">
+                    <i class="ti ti-address-book"></i> Vendor directory
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-file-invoice"></i> Vendor contracts
+                  </div>
+                  <div class="scard-item">
+                    <i class="ti ti-star"></i> Vendor performance
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PEOPLE & CULTURE ═══ -->
+        <div id="page-people" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">People & Culture hub</div>
+              <div class="hub-hsub">
+                Employee records · Performance · Recruitment · Learning &
+                development
+              </div>
+            </div>
+            <div class="hub-hbadge">22 STAFF · 2 OPEN ROLES</div>
+          </div>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px"
+          >
+            <div class="wc">
+              <div class="wt"><i class="ti ti-users"></i> Employee records</div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-id-badge"></i> Employee directory
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-folder-open"></i> Employee files
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-history"></i> Employment history
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-calendar-off"></i> Leave tracker
+                  <span class="badge badge-r" style="margin-left: auto"
+                    >3 pending</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-chart-arrows-vertical"></i> Performance
+                management
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-clipboard-check"></i> Appraisals
+                  <span class="badge badge-r" style="margin-left: auto"
+                    >Due Jun 30</span
+                  >
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-target"></i> KPI scorecards
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-star"></i> Performance reviews
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-trending-up"></i> Development plans
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt"><i class="ti ti-user-plus"></i> Recruitment</div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-briefcase"></i> Open positions
+                  <span class="badge badge-b" style="margin-left: auto"
+                    >2 active</span
+                  >
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-users-group"></i> Candidate pipeline
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-calendar-check"></i> Interview tracker
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-door-enter"></i> Onboarding tracker
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt"><i class="ti ti-report"></i> HR reports</div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-chart-bar"></i> Headcount report
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-user-search"></i> Recruitment reports
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-activity"></i> Performance reports
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-calendar-stats"></i> Leave reports
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-book-upload"></i> Learning & development
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-school"></i> Training library
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-certificate"></i> Certifications tracker
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-file-text"></i> Development plans
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-file-certificate"></i> HR policies & compliance
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-file-check"></i> HR policies
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-shield"></i> Code of conduct
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-lock"></i> Confidentiality agreements
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ IT HELP DESK ═══ -->
+        <div id="page-ithelp" class="hub-page">
+          <div class="hub-hdr">
+            <div>
+              <div class="hub-hname">IT help desk</div>
+              <div class="hub-hsub">
+                Self-service guides · Software access · Device setup · Report an
+                issue
+              </div>
+            </div>
+            <div class="hub-hbadge">4 OPEN TICKETS</div>
+          </div>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px"
+          >
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-device-laptop"></i> Device & account setup
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-brand-windows"></i> New laptop setup guide
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-lock"></i> MFA setup — Microsoft Authenticator
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-cloud"></i> OneDrive sync guide
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-device-mobile"></i> Intune device enrolment
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-mail"></i> Email setup on mobile
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-apps"></i> Software & access requests
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-plus"></i> Request software access
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-lock-open"></i> SharePoint permissions request
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-users"></i> Teams channel access
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-license"></i> Licence upgrade request
+                </div>
+              </div>
+            </div>
+            <div class="wc">
+              <div class="wt">
+                <i class="ti ti-question-mark"></i> How-to guides
+              </div>
+              <div class="scard-list">
+                <div class="scard-item">
+                  <i class="ti ti-layout"></i> How to use HOS
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-folder"></i> SharePoint filing guide
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-video"></i> Teams meeting setup
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-link"></i> Client meeting link guide
+                </div>
+                <div class="scard-item">
+                  <i class="ti ti-template"></i> Using templates in Word
+                </div>
+              </div>
+            </div>
+            <div class="wc" style="grid-column: 1/-1">
+              <div class="wt">
+                <i class="ti ti-alert-triangle" style="color: var(--red)"></i>
+                Report an issue
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 8px;
+                "
+              >
+                <div
+                  class="scard-item"
+                  style="
+                    background: var(--redbg);
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 3px;
+                    padding: 10px;
+                  "
+                >
+                  <i
+                    class="ti ti-urgent"
+                    style="font-size: 16px; color: var(--red)"
+                  ></i>
+                  <div
+                    style="font-weight: 600; color: var(--red); font-size: 11px"
+                  >
+                    Report urgent issue
+                  </div>
+                  <div style="font-size: 8.5px; color: var(--t3)">
+                    System down · Data at risk · Security incident
+                  </div>
+                </div>
+                <div
+                  class="scard-item"
+                  style="
+                    background: var(--blubg);
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 3px;
+                    padding: 10px;
+                  "
+                >
+                  <i
+                    class="ti ti-ticket"
+                    style="font-size: 16px; color: var(--blu)"
+                  ></i>
+                  <div
+                    style="font-weight: 600; color: var(--blu); font-size: 11px"
+                  >
+                    Submit support ticket
+                  </div>
+                  <div style="font-size: 8.5px; color: var(--t3)">
+                    General issue · Non-urgent request
+                  </div>
+                </div>
+                <div
+                  class="scard-item"
+                  style="
+                    background: var(--grnbg);
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 3px;
+                    padding: 10px;
+                  "
+                >
+                  <i
+                    class="ti ti-list-check"
+                    style="font-size: 16px; color: var(--grn)"
+                  ></i>
+                  <div
+                    style="font-weight: 600; color: var(--grn); font-size: 11px"
+                  >
+                    Track my tickets
+                  </div>
+                  <div style="font-size: 8.5px; color: var(--t3)">
+                    View status · Follow up
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="ft">
+            HAMU LEGAL · <span>TRUST & EXCELLENCE</span> · Hamu Operating System
+            v1.0 · Confidential
+          </div>
+          <div class="ft">© 2026 Hamu Legal · All rights reserved</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const pages = {
+        home: {
+          label:
+            '<i class="ti ti-home"></i> Home page — All staff (identical for everyone)',
+          av: "HL",
+        },
+        hamu360: {
+          label:
+            '<i class="ti ti-chart-dots"></i> Hamu360 — Managing Partner dashboard (Fali only · Confidential)',
+          av: "FW",
+        },
+        legal: {
+          label:
+            '<i class="ti ti-scale"></i> Legal hub — Esosa · Yewande · Awuese · Deborah',
+          av: "EA",
+        },
+        finance: {
+          label:
+            '<i class="ti ti-report-money"></i> Finance hub — Saadatu · Justin',
+          av: "SA",
+        },
+        operations: {
+          label:
+            '<i class="ti ti-settings"></i> Operations hub — Operations team',
+          av: "OPS",
+        },
+        people: {
+          label: '<i class="ti ti-users"></i> People & Culture hub — HR team',
+          av: "HR",
+        },
+        ithelp: {
+          label:
+            '<i class="ti ti-help-circle"></i> IT help desk — All staff · self-service',
+          av: "IT",
+        },
+      };
+      const all = Object.keys(pages);
+      function go(id, btn) {
+        all.forEach((p) => {
+          const el = document.getElementById("page-" + p);
+          if (!el) return;
+          el.style.display = "none";
+        });
+        const t = document.getElementById("page-" + id);
+        if (t) {
+          t.style.display = id === "home" ? "block" : "flex";
+        }
+        document.getElementById("frame-label").innerHTML = pages[id].label;
+        document.getElementById("nav-av").textContent = pages[id].av;
+        document
+          .querySelectorAll(".sel-btn")
+          .forEach((b) => b.classList.remove("active"));
+        if (btn) btn.classList.add("active");
+      }
+      go("home", document.querySelector(".sel-btn"));
+    </script>
+  </body>
+</html>

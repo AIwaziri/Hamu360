@@ -1,8 +1,10 @@
 import type { WebPartContext } from '@microsoft/sp-webpart-base';
+
 import type { IEnvironmentConfig } from '@config/environment';
+
+import type { ICurrentUserService } from './ICurrentUserService';
 import { MockCurrentUserService } from './Mock/MockCurrentUserService';
 import { SharePointCurrentUserService } from './SharePoint/SharePointCurrentUserService';
-import type { ICurrentUserService } from './ICurrentUserService';
 
 /**
  * The one place in the codebase that is allowed to know both concrete
@@ -14,9 +16,6 @@ import type { ICurrentUserService } from './ICurrentUserService';
  * one factory function per service here rather than growing a single
  * god-function; keeps each service's construction dependencies explicit.
  */
-export function createCurrentUserService(
-  context: WebPartContext,
-  env: IEnvironmentConfig
-): ICurrentUserService {
+export function createCurrentUserService(context: WebPartContext, env: IEnvironmentConfig): ICurrentUserService {
   return env.useMockData ? new MockCurrentUserService() : new SharePointCurrentUserService(context);
 }

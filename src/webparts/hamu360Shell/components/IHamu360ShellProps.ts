@@ -1,4 +1,5 @@
 import type { ITheme } from '@fluentui/react';
+
 import type { EnvironmentName } from '@config/environment';
 
 /**

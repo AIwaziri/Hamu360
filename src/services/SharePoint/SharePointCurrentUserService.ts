@@ -1,5 +1,7 @@
 import type { WebPartContext } from '@microsoft/sp-webpart-base';
+
 import type { ICurrentUser } from '@models/index';
+
 import type { ICurrentUserService } from '../ICurrentUserService';
 
 /**

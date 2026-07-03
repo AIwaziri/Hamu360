@@ -1,4 +1,4 @@
-import type { Nullable } from '@types/common';
+import type { Nullable } from '@app-types/common';
 
 /**
  * Joins CSS module class names, filtering out falsy values so callers can

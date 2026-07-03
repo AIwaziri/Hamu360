@@ -4,7 +4,15 @@
  * stay free of anything specific to a feature.
  */
 
-/** A value that may legitimately be absent. Prefer this over sprinkling `| undefined` everywhere. */
+/**
+ * A value that may legitimately be absent. Prefer this over sprinkling
+ * `| undefined` everywhere.
+ *
+ * Includes `null` (not just `undefined`) deliberately: this models results
+ * from existing DOM/React APIs that return `null` (e.g. `React.RefObject.current`),
+ * which is exactly the escape hatch `@rushstack/no-new-null` allows for.
+ */
+// eslint-disable-next-line @rushstack/no-new-null
 export type Nullable<T> = T | null | undefined;
 
 /** Marks the given keys of `T` as optional while leaving the rest untouched. */

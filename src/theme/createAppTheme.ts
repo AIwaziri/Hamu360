@@ -1,5 +1,6 @@
-import { createTheme, type ITheme, type IPartialTheme } from '@fluentui/react';
+import { createTheme, type IPartialTheme, type ITheme } from '@fluentui/react';
 import type { IReadonlyTheme } from '@microsoft/sp-component-base';
+
 import { colorTokens } from './tokens';
 
 /**

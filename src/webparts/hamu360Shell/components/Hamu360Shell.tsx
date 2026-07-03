@@ -1,6 +1,7 @@
-import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
 import * as strings from 'Hamu360ShellWebPartStrings';
+import * as React from 'react';
+
 import styles from './Hamu360Shell.module.scss';
 import type { IHamu360ShellProps } from './IHamu360ShellProps';
 

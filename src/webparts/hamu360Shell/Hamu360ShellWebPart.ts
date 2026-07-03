@@ -1,17 +1,18 @@
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
+import type { ITheme } from '@fluentui/react';
+import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Version } from '@microsoft/sp-core-library';
 import { type IPropertyPaneConfiguration, PropertyPaneTextField } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import type { IReadonlyTheme } from '@microsoft/sp-component-base';
-import type { ITheme } from '@fluentui/react';
-
 import * as strings from 'Hamu360ShellWebPartStrings';
-import Hamu360Shell from './components/Hamu360Shell';
-import type { IHamu360ShellProps } from './components/IHamu360ShellProps';
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
+
 import { resolveEnvironment, type IEnvironmentConfig } from '@config/environment';
 import { createCurrentUserService } from '@services/ServiceFactory';
 import { createAppTheme } from '@theme/createAppTheme';
+
+import Hamu360Shell from './components/Hamu360Shell';
+import type { IHamu360ShellProps } from './components/IHamu360ShellProps';
 
 export interface IHamu360ShellWebPartProps {
   description: string;

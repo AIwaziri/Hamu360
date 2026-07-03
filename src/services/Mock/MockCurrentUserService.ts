@@ -1,4 +1,5 @@
 import type { ICurrentUser } from '@models/index';
+
 import type { ICurrentUserService } from '../ICurrentUserService';
 
 /**

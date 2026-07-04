@@ -1,0 +1,62 @@
+@import '../_heroCard';
+
+.card {
+  @include hero-card;
+}
+
+.label {
+  @include hero-card-label;
+}
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: space(sm);
+}
+
+.avatar {
+  @include flex-center(row);
+  // Fixed component dimension, not spacing — same precedent noted in
+  // Sprint 2's `Header.module.scss` (`.avatar`).
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: radius(circle);
+  background-color: $color-accent;
+  // Navy-on-gold — see Sprint 2's `Logo.module.scss` docblock on the
+  // missing "text-on-accent" token. The wireframe also rings this avatar
+  // with a `2px solid rgba(255,255,255,.2)` border; omitted here rather
+  // than approximated with an unrelated token — a translucent-white border
+  // stroke has no token equivalent and a solid substitute would look
+  // wrong, so this is a small, flagged, accepted visual simplification.
+  color: $color-primary;
+  @include typography(title);
+}
+
+.name {
+  @include typography(caption);
+  color: $color-text-on-primary;
+  margin-bottom: space(xxs);
+}
+
+.role {
+  @include typography(label);
+  color: $color-text-on-primary;
+  opacity: token-opacity(disabled);
+  margin-bottom: space(sm);
+}
+
+.message {
+  @include typography(label);
+  color: $color-text-on-primary;
+  opacity: token-opacity(muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.date {
+  @include typography(label);
+  color: $color-text-on-primary;
+  opacity: token-opacity(disabled);
+  margin-top: space(xs);
+}

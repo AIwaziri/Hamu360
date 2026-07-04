@@ -19,7 +19,18 @@ export type IconName =
   | 'search'
   | 'menu'
   | 'x'
-  | 'chevron-down';
+  | 'chevron-down'
+  // Added in Sprint 3 for HeroSection (Partner Message / Announcements /
+  // Quick Links) — same closed-set discipline, same Tabler glyph names.
+  | 'message-circle'
+  | 'speakerphone'
+  | 'bolt'
+  | 'folder-open'
+  | 'file-plus'
+  | 'template'
+  | 'book'
+  | 'device-laptop'
+  | 'calendar-event';
 
 /**
  * Maps to the type scale's own font-size steps rather than a new bespoke

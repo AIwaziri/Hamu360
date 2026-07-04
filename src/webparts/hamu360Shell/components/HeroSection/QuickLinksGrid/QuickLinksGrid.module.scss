@@ -1,0 +1,62 @@
+@import '../_heroCard';
+
+.card {
+  @include hero-card;
+}
+
+.label {
+  @include hero-card-label;
+}
+
+// Same flagged "translucent wash on a colored surface" gap as `_heroCard.scss`'s
+// `hero-card` mixin — repeated locally (not folded into that shared mixin)
+// because this tile uses uniform corner rounding (`radius(small)`) rather
+// than `hero-card`'s top-only rounding, and has no card-level padding to
+// share.
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: space(xs);
+  width: 100%;
+  padding: space(xs) space(sm);
+  border-radius: radius(small);
+  color: $color-text-on-primary;
+  @include typography(label);
+}
+
+.tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: token-opacity(active-overlay);
+}
+
+.tileLabel {
+  opacity: token-opacity(muted);
+}
+
+.iconBox {
+  @include flex-center(row);
+  position: relative;
+  // Fixed component dimension, not spacing — same precedent noted
+  // throughout this sprint's other hero components.
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: radius(small);
+  color: $color-accent;
+}
+
+.iconBox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: token-opacity(active-overlay);
+}

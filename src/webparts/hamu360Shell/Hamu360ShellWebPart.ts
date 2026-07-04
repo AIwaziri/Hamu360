@@ -7,8 +7,13 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
 import { resolveEnvironment, type IEnvironmentConfig } from '@config/environment';
-import type { ICurrentUser } from '@models/index';
-import { createCurrentUserService } from '@services/ServiceFactory';
+import type { IAnnouncement, ICurrentUser, IPartnerMessage, IQuickLink } from '@models/index';
+import {
+  createAnnouncementsService,
+  createCurrentUserService,
+  createPartnerMessageService,
+  createQuickLinksService
+} from '@services/ServiceFactory';
 
 import Hamu360Shell from './components/Hamu360Shell';
 import type { IHamu360ShellProps } from './components/IHamu360ShellProps';
@@ -25,10 +30,25 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
   // `IHamu360ShellProps.ts`'s docblock for why the full `ICurrentUser` is
   // threaded through now instead of just `displayName` as Sprint 1 did.
   private _currentUser: ICurrentUser = { id: '', displayName: '', email: '', loginName: '' };
+  // Sprint 3's three Hero datasets — same "resolve once in onInit, pass
+  // down as plain data" treatment as `_currentUser`.
+  private _partnerMessage: IPartnerMessage = {
+    id: '',
+    authorName: '',
+    authorRole: '',
+    authorInitials: '',
+    message: '',
+    publishedDate: ''
+  };
+  private _announcements: IAnnouncement[] = [];
+  private _quickLinks: IQuickLink[] = [];
 
   public render(): void {
     const element: React.ReactElement<IHamu360ShellProps> = React.createElement(Hamu360Shell, {
       currentUser: this._currentUser,
+      partnerMessage: this._partnerMessage,
+      announcements: this._announcements,
+      quickLinks: this._quickLinks,
       environment: this._environmentConfig.environment,
       sharePointTheme: this._sharePointTheme
     });
@@ -40,7 +60,21 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
     this._environmentConfig = resolveEnvironment(this.context.isServedFromLocalhost);
 
     const currentUserService = createCurrentUserService(this.context, this._environmentConfig);
-    this._currentUser = await currentUserService.getCurrentUser();
+    const partnerMessageService = createPartnerMessageService(this.context, this._environmentConfig);
+    const announcementsService = createAnnouncementsService(this.context, this._environmentConfig);
+    const quickLinksService = createQuickLinksService(this.context, this._environmentConfig);
+
+    const [currentUser, partnerMessage, announcements, quickLinks] = await Promise.all([
+      currentUserService.getCurrentUser(),
+      partnerMessageService.getPartnerMessage(),
+      announcementsService.getAnnouncements(),
+      quickLinksService.getQuickLinks()
+    ]);
+
+    this._currentUser = currentUser;
+    this._partnerMessage = partnerMessage;
+    this._announcements = announcements;
+    this._quickLinks = quickLinks;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {

@@ -48,7 +48,8 @@ import type { IAppShellProps } from './IAppShellProps';
  * components.
  */
 export function AppShell(props: IAppShellProps): React.ReactElement {
-  const { currentUser, navItems, activeNavItemId, onNavItemSelect, mainMaxWidth, className, children } = props;
+  const { currentUser, navItems, activeNavItemId, onNavItemSelect, mainMaxWidth, mainSpacing, className, children } =
+    props;
 
   return (
     <div className={classNames(styles.root, className)}>
@@ -63,7 +64,9 @@ export function AppShell(props: IAppShellProps): React.ReactElement {
         onNavItemSelect={onNavItemSelect}
       />
 
-      <MainLayout maxWidth={mainMaxWidth}>{children}</MainLayout>
+      <MainLayout maxWidth={mainMaxWidth} spacing={mainSpacing}>
+        {children}
+      </MainLayout>
 
       <Footer />
     </div>

@@ -1,0 +1,40 @@
+@import '../_heroCard';
+
+.card {
+  @include hero-card;
+}
+
+.label {
+  @include hero-card-label;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: space(xs);
+}
+
+.dot {
+  // Fixed component dimension, not spacing — same precedent as `Header`'s
+  // `.avatar` (Sprint 2) and this file's own sibling `PartnerMessageCard`.
+  width: 3px;
+  height: 3px;
+  margin-top: space(xxs);
+  flex-shrink: 0;
+  border-radius: radius(circle);
+  background-color: $color-accent;
+}
+
+.title {
+  @include typography(label);
+  color: $color-text-on-primary;
+  opacity: token-opacity(muted);
+  line-height: 1.45;
+}
+
+.meta {
+  @include typography(label);
+  color: $color-text-on-primary;
+  opacity: token-opacity(disabled);
+  margin-top: space(xxs);
+}

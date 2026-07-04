@@ -1,0 +1,52 @@
+@import '../../../../styles/tokens';
+@import '../../../../styles/mixins';
+
+.root {
+  // Same navy band as the wireframe's `.hero`, and the same dark-mode
+  // caveat flagged on Sprint 2's `Header.module.scss`: this reads correctly
+  // in light mode only, since `primary` resolves to gold in dark mode and
+  // there is still no end-user dark-mode toggle to design against yet.
+  background-color: $color-primary;
+  // No `Container`/max-width of its own, deliberately — `HeroSection` fills
+  // 100% of whatever width its parent slot provides (`MainLayout`'s own
+  // `Container`, normally) rather than asserting a second, nested max-width.
+  // This actually matches the wireframe more closely than a self-contained
+  // `Container` would: the wireframe's `.hero` sits *inside* `.hos` inside
+  // `.shell`'s own 1180px/gutter box, not edge-to-edge with the viewport —
+  // it is already someone else's padded content, exactly like this
+  // component is when `MainLayout` renders it.
+  //
+  // Wireframe: `padding: 20px 18px 0` — top/sides/bottom, with bottom at 0
+  // so the band's bottom edge lines up exactly with the cards' own square
+  // bottom edge (`.hc { border-radius: 9px 9px 0 0 }`). `space(lg)`/`space(md)`
+  // are the nearest scale steps to the wireframe's 20px/18px.
+  padding: space(lg) space(md) 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  // The wireframe's `.hero::before`/`::after` decorative background circles
+  // (translucent white/gold radial blobs) are omitted — both use rgba
+  // literals with no matching token, and are purely decorative with no
+  // data or functional significance. Flagged rather than approximated.
+}
+
+.eyebrow {
+  @include typography(label);
+  color: $color-text-on-primary;
+  // Wireframe's `.hgreet` is `rgba(255,255,255,.4)` — matches `disabled`
+  // (0.4) exactly.
+  opacity: token-opacity(disabled);
+  letter-spacing: 0.12em;
+  margin-bottom: space(xxs);
+}
+
+.title {
+  // Matches `.htitle` (20px/600) exactly — `headingM`.
+  @include typography(heading-m);
+  color: $color-text-on-primary;
+  margin-bottom: space(md);
+}
+
+.titleAccent {
+  color: $color-accent;
+}

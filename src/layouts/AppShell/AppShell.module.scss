@@ -1,0 +1,37 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Standard skip-link pattern: hidden until it receives keyboard focus, then
+// pinned to the top-left corner above everything else (`toast`, the
+// highest layering step below `tooltip`, chosen so it always wins over the
+// sticky header's `sticky` step). WCAG 2.4.1 (Bypass Blocks) — cheap to add
+// here and not called out explicitly in the Sprint 2 brief's deliverable
+// list, but directly serves the brief's own "keyboard-navigable" nav
+// requirement, so it's included as part of that rather than as scope creep.
+.skipLink {
+  @include visually-hidden;
+}
+
+.skipLink:focus {
+  position: fixed;
+  top: space(sm);
+  left: space(sm);
+  width: auto;
+  height: auto;
+  padding: space(xs) space(md);
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background-color: $color-primary;
+  color: $color-text-on-primary;
+  border-radius: radius(medium);
+  z-index: z(toast);
+  @include typography(button);
+}

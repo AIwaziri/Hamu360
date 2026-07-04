@@ -1,0 +1,53 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  @include flex-center(row);
+  gap: space(sm);
+  flex-shrink: 0;
+  // Matches the wireframe's `.logo { margin-right: 16px; }` — the gap
+  // between the logo block and the first nav item.
+  margin-right: space(md);
+}
+
+.mark {
+  @include flex-center(row);
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+  border-radius: radius(small);
+  background-color: $color-accent;
+  @include typography(title);
+  // Text-on-gold needs dark navy, not white — this reuses `primary` (navy)
+  // as a foreground color rather than a surface color. There is no
+  // dedicated "text-on-accent" token in the Sprint 1 palette (only
+  // `textOnPrimary`, paired with the `primary` navy surface, exists); the
+  // wireframe's own `.sel-btn.active .av` chip makes the identical
+  // navy-on-gold pairing. Flagged for Sprint 1 stewards.
+  color: $color-primary;
+}
+
+.wordmark {
+  line-height: 1.2;
+}
+
+// Both lines below use the `label` role — the smallest step the Sprint 1
+// type scale defines (10px). The wireframe's own hand-tuned values are 12px
+// (`.lt`) and 8px (`.ls`), i.e. a wordmark *larger* than `label` and a
+// tagline *smaller* than it; since inventing a new in-between or
+// below-`label` size isn't allowed ("flag rather than invent an ad hoc
+// value"), both lines share `label`'s single size and are differentiated by
+// color only (white wordmark, gold tagline) instead of by size. Flagged for
+// Sprint 1 stewards: a `micro` role below `label` would remove the need for
+// this compromise.
+.title {
+  display: block;
+  @include typography(label);
+  color: $color-text-on-primary;
+}
+
+.tagline {
+  display: block;
+  @include typography(label);
+  color: $color-accent;
+}

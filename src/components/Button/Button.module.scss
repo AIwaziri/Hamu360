@@ -1,0 +1,80 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  @include flex-center(row);
+  @include typography(button);
+  gap: space(xs);
+  border-radius: radius(medium);
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+  transition:
+    background-color motion(hover),
+    border-color motion(hover),
+    color motion(hover);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  color: $color-disabled;
+}
+
+// --- Variants ---
+
+.variantPrimary {
+  background-color: $color-primary;
+  color: $color-text-on-primary;
+}
+
+.variantPrimary:hover:not(:disabled) {
+  background-color: $color-secondary;
+}
+
+.variantPrimary:disabled {
+  background-color: $color-disabled;
+}
+
+.variantSecondary {
+  background-color: $color-surface;
+  border-color: $color-border;
+  color: $color-text-primary;
+}
+
+.variantSecondary:hover:not(:disabled) {
+  border-color: $color-accent;
+}
+
+.variantGhost {
+  background-color: transparent;
+  color: $color-text-primary;
+}
+
+.variantGhost:hover:not(:disabled) {
+  background-color: $color-hover;
+}
+
+.variantIcon {
+  background-color: transparent;
+  color: $color-text-primary;
+  padding: space(xs);
+}
+
+.variantIcon:hover:not(:disabled) {
+  background-color: $color-hover;
+}
+
+// --- Sizes ---
+// `variantIcon` ignores these (it sets its own equal padding above) so an
+// icon button stays square regardless of `size`.
+
+.sizeSm {
+  padding: space(xxs) space(sm);
+}
+
+.sizeMd {
+  padding: space(xs) space(md);
+}
+
+.fullWidth {
+  width: 100%;
+}

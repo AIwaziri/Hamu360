@@ -1,0 +1,26 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  // Icon glyph color always follows the surrounding text color rather than
+  // asserting its own — a nav icon in a gold-active state, a white nav
+  // icon, and a navy body-copy icon should all "just work" by inheriting
+  // `color` from whatever container sets it, with zero icon-specific color
+  // props to keep in sync.
+  color: currentColor;
+}
+
+// Borrow the type scale's own sizes instead of inventing a parallel icon
+// scale — see IIconProps.ts's `IconSize` docblock for the rationale.
+.sizeSm {
+  font-size: var(--h360-font-caption-size);
+}
+
+.sizeMd {
+  font-size: var(--h360-font-body-size);
+}
+
+.sizeLg {
+  font-size: var(--h360-font-heading-xl-size);
+}

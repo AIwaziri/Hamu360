@@ -1,0 +1,37 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  background-color: $color-primary;
+  padding: space(sm) space(md);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(xs);
+}
+
+.line {
+  @include typography(label);
+  letter-spacing: 0.04em;
+}
+
+// `opacity` is applied per-segment (not on `.line` as a whole) because
+// `opacity` compounds down through descendants in CSS — a `.accent` child
+// trying to opt back up to full brightness inside a dimmed `.line` parent
+// couldn't actually render brighter than the parent's own opacity. Applying
+// it to sibling `<span>`s instead sidesteps that entirely.
+//
+// Wireframe's `.ft` is 7.5px at 32% white opacity — below `label`'s 10px
+// floor (the type scale's smallest role) and below any single opacity
+// token (`disabled` at 0.4 is the nearest of the six defined steps, not an
+// exact 0.32 match). Both flagged for Sprint 1 stewards, same as
+// `Logo.module.scss`'s tagline.
+.dim {
+  color: $color-text-on-primary;
+  opacity: token-opacity(disabled);
+}
+
+.accent {
+  color: $color-accent;
+}

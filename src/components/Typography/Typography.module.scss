@@ -1,0 +1,107 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  margin: 0;
+}
+
+// One explicit class per type-scale role. Not generated via `@each` +
+// `capitalize()` (the trick `Stack`/`Spacer` use for their single-word
+// tokens) because several role names are multi-word kebab-case
+// (`heading-xl`, `body-large`, ...) and `capitalize()` only upper-cases the
+// first character — it does not camelCase a hyphenated string, so a
+// generated `.roleHeading-xl` would both fail SPFx's sass camelCase lint and
+// be unusable as `styles.roleHeadingXl` from TypeScript. Explicit classes
+// sidestep that entirely and match the same hand-written-class convention
+// `DesignSystemShowcase.module.scss` already used for these exact roles.
+.roleDisplay {
+  @include typography(display);
+}
+
+.roleHeadingXl {
+  @include typography(heading-xl);
+}
+
+.roleHeadingL {
+  @include typography(heading-l);
+}
+
+.roleHeadingM {
+  @include typography(heading-m);
+}
+
+.roleHeadingS {
+  @include typography(heading-s);
+}
+
+.roleTitle {
+  @include typography(title);
+}
+
+.roleBodyLarge {
+  @include typography(body-large);
+}
+
+.roleBody {
+  @include typography(body);
+}
+
+.roleBodySmall {
+  @include typography(body-small);
+}
+
+.roleCaption {
+  @include typography(caption);
+}
+
+.roleLabel {
+  @include typography(label);
+}
+
+.roleButton {
+  @include typography(button);
+}
+
+.roleCode {
+  @include typography(code);
+}
+
+.colorPrimary {
+  color: $color-text-primary;
+}
+
+.colorSecondary {
+  color: $color-text-secondary;
+}
+
+.colorOnPrimary {
+  color: $color-text-on-primary;
+}
+
+.colorMuted {
+  color: $color-muted;
+}
+
+.colorAccent {
+  color: $color-accent;
+}
+
+.colorInherit {
+  color: inherit;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.truncate {
+  @include truncate-text;
+}

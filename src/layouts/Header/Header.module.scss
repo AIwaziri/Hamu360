@@ -1,0 +1,128 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+@import '../../styles/breakpoints';
+
+.root {
+  position: sticky;
+  top: 0;
+  // `sticky`, not an ad hoc number — this is exactly the layer category
+  // `src/theme/zIndex.ts`'s `sticky` step exists for.
+  z-index: z(sticky);
+  background-color: $color-primary;
+  box-shadow: shadow(elevation-1);
+  // NOTE: this bar is styled with `primary`/`accent`/`textOnPrimary` tokens
+  // so it currently renders correctly only in light mode. In dark mode
+  // `primary` resolves to gold (see `src/theme/colors.ts`), which would
+  // turn this permanently-navy brand bar gold too — almost certainly not
+  // the intended look for the one piece of chrome the wireframe treats as a
+  // constant, mode-independent brand element. Not fixed in Sprint 2: the
+  // dark-mode toggle has no end-user entry point yet (`ThemeProvider`'s own
+  // docblock), so this was out of scope to design around. Flagged for
+  // whichever sprint first exposes the toggle.
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-block: space(sm);
+  gap: space(xs);
+}
+
+.nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: row;
+  background-color: $color-primary;
+  padding: space(sm);
+  box-shadow: shadow(dropdown);
+
+  @include from-tablet {
+    display: flex;
+    position: static;
+    padding: 0;
+    box-shadow: none;
+    flex: 1 1 auto;
+  }
+}
+
+.navOpen {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.userMenu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: space(xs);
+  padding: space(xxs) space(xs);
+  border-radius: radius(medium);
+  background-color: transparent;
+  color: $color-text-on-primary;
+  transition: opacity motion(hover);
+}
+
+.userMenu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity motion(hover);
+}
+
+.userMenu:hover::before {
+  // Same nearest-existing-token approximation as `NavigationItem`'s active
+  // state — see that component's docblock for why `hoverOverlay` (0.04)
+  // rather than a new literal.
+  opacity: token-opacity(hover-overlay);
+}
+
+.avatar {
+  @include flex-center(row);
+  // Fixed component dimensions (not spacing) — same precedent as
+  // `Container.module.scss`'s literal `1024px`/`1180px` max-widths: an
+  // exact wireframe match (`.nav-av`) rather than a value from the spacing
+  // scale, which governs gaps/padding, not element dimensions.
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  border-radius: radius(circle);
+  background-color: $color-accent;
+  // Navy-on-gold — see `Logo.module.scss`'s docblock on the missing
+  // "text-on-accent" token.
+  color: $color-primary;
+  @include typography(label);
+}
+
+.userName {
+  @include typography(caption);
+  color: $color-text-on-primary;
+  white-space: nowrap;
+}
+
+// Hidden at `tablet` and up — this is the one control the desktop layout
+// never shows, since `Navigation` is already visible inline there.
+// `Button`'s `icon` variant defaults to `textPrimary` (correct on a light
+// surface); overridden here to `textOnPrimary` since this button sits on
+// the navy header bar.
+.mobileToggle {
+  color: $color-text-on-primary;
+
+  @include from-tablet {
+    display: none;
+  }
+}

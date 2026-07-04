@@ -1,0 +1,65 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+
+.root {
+  @include flex-center(row);
+  @include typography(caption);
+  position: relative;
+  gap: space(xxs);
+  padding: space(xxs) space(sm);
+  border-radius: radius(small);
+  color: $color-text-on-primary;
+  // The wireframe's inactive nav items render at ~60% white
+  // (`rgba(255,255,255,.6)`) against the navy nav bar. There is no
+  // "secondary text on a primary-colored surface" token in the Sprint 1
+  // palette (`textSecondary`/`muted` are tuned for light surfaces, not for
+  // white-on-navy) — `opacity(muted)` (0.65) is the nearest existing token
+  // and is used here instead of a new hardcoded alpha value. Flagged for
+  // Sprint 1 stewards: a dedicated `textOnPrimarySecondary` color token
+  // would be the more correct long-term fix.
+  opacity: token-opacity(muted);
+  white-space: nowrap;
+  transition:
+    background-color motion(hover),
+    color motion(hover),
+    opacity motion(hover);
+}
+
+.root:hover {
+  opacity: token-opacity(full);
+}
+
+// --- Active state ---
+// Wireframe: `background: rgba(221,170,57,.18); color: var(--g);` — a pale
+// gold wash behind gold text. There is no pre-mixed "accent-tinted
+// background" token (only the navy-tinted `hover`/`active` overlay tokens
+// exist, meant for light surfaces), so the wash is built from the token
+// that *is* available: `currentColor` (already `$color-accent`, set below)
+// layered behind the content via a pseudo-element at `opacity(active-overlay)`
+// (0.08 — the nearest existing overlay token, not literally wireframe's
+// 0.18). Flagged for Sprint 1 stewards: an `accentBackground` token, mirroring
+// the `success`/`warning`/`danger`/`info` background-tint pattern that
+// already exists for status colors, would remove the need for this
+// approximation entirely.
+.active {
+  color: $color-accent;
+  opacity: token-opacity(full);
+}
+
+.active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: token-opacity(active-overlay);
+}
+
+.active:hover {
+  opacity: token-opacity(full);
+}
+
+.icon {
+  flex-shrink: 0;
+}

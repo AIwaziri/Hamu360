@@ -18,4 +18,12 @@ Generic layout primitives, and nothing else — no buttons, cards, or any compon
 - **`Grid`** — CSS Grid layout box with mobile-first column counts.
 - **`Spacer`** — explicit fixed or flexible spacing when `Stack`'s `gap` isn't the right tool.
 
-Every application/business/page component (Cards, Buttons, a Dashboard, a Hero, ...) is still out of scope — those arrive with the first real feature sprint, built **on top of** these primitives and the tokens in `src/theme`, never bypassing them with a one-off style.
+Every application/business/page component (Cards, a Dashboard, a Hero, ...) is still out of scope — those arrive with a real feature sprint, built **on top of** these primitives and the tokens in `src/theme`, never bypassing them with a one-off style.
+
+## Sprint 2 additions
+
+Sprint 2 (the application shell — Header/Navigation/Footer) needed generic text, icon, and interactive-control primitives that Sprint 1 explicitly deferred. These are still generic/presentational/business-agnostic — no `CaseSummaryCard`-style component was added — so they extend this folder rather than living somewhere else:
+
+- **`Button`** — presentational button primitive (`primary`/`secondary`/`ghost`/`icon` variants). No click behavior of its own; every consumer supplies its own `onClick`.
+- **`Icon`** — wraps a Tabler Icons glyph. See `Icon/ensureTablerIconFont.ts` for a flagged, unreviewed third-party CDN dependency this introduces — read that file before Sprint 6 sign-off.
+- **`Typography`** — renders any role from the type scale (`src/theme/typography.ts`) as text, with an explicit `as` element so visual size (`role`) and document outline level (`as="h1"`, etc.) stay independently controllable.

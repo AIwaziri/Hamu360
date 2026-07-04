@@ -7,6 +7,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
 import { resolveEnvironment, type IEnvironmentConfig } from '@config/environment';
+import type { ICurrentUser } from '@models/index';
 import { createCurrentUserService } from '@services/ServiceFactory';
 
 import Hamu360Shell from './components/Hamu360Shell';
@@ -19,11 +20,15 @@ export interface IHamu360ShellWebPartProps {
 export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360ShellWebPartProps> {
   private _environmentConfig: IEnvironmentConfig = resolveEnvironment(false);
   private _sharePointTheme: IReadonlyTheme | undefined;
-  private _currentUserDisplayName = '';
+  // Sprint 2's `Header` needs more than a display name (initials for the
+  // avatar, and potentially email/loginName later) — see
+  // `IHamu360ShellProps.ts`'s docblock for why the full `ICurrentUser` is
+  // threaded through now instead of just `displayName` as Sprint 1 did.
+  private _currentUser: ICurrentUser = { id: '', displayName: '', email: '', loginName: '' };
 
   public render(): void {
     const element: React.ReactElement<IHamu360ShellProps> = React.createElement(Hamu360Shell, {
-      currentUserDisplayName: this._currentUserDisplayName,
+      currentUser: this._currentUser,
       environment: this._environmentConfig.environment,
       sharePointTheme: this._sharePointTheme
     });
@@ -35,8 +40,7 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
     this._environmentConfig = resolveEnvironment(this.context.isServedFromLocalhost);
 
     const currentUserService = createCurrentUserService(this.context, this._environmentConfig);
-    const currentUser = await currentUserService.getCurrentUser();
-    this._currentUserDisplayName = currentUser.displayName;
+    this._currentUser = await currentUserService.getCurrentUser();
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {

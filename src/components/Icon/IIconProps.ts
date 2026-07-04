@@ -30,7 +30,10 @@ export type IconName =
   | 'template'
   | 'book'
   | 'device-laptop'
-  | 'calendar-event';
+  | 'calendar-event'
+  // Added in Sprint 4 for the Team Hub Cards row.
+  | 'heart'
+  | 'chart-dots';
 
 /**
  * Maps to the type scale's own font-size steps rather than a new bespoke

@@ -1,0 +1,133 @@
+@import '../../../../../styles/tokens';
+@import '../../../../../styles/mixins';
+
+.card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  // Wireframe's `.hub-card { border-radius: 9px; }` — `radius(large)` (8px)
+  // is the nearest scale step.
+  border-radius: radius(large);
+  // Wireframe: `padding: 13px 10px`. Nearest scale steps rounded
+  // independently per axis rather than picking one value for both: `md`
+  // (16px) is closer to 13 than `sm` (8px) is; `sm` (8px) is closer to 10
+  // than `md` (16px) is.
+  padding: space(md) space(sm);
+  text-align: center;
+  @include typography(body);
+  transition: border-color motion(hover);
+}
+
+.card:hover {
+  border-color: $color-accent;
+}
+
+// The gold top accent bar every hub card gets, regardless of `highlighted`
+// — matches the wireframe's `.hub-card::before` exactly (2px, the nearest
+// spacing-scale step to its 2.5px).
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: space(xxs);
+  background-color: $color-accent;
+  border-radius: radius(large) radius(large) 0 0;
+}
+
+// MP Command Centre only: an additional full accent-colored border ring on
+// top of the bar every card already has — matches the wireframe's
+// `.hub-card` inline `style="border-color: var(--g)"` on its fifth tile.
+.highlighted {
+  border-color: $color-accent;
+}
+
+.iconBox {
+  @include flex-center(row);
+  // Fixed component dimension, not spacing — same precedent used
+  // throughout Sprints 2-3.
+  width: 34px;
+  height: 34px;
+  // Matches the wireframe's `.hub-ic { border-radius: 8px; }` exactly —
+  // `radius(large)` is 8px.
+  border-radius: radius(large);
+  margin: 0 auto space(xs);
+}
+
+.iconInfo {
+  background-color: $color-info-background;
+  color: $color-info;
+}
+
+.iconSuccess {
+  background-color: $color-success-background;
+  color: $color-success;
+}
+
+.iconWarning {
+  background-color: $color-warning-background;
+  color: $color-warning;
+}
+
+// FLAGGED TOKEN GAP: the wireframe's People & Culture tile uses two raw
+// wireframe variables with NO corresponding Sprint 1 semantic token at
+// all — not an approximation gap like elsewhere in this build, an actual
+// absence. `--gl` (a pale gold, `#f5e4b0`) and `--gd` (a dark gold,
+// `#b8861a`) exist in the wireframe's palette but were never carried into
+// `ISemanticColorTokens` (only `accent`, i.e. the mid gold `#ddaa39`, made
+// it in — see `src/theme/colors.ts`). Reusing `warningBackground`/`warning`
+// (already Operations' colors) would make two tiles look identical;
+// reusing `accent` alone (solid, full-strength gold) doesn't reproduce a
+// *pale* tinted background at all. This variant instead reuses the same
+// `currentColor` + opacity-token pseudo-element technique from Sprints 2-3
+// (see e.g. `src/layouts/NavigationItem`) with `accent` as the base color,
+// which is token-legal but is a genuine compromise, not a confident match.
+// Flagged for Sprint 1 stewards: this is the strongest case yet for adding
+// a real `accentBackground`/`accentForeground` pair alongside the
+// success/warning/danger/info background pairs that already exist.
+.iconAccentTint {
+  position: relative;
+  color: $color-accent;
+}
+
+.iconAccentTint::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: token-opacity(active-overlay);
+}
+
+.iconPrimary {
+  background-color: $color-primary;
+  // Navy surface, gold icon — matches the wireframe's `.hub-ic` (background
+  // `--nv`) + icon (`color: var(--g)`) on the MP tile exactly. Same
+  // "text/icon-on-primary is `accent`, not `textOnPrimary`" pairing already
+  // flagged in Sprint 2's `Logo.module.scss`.
+  color: $color-accent;
+}
+
+.title {
+  // Wireframe's `.hub-name` is 11px/600; `caption` (11px/500) is the
+  // nearest role — same size-matches/weight-softens tradeoff already
+  // accepted in Sprint 3's `PartnerMessageCard.module.scss` `.name`.
+  display: block;
+  @include typography(caption);
+  color: $color-text-primary;
+  line-height: 1.3;
+}
+
+.subtitle {
+  // Wireframe's `.hub-sub` is 8.5px, below the type scale's 10px floor —
+  // same recurring gap as every other sub-`label`-size wireframe value
+  // this build has hit; `label` is the nearest role.
+  display: block;
+  @include typography(label);
+  color: $color-muted;
+  margin-top: space(xxs);
+}

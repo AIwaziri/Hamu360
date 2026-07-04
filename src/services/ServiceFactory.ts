@@ -3,10 +3,12 @@ import type { WebPartContext } from '@microsoft/sp-webpart-base';
 import type { IEnvironmentConfig } from '@config/environment';
 
 import type { IAnnouncementsService } from './IAnnouncementsService';
+import type { IAudienceService } from './IAudienceService';
 import type { ICurrentUserService } from './ICurrentUserService';
 import type { IPartnerMessageService } from './IPartnerMessageService';
 import type { IQuickLinksService } from './IQuickLinksService';
 import { MockAnnouncementsService } from './Mock/MockAnnouncementsService';
+import { MockAudienceService } from './Mock/MockAudienceService';
 import { MockCurrentUserService } from './Mock/MockCurrentUserService';
 import { MockPartnerMessageService } from './Mock/MockPartnerMessageService';
 import { MockQuickLinksService } from './Mock/MockQuickLinksService';
@@ -63,4 +65,30 @@ export function createAnnouncementsService(_context: WebPartContext, _env: IEnvi
 
 export function createQuickLinksService(_context: WebPartContext, _env: IEnvironmentConfig): IQuickLinksService {
   return new MockQuickLinksService();
+}
+
+/**
+ * Sprint 4's audience/authorization gate. Same shape and same "Mock only
+ * for now" state as the three functions above, with one deliberate
+ * difference worth calling out explicitly given what this one function
+ * protects: it constructs `MockAudienceService` with its **default**
+ * argument (`[SG_HOS_ALL_STAFF]`, the least-privileged group set) rather
+ * than passing anything through from `context`/`env`. There is no signal
+ * anywhere in this codebase, mock or real, that could tell this function
+ * "this particular user is the Managing Partner" — and a security gate
+ * that can't positively confirm elevated access must default to denying
+ * it, never granting it. `HubCardShowcase`'s toggle demonstrates the
+ * *other* state by constructing its own second `MockAudienceService`
+ * directly (see that component's docblock) — it never calls this function
+ * with different arguments, because this function doesn't accept any.
+ *
+ * Sprint 6 replaces the body with a real Microsoft Graph
+ * `/me/memberOf`-backed service — and ONLY after
+ * `HOS_Platform_Readiness_Gate_v1.md` section 3.2 (Authorization) is
+ * signed off, per this sprint's explicit non-goals. Until then, this
+ * function is the entire real "backend" for every audience check in the
+ * product: `HubCardGrid` calls nothing else.
+ */
+export function createAudienceService(_context: WebPartContext, _env: IEnvironmentConfig): IAudienceService {
+  return new MockAudienceService();
 }

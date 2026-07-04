@@ -1,26 +1,37 @@
-import { escape } from '@microsoft/sp-lodash-subset';
-import * as strings from 'Hamu360ShellWebPartStrings';
 import * as React from 'react';
 
-import styles from './Hamu360Shell.module.scss';
+import { ThemeProvider } from '@theme/ThemeProvider';
+
+import DesignSystemShowcase from './DesignSystemShowcase';
 import type { IHamu360ShellProps } from './IHamu360ShellProps';
 
 /**
- * Foundation placeholder — confirms the SPFx + React + TypeScript + SCSS
- * Modules pipeline builds and renders. Replace with real feature web parts
- * in a later sprint; do not extend this component with feature UI.
+ * App root mounted by `Hamu360ShellWebPart`. Owns the light/dark mode state
+ * and mounts `ThemeProvider` above everything else in the tree — per
+ * `ThemeProvider`'s own docblock, every web part must do this exactly once,
+ * above anything that reads a design token.
+ *
+ * Renders `DesignSystemShowcase`, a TEMPORARY Sprint 1 verification page —
+ * see that component's docblock. This file's own job (mounting
+ * `ThemeProvider`, owning theme mode) is permanent; only the child it
+ * renders is meant to be swapped out once Sprint 2 feature work begins.
  */
-export default class Hamu360Shell extends React.Component<IHamu360ShellProps> {
-  public render(): React.ReactElement<IHamu360ShellProps> {
-    const { currentUserDisplayName, environment } = this.props;
+export default function Hamu360Shell(props: IHamu360ShellProps): React.ReactElement {
+  const { currentUserDisplayName, environment, sharePointTheme } = props;
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
 
-    return (
-      <section className={styles.hamu360Shell}>
-        <h2 className={styles.title}>{strings.FoundationTitle}</h2>
-        <p className={styles.subtitle}>
-          {strings.FoundationSubtitle} Signed in as {escape(currentUserDisplayName)} ({environment}).
-        </p>
-      </section>
-    );
-  }
+  const toggleMode = React.useCallback(() => {
+    setMode((current) => (current === 'light' ? 'dark' : 'light'));
+  }, []);
+
+  return (
+    <ThemeProvider mode={mode} sharePointTheme={sharePointTheme}>
+      <DesignSystemShowcase
+        currentUserDisplayName={currentUserDisplayName}
+        environment={environment}
+        mode={mode}
+        onToggleMode={toggleMode}
+      />
+    </ThemeProvider>
+  );
 }

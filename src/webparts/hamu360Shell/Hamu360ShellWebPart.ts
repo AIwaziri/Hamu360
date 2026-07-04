@@ -1,4 +1,3 @@
-import type { ITheme } from '@fluentui/react';
 import type { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Version } from '@microsoft/sp-core-library';
 import { type IPropertyPaneConfiguration, PropertyPaneTextField } from '@microsoft/sp-property-pane';
@@ -9,7 +8,6 @@ import * as ReactDom from 'react-dom';
 
 import { resolveEnvironment, type IEnvironmentConfig } from '@config/environment';
 import { createCurrentUserService } from '@services/ServiceFactory';
-import { createAppTheme } from '@theme/createAppTheme';
 
 import Hamu360Shell from './components/Hamu360Shell';
 import type { IHamu360ShellProps } from './components/IHamu360ShellProps';
@@ -20,14 +18,14 @@ export interface IHamu360ShellWebPartProps {
 
 export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360ShellWebPartProps> {
   private _environmentConfig: IEnvironmentConfig = resolveEnvironment(false);
-  private _theme: ITheme = createAppTheme();
+  private _sharePointTheme: IReadonlyTheme | undefined;
   private _currentUserDisplayName = '';
 
   public render(): void {
     const element: React.ReactElement<IHamu360ShellProps> = React.createElement(Hamu360Shell, {
       currentUserDisplayName: this._currentUserDisplayName,
       environment: this._environmentConfig.environment,
-      theme: this._theme
+      sharePointTheme: this._sharePointTheme
     });
 
     ReactDom.render(element, this.domElement);
@@ -42,17 +40,14 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
-    this._theme = createAppTheme(currentTheme);
-
-    if (!currentTheme) {
-      return;
-    }
-
-    const { semanticColors } = currentTheme;
-    if (semanticColors) {
-      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
-      this.domElement.style.setProperty('--bodySubtext', semanticColors.bodySubtext || null);
-    }
+    // Unlike Sprint 0 (which mutated `--bodyText`/`--bodySubtext` custom
+    // properties directly and relied on the browser to recompute styles
+    // without a React re-render), `sharePointTheme` is now a React prop
+    // consumed by `ThemeProvider`'s `createAppTheme(sharePointTheme)` call
+    // — so an actual re-render is required for a tenant theme change to
+    // reach the Fluent interop layer.
+    this._sharePointTheme = currentTheme;
+    this.render();
   }
 
   protected onDispose(): void {

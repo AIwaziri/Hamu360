@@ -239,3 +239,42 @@ All five: TypeScript strict, `React.forwardRef` (so a consumer can always attach
 ## 22. What's still not here
 
 No dashboard, hero, page, card, button, or any component with visual "personality" exists anywhere in this repo. That remains out of scope until the first real feature sprint — which should build strictly on top of `src/theme`'s tokens and `src/components`'s primitives, never bypass them with a one-off style. If a future component needs a token category this design system doesn't yet expose through `_tokens.scss`, extend that file — don't reach for a literal value as a shortcut.
+
+---
+
+# Sprint 1 Integration Patch — Design System Showcase (temporary)
+
+Sprint 1 built the design system but never mounted it anywhere — the SharePoint web part still rendered Sprint 0's static placeholder. This patch wires `ThemeProvider` into the web part's actual React root and replaces the placeholder with a **temporary verification page** that exercises every Sprint 1 primitive and token category live inside SharePoint, so the design system can be reviewed visually before Sprint 2 feature work begins.
+
+## 23. What changed
+
+- **`Hamu360ShellWebPart.ts`** — no longer computes an `ITheme` itself. It now holds the raw `IReadonlyTheme | undefined` from `onThemeChanged` and passes it straight through as a `sharePointTheme` prop; `ThemeProvider` (not the web part) is responsible for turning that into a Fluent theme. `onThemeChanged` now calls `this.render()` — necessary because `sharePointTheme` is a React prop consumed by a `useMemo`, unlike Sprint 0's direct CSS-custom-property mutation, which never needed a re-render.
+- **`Hamu360Shell.tsx`** — converted from a class component to a function component (matching the "React Functional Components, Hooks only" engineering standard the rest of the design system already follows). It is now the permanent app root: it owns light/dark mode state (`React.useState`) and mounts `<ThemeProvider>` — exactly once, above everything — per `ThemeProvider`'s own docblock. This file's job (mount the provider, own theme mode) is permanent; the child it renders is not.
+- **`IHamu360ShellProps.ts`** — dropped the precomputed `theme: ITheme` prop, added `sharePointTheme?: IReadonlyTheme`.
+- **`Hamu360Shell.module.scss`** — deleted. It styled the old placeholder directly; nothing in the new tree needs page-level styles of its own.
+- **`loc/en-us.js` / `loc/mystrings.d.ts`** — removed `FoundationTitle`/`FoundationSubtitle`, the placeholder's old copy. Nothing references them anymore.
+- **New: `src/webparts/hamu360Shell/components/DesignSystemShowcase/`** — the showcase itself (`DesignSystemShowcase.tsx`, `.module.scss`, props, barrel).
+
+## 24. Why the showcase lives where it does
+
+`src/components` is reserved for generic, reusable primitives (per its own `README.md`) — a page that demonstrates those primitives is not itself a primitive, so it does not belong there. It lives inside the web part that owns it (`src/webparts/hamu360Shell/components/DesignSystemShowcase`), the same place Sprint 0 established for anything web-part-specific. This also makes it trivially deletable: removing the `DesignSystemShowcase` folder and reverting `Hamu360Shell.tsx`'s two-line render is the entire cleanup, once verification is done — no other file references it.
+
+## 25. What the showcase demonstrates, and how
+
+Every value on the page is token-driven — the showcase itself follows the same "no hardcoded values, explicit `Record` lookups over dynamic class-name strings" rules as the rest of the design system (§20), just scoped to one throwaway file instead of shared infrastructure:
+
+- **All five primitives** — the whole page is a `Container` (`maxWidth="desktop"`, 1180px, matching the wireframe), each block is a `Section`; a dedicated "Layout primitives" section additionally demonstrates `Stack` (row + wrap), `Grid` (`columns={4}`, mobile-first — resize the browser to see the column ramp change live), and `Spacer` (both flexible and fixed).
+- **Typography** — every one of the 13 type-scale roles, rendered with its real token via the same `typography()` SCSS mixin a future feature component would use. (Caught and fixed during this patch: the mixin expects kebab-case role names — `heading-xl`, not `headingXl` — matching the CSS variable names `cssVariables.ts` generates; several classes initially used the wrong casing and silently fell back to unstyled text. Every `@include typography(...)` call in the showcase's SCSS uses the kebab-case form.)
+- **Color** — all 22 semantic color tokens as swatches.
+- **Spacing** — the full scale as proportional width bars.
+- **Border radius** and **elevation/shadows** — every token, applied to an identical box for direct comparison; the `hover` shadow swatch is a verbatim match for the wireframe's one observed `box-shadow` value.
+- **Responsive behavior** — the `Grid columns={4}` demo's mobile-first ramp (1 column below tablet, 2 from tablet, 4 from laptop) is directly visible by resizing the window; `Container`'s gutter widening (16px → 24px at tablet) is visible in the page's own outer padding.
+- **Light/dark theme** — a plain `<button>` (not a design-system primitive; Sprint 1 explicitly forbids a `Button` primitive, so this is page-local markup, not a new shared component) flips `Hamu360Shell`'s local `mode` state between `'light'` and `'dark'`, which flows into `ThemeProvider`'s `mode` prop. This is the "temporary developer switch" the brief asked for — there is still no dark-mode affordance anywhere in the permanent product; this button ships only as long as the showcase does.
+
+## 26. Removing this patch
+
+When Sprint 2 feature work is ready to begin:
+
+1. Delete `src/webparts/hamu360Shell/components/DesignSystemShowcase/`.
+2. In `Hamu360Shell.tsx`, replace the `<DesignSystemShowcase ... />` child with whatever Sprint 2 actually renders (the `<ThemeProvider>` wrapping it stays — that part of this patch is permanent).
+3. Nothing else references the showcase, so no other cleanup is required.

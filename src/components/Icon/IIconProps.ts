@@ -33,7 +33,18 @@ export type IconName =
   | 'calendar-event'
   // Added in Sprint 4 for the Team Hub Cards row.
   | 'heart'
-  | 'chart-dots';
+  | 'chart-dots'
+  // Added in Sprint 5 for the four Dashboard Widgets (widget title icons +
+  // Firm Wins' per-category icon).
+  | 'calendar'
+  | 'user-plus'
+  | 'news'
+  | 'trophy'
+  | 'award'
+  | 'handshake'
+  | 'file-check'
+  | 'star'
+  | 'cake';
 
 /**
  * Maps to the type scale's own font-size steps rather than a new bespoke

@@ -1,0 +1,84 @@
+@import '../_widgetCard';
+
+.card {
+  @include widget-card;
+}
+
+.title {
+  @include widget-card-title;
+  color: $color-accent;
+}
+
+.row {
+  display: flex;
+  gap: space(xs);
+  align-items: flex-start;
+  padding: space(xs) 0;
+  border-bottom: 0.5px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// Fixed component dimension, not spacing. Wireframe's 4px radius is an
+// exact match to `radius(small)` — no gap. Color treatment: see
+// DESIGN_TOKEN_DEBT.md #2, same technique as `EventsWidget.dateBox`.
+.iconBox {
+  width: 20px;
+  height: 20px;
+  border-radius: radius(small);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: $color-accent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: token-opacity(active-overlay);
+  }
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: space(xxs);
+  // Wireframe: 7px/700, padding 1px 5px, radius 3px. Size/weight: see
+  // DESIGN_TOKEN_DEBT.md #3. Padding: `1px` sits exactly between
+  // `space(none)` (0) and `space(xxs)` (2) — same round-down-on-a-tie
+  // precedent as `_widgetCard.scss`'s 9px radius mapping; `5px` rounds to
+  // `space(xs)` (4px). Radius: `3px` rounds up to `radius(small)` (4px),
+  // the nearest existing step (no smaller option exists to round down to).
+  @include typography(label);
+  padding: space(none) space(xs);
+  border-radius: radius(small);
+  // Color: see DESIGN_TOKEN_DEBT.md #2, same pale/dark-gold wash as
+  // `.iconBox` above, applied as a flat background rather than a
+  // pseudo-element here since this element has no icon glyph competing for
+  // the `color` property via `currentColor`.
+  position: relative;
+  color: $color-accent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: token-opacity(active-overlay);
+  }
+}
+
+.winTitle {
+  // Wireframe: 9.5px/1.45 line-height. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  color: $color-text-primary;
+  line-height: 1.45;
+}

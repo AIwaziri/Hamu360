@@ -1,0 +1,77 @@
+@import '../_widgetCard';
+
+.card {
+  @include widget-card;
+}
+
+.title {
+  @include widget-card-title;
+
+  // Wireframe: `.wt i { color: var(--g); }` — the widget-title icon is
+  // gold, matching every other widget's title icon in this dashboard.
+  color: $color-accent;
+}
+
+.row {
+  display: flex;
+  gap: space(xs);
+  align-items: flex-start;
+}
+
+// Fixed component dimensions, not spacing — same precedent as `Header`'s
+// `.avatar` (Sprint 2) and `HeroSection`'s card children (Sprint 3).
+// `border-radius: 6px` in the wireframe is an exact match to `radius(medium)` — no gap.
+.dateBox {
+  width: 32px;
+  height: 32px;
+  border-radius: radius(medium);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // See DESIGN_TOKEN_DEBT.md #2 (pale/dark-gold background-foreground pair)
+  // — same `currentColor` + opacity pseudo-element wash as `HubCard`'s
+  // `.iconAccentTint`, reused here rather than re-explained.
+  position: relative;
+  color: $color-accent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: token-opacity(active-overlay);
+  }
+}
+
+.day {
+  // Wireframe: 12px/600. `caption` (11px/500) is the nearest existing role
+  // by size, but doesn't match on weight either — see DESIGN_TOKEN_DEBT.md
+  // #5, a new entry this sprint for exactly this gap.
+  @include typography(caption);
+  line-height: 1;
+}
+
+.month {
+  // Wireframe: 6.5px, well below `label`'s 10px floor — mapped to `label`
+  // like every other below-floor value in this sprint (no raw px override;
+  // see DESIGN_TOKEN_DEBT.md #3), differentiated from `.day` by opacity
+  // instead of by size.
+  @include typography(label);
+  opacity: token-opacity(muted);
+}
+
+.eventTitle {
+  // Wireframe: 10px/600 — exact match to `label`, no gap.
+  @include typography(label);
+  color: $color-text-primary;
+}
+
+.eventLocation {
+  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  color: $color-muted;
+}

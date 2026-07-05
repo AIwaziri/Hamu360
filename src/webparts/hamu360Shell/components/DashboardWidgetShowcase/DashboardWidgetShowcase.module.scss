@@ -1,5 +1,5 @@
-// TEMPORARY Sprint 4 verification page — same throwaway policy as Sprints
-// 1-3's showcases. Delete this whole folder before Sprint 5 feature work
+// TEMPORARY Sprint 5 verification page — same throwaway policy as Sprints
+// 1-4's showcases. Delete this whole folder before Sprint 6 feature work
 // begins. See the component's own docblock.
 @import '../../../../styles/tokens';
 @import '../../../../styles/mixins';
@@ -38,21 +38,6 @@
   color: $color-text-secondary;
   max-width: 720px;
   margin-bottom: space(md);
-}
-
-.togglePanel {
-  background-color: $color-surface-subtle;
-  border: 1px solid $color-border;
-  border-radius: radius(medium);
-  padding: space(md);
-  margin-bottom: space(md);
-}
-
-.toggleLabel {
-  @include typography(label);
-  color: $color-muted;
-  margin-bottom: space(sm);
-  display: block;
 }
 
 .statusLine {

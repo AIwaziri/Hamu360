@@ -7,12 +7,25 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
 import { resolveEnvironment, type IEnvironmentConfig } from '@config/environment';
-import type { IAnnouncement, ICurrentUser, IPartnerMessage, IQuickLink } from '@models/index';
+import type {
+  IAnnouncement,
+  ICurrentUser,
+  IEvent,
+  IFirmWin,
+  INewJoiner,
+  IPartnerMessage,
+  IQuickLink,
+  IRegulatoryUpdate
+} from '@models/index';
 import {
   createAnnouncementsService,
   createCurrentUserService,
+  createEventsService,
+  createFirmWinsService,
+  createNewJoinersService,
   createPartnerMessageService,
-  createQuickLinksService
+  createQuickLinksService,
+  createRegulatoryUpdatesService
 } from '@services/ServiceFactory';
 
 import Hamu360Shell from './components/Hamu360Shell';
@@ -42,6 +55,12 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
   };
   private _announcements: IAnnouncement[] = [];
   private _quickLinks: IQuickLink[] = [];
+  // Sprint 5's four Dashboard Widget datasets — same "resolve once in
+  // onInit, pass down as plain data" treatment as everything above.
+  private _events: IEvent[] = [];
+  private _newJoiners: INewJoiner[] = [];
+  private _regulatoryUpdates: IRegulatoryUpdate[] = [];
+  private _firmWins: IFirmWin[] = [];
 
   public render(): void {
     const element: React.ReactElement<IHamu360ShellProps> = React.createElement(Hamu360Shell, {
@@ -49,6 +68,10 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
       partnerMessage: this._partnerMessage,
       announcements: this._announcements,
       quickLinks: this._quickLinks,
+      events: this._events,
+      newJoiners: this._newJoiners,
+      regulatoryUpdates: this._regulatoryUpdates,
+      firmWins: this._firmWins,
       environment: this._environmentConfig.environment,
       sharePointTheme: this._sharePointTheme
     });
@@ -63,18 +86,31 @@ export default class Hamu360ShellWebPart extends BaseClientSideWebPart<IHamu360S
     const partnerMessageService = createPartnerMessageService(this.context, this._environmentConfig);
     const announcementsService = createAnnouncementsService(this.context, this._environmentConfig);
     const quickLinksService = createQuickLinksService(this.context, this._environmentConfig);
+    const eventsService = createEventsService(this.context, this._environmentConfig);
+    const newJoinersService = createNewJoinersService(this.context, this._environmentConfig);
+    const regulatoryUpdatesService = createRegulatoryUpdatesService(this.context, this._environmentConfig);
+    const firmWinsService = createFirmWinsService(this.context, this._environmentConfig);
 
-    const [currentUser, partnerMessage, announcements, quickLinks] = await Promise.all([
-      currentUserService.getCurrentUser(),
-      partnerMessageService.getPartnerMessage(),
-      announcementsService.getAnnouncements(),
-      quickLinksService.getQuickLinks()
-    ]);
+    const [currentUser, partnerMessage, announcements, quickLinks, events, newJoiners, regulatoryUpdates, firmWins] =
+      await Promise.all([
+        currentUserService.getCurrentUser(),
+        partnerMessageService.getPartnerMessage(),
+        announcementsService.getAnnouncements(),
+        quickLinksService.getQuickLinks(),
+        eventsService.getEvents(),
+        newJoinersService.getNewJoiners(),
+        regulatoryUpdatesService.getRegulatoryUpdates(),
+        firmWinsService.getFirmWins()
+      ]);
 
     this._currentUser = currentUser;
     this._partnerMessage = partnerMessage;
     this._announcements = announcements;
     this._quickLinks = quickLinks;
+    this._events = events;
+    this._newJoiners = newJoiners;
+    this._regulatoryUpdates = regulatoryUpdates;
+    this._firmWins = firmWins;
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {

@@ -1,0 +1,44 @@
+// Shared partial for DashboardWidgetGrid's four children (EventsWidget,
+// NewJoinersWidget, RegulatoryUpdatesWidget, FirmWinsWidget). Same
+// architecture as Sprint 3's `HeroSection/_heroCard.scss` — `@import`-ed by
+// each child's own `.module.scss` rather than exported as a React
+// component, so class names still land correctly scoped in each consuming
+// module. Not a CSS Module itself (no `.module.` in the filename).
+@import '../../../../styles/tokens';
+@import '../../../../styles/mixins';
+
+// Wireframe: `.wc { background: var(--wh); border: 0.5px solid var(--bd);
+// border-radius: 9px; padding: 11px; }`.
+//
+// `border: 0.5px solid` is reproduced as a literal sub-pixel value (not a
+// spacing/border-width token — there's no token category for border
+// thickness in this design system, and 0.5px is a deliberate wireframe
+// choice for a hairline that reads thinner than a standard 1px rule on
+// high-DPI displays, same treatment `.rr`/`.jr`'s dividers use).
+//
+// `border-radius: 9px` maps to `radius(large)` (8px), the same
+// nearest-existing-step precedent Sprint 3's `_heroCard.scss` already
+// established for this exact wireframe value — see that file's comment.
+//
+// `padding: 11px` maps to `space(sm)` (8px) — nearest spacing step per
+// `spacing.ts`'s "components round to the scale, not the wireframe's literal
+// hand-tuned value" rule.
+@mixin widget-card {
+  background-color: $color-surface;
+  border: 0.5px solid $color-border;
+  border-radius: radius(large);
+  padding: space(sm);
+}
+
+// Wireframe: `.wt { font-size: 10px; font-weight: 600; ... } .wt i { color:
+// var(--g); }` — an exact match to the `label` typography role (10px/600),
+// no compromise needed here (contrast this with the many below-`label`
+// sizes elsewhere in these widgets — see DESIGN_TOKEN_DEBT.md #3).
+@mixin widget-card-title {
+  @include typography(label);
+  @include flex-center(row);
+  justify-content: flex-start;
+  gap: space(xxs);
+  color: $color-text-primary;
+  margin-bottom: space(sm);
+}

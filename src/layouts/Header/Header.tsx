@@ -4,27 +4,13 @@ import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Icon } from '@components/Icon';
 import { Navigation } from '@layouts/Navigation';
-import { classNames } from '@utils/index';
+import { classNames, getInitials } from '@utils/index';
 
 import styles from './Header.module.scss';
 import type { IHeaderProps } from './IHeaderProps';
 import { Logo } from './Logo';
 
 const PRIMARY_NAVIGATION_ID = 'primary-navigation';
-
-/** `"Saadatu Hamu Aliyu"` -> `"SH"`. Falls back to the first two characters of a single-word name. */
-function getInitials(displayName: string): string {
-  const words = displayName.trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) {
-    return '';
-  }
-  if (words.length === 1) {
-    return words[0]?.slice(0, 2).toUpperCase() ?? '';
-  }
-  const first = words[0]?.[0] ?? '';
-  const last = words[words.length - 1]?.[0] ?? '';
-  return `${first}${last}`.toUpperCase();
-}
 
 /**
  * The application's top chrome: logo, primary navigation, and a user menu

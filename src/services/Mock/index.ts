@@ -3,3 +3,7 @@ export * from './MockPartnerMessageService';
 export * from './MockAnnouncementsService';
 export * from './MockQuickLinksService';
 export * from './MockAudienceService';
+export * from './MockEventsService';
+export * from './MockNewJoinersService';
+export * from './MockRegulatoryUpdatesService';
+export * from './MockFirmWinsService';

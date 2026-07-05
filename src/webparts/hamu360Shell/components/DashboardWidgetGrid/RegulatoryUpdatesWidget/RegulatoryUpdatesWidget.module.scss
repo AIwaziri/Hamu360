@@ -1,0 +1,55 @@
+@import '../_widgetCard';
+
+.card {
+  @include widget-card;
+}
+
+.title {
+  @include widget-card-title;
+  color: $color-accent;
+}
+
+.row {
+  display: flex;
+  gap: space(xs);
+  align-items: flex-start;
+  padding: space(xs) 0;
+  border-bottom: 0.5px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// Fixed component dimension, not spacing. Wireframe: `background:
+// var(--amb);` — exact token match to `warning`, no gap.
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: radius(circle);
+  background-color: $color-warning;
+  flex-shrink: 0;
+  margin-top: space(xs);
+}
+
+.updateTitle {
+  // Wireframe: 9.5px/400/1.5 line-height. See DESIGN_TOKEN_DEBT.md #3 — as
+  // with every other below-floor instance, this reuses `label` wholesale
+  // (including its 600 weight, heavier than the wireframe's regular-weight
+  // `.rrtxt`) rather than overriding individual sub-properties of the
+  // mixin, which would just be inventing a new ad hoc combination by
+  // another route. `line-height` is the one property this file overrides,
+  // since line-height isn't part of what makes a role's *size* identity —
+  // it's adjusted per-usage elsewhere in this codebase too (e.g. this same
+  // pattern in `EventsWidget.day`).
+  @include typography(label);
+  color: $color-text-primary;
+  line-height: 1.5;
+}
+
+.meta {
+  // Wireframe: 8px. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  color: $color-muted;
+  margin-top: space(xxs);
+}

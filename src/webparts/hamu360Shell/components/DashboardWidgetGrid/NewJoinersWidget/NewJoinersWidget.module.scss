@@ -1,0 +1,116 @@
+@import '../_widgetCard';
+
+.card {
+  @include widget-card;
+}
+
+.title {
+  @include widget-card-title;
+  color: $color-accent;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  padding: space(xs) 0;
+  border-bottom: 0.5px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// Fixed component dimension, not spacing — same precedent as `EventsWidget`'s
+// `.dateBox` and `Header`'s `.avatar`.
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: radius(circle);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Wireframe: 8.5px/700 — below `label`'s 10px floor, see
+  // DESIGN_TOKEN_DEBT.md #3. `label`'s 600 weight is the nearest available,
+  // not an exact match to the wireframe's 700 either.
+  @include typography(label);
+  // Default pale/dark-gold treatment — see DESIGN_TOKEN_DEBT.md #2, same
+  // technique as `EventsWidget.dateBox`.
+  position: relative;
+  color: $color-accent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: token-opacity(active-overlay);
+  }
+}
+
+// The wireframe's one exception row ("IT Admin") — navy background, gold
+// initials, no translucent wash. Exact token match, no gap: `$color-primary`
+// / `$color-accent`, same "text/icon-on-primary is `accent`" pairing already
+// established for `HubCard.iconPrimary` (Sprint 4) and `Logo.tagline`
+// (Sprint 2).
+.avatarPrimary {
+  background-color: $color-primary;
+  color: $color-accent;
+
+  &::before {
+    content: none;
+  }
+}
+
+.info {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  // Wireframe: 10px/600 — exact match to `label`, no gap.
+  @include typography(label);
+  color: $color-text-primary;
+}
+
+.roleLine {
+  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  color: $color-muted;
+  margin-top: space(xxs);
+}
+
+.badge {
+  flex-shrink: 0;
+  margin-left: auto;
+  white-space: nowrap;
+  // Wireframe: `background: var(--grnbg); color: var(--grn);` — exact
+  // token match, no gap (same success-family pair `AnnouncementsFeed`'s
+  // "Pinned" treatment doesn't need, but this widget's badge does).
+  background-color: $color-success-background;
+  color: $color-success;
+  // Wireframe: 7px/700. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  padding: space(xxs) space(xs);
+  // Wireframe: 3px. `radius(small)` (4px) is the nearest existing step.
+  border-radius: radius(small);
+}
+
+.comingSoon {
+  margin-top: space(sm);
+  padding: space(xs) space(sm);
+  background-color: $color-surface-subtle;
+  // Wireframe: 5px, exactly between `radius(small)` (4px) and
+  // `radius(medium)` (6px) — same round-down-on-a-tie precedent as
+  // `_widgetCard.scss`'s 9px-to-`radius(large)` mapping.
+  border-radius: radius(small);
+  display: flex;
+  align-items: center;
+  gap: space(xs);
+  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
+  @include typography(label);
+  color: $color-muted;
+}

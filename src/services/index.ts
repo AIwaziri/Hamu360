@@ -3,4 +3,8 @@ export * from './IPartnerMessageService';
 export * from './IAnnouncementsService';
 export * from './IQuickLinksService';
 export * from './IAudienceService';
+export * from './IEventsService';
+export * from './INewJoinersService';
+export * from './IRegulatoryUpdatesService';
+export * from './IFirmWinsService';
 export * from './ServiceFactory';

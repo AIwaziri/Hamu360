@@ -5,13 +5,21 @@ import type { IEnvironmentConfig } from '@config/environment';
 import type { IAnnouncementsService } from './IAnnouncementsService';
 import type { IAudienceService } from './IAudienceService';
 import type { ICurrentUserService } from './ICurrentUserService';
+import type { IEventsService } from './IEventsService';
+import type { IFirmWinsService } from './IFirmWinsService';
+import type { INewJoinersService } from './INewJoinersService';
 import type { IPartnerMessageService } from './IPartnerMessageService';
 import type { IQuickLinksService } from './IQuickLinksService';
+import type { IRegulatoryUpdatesService } from './IRegulatoryUpdatesService';
 import { MockAnnouncementsService } from './Mock/MockAnnouncementsService';
 import { MockAudienceService } from './Mock/MockAudienceService';
 import { MockCurrentUserService } from './Mock/MockCurrentUserService';
+import { MockEventsService } from './Mock/MockEventsService';
+import { MockFirmWinsService } from './Mock/MockFirmWinsService';
+import { MockNewJoinersService } from './Mock/MockNewJoinersService';
 import { MockPartnerMessageService } from './Mock/MockPartnerMessageService';
 import { MockQuickLinksService } from './Mock/MockQuickLinksService';
+import { MockRegulatoryUpdatesService } from './Mock/MockRegulatoryUpdatesService';
 import { SharePointCurrentUserService } from './SharePoint/SharePointCurrentUserService';
 
 /**
@@ -91,4 +99,36 @@ export function createQuickLinksService(_context: WebPartContext, _env: IEnviron
  */
 export function createAudienceService(_context: WebPartContext, _env: IEnvironmentConfig): IAudienceService {
   return new MockAudienceService();
+}
+
+/**
+ * Sprint 5's four Dashboard Widget services. Same "always Mock for now,
+ * `(context, env)` params already present for arity stability" shape as the
+ * Sprint 3 trio above — none of these four Lists are being queried via
+ * PnPjs yet, per this sprint's explicit non-goals.
+ *
+ * Unlike the audience gate above, none of these four carry any
+ * authorization weight — all four source Lists are SG-HOS-AllStaff visible
+ * (per `HOS_Platform_Readiness_Gate_v1.md` §3.2), so "always return the
+ * least-privileged default" isn't a relevant concept here the way it is for
+ * `createAudienceService`. These simply don't have a real implementation
+ * yet.
+ */
+export function createEventsService(_context: WebPartContext, _env: IEnvironmentConfig): IEventsService {
+  return new MockEventsService();
+}
+
+export function createNewJoinersService(_context: WebPartContext, _env: IEnvironmentConfig): INewJoinersService {
+  return new MockNewJoinersService();
+}
+
+export function createRegulatoryUpdatesService(
+  _context: WebPartContext,
+  _env: IEnvironmentConfig
+): IRegulatoryUpdatesService {
+  return new MockRegulatoryUpdatesService();
+}
+
+export function createFirmWinsService(_context: WebPartContext, _env: IEnvironmentConfig): IFirmWinsService {
+  return new MockFirmWinsService();
 }

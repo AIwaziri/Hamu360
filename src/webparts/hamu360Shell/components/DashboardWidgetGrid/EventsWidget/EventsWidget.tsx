@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Icon } from '@components/Icon';
 import { Stack } from '@components/Stack';
 import type { IEvent } from '@models/index';
@@ -45,6 +46,14 @@ function selectUpcomingEvents(items: IEvent[]): IEvent[] {
  * No interactive elements — matches the wireframe, which never makes an
  * event row clickable. A static, properly ordered `<ul>` needs no extra
  * keyboard handling to be WCAG AA keyboard-navigable.
+ *
+ * ## Sprint 6: empty state, no props change
+ *
+ * `events` can legitimately be `[]` now that it comes from a real,
+ * possibly-empty "Events" List — rendering `EmptyState` in that case is an
+ * internal branch on the same `IEvent[]` prop, not a signature change. Loading
+ * and error states live one level up (`Hamu360Shell.tsx`) — see that file's
+ * docblock for why this widget's props have no room to express either.
  */
 export function EventsWidget(props: IEventsWidgetProps): React.ReactElement {
   const { events, className } = props;
@@ -56,28 +65,32 @@ export function EventsWidget(props: IEventsWidgetProps): React.ReactElement {
         <Icon name="calendar" size="sm" />
         Upcoming events
       </p>
-      <Stack as="ul" direction="column" gap="xs">
-        {upcoming.map((event) => {
-          const { day, month } = formatEventDateParts(event.startDate);
-          return (
-            <li key={event.id} className={styles.row}>
-              {/* Not `aria-hidden` — unlike `AnnouncementsFeed`'s purely
-                  decorative `.dot`, this date-box is the *only* place
-                  `startDate` is rendered (there's no separate text-only date
-                  line elsewhere in this row), so hiding it would remove real
-                  information from screen reader users, not decoration. */}
-              <span className={styles.dateBox}>
-                <span className={styles.day}>{day}</span>
-                <span className={styles.month}>{month}</span>
-              </span>
-              <div>
-                <p className={styles.eventTitle}>{event.title}</p>
-                <p className={styles.eventLocation}>{event.location}</p>
-              </div>
-            </li>
-          );
-        })}
-      </Stack>
+      {upcoming.length === 0 ? (
+        <EmptyState title="No upcoming events" />
+      ) : (
+        <Stack as="ul" direction="column" gap="xs">
+          {upcoming.map((event) => {
+            const { day, month } = formatEventDateParts(event.startDate);
+            return (
+              <li key={event.id} className={styles.row}>
+                {/* Not `aria-hidden` — unlike `AnnouncementsFeed`'s purely
+                    decorative `.dot`, this date-box is the *only* place
+                    `startDate` is rendered (there's no separate text-only date
+                    line elsewhere in this row), so hiding it would remove real
+                    information from screen reader users, not decoration. */}
+                <span className={styles.dateBox}>
+                  <span className={styles.day}>{day}</span>
+                  <span className={styles.month}>{month}</span>
+                </span>
+                <div>
+                  <p className={styles.eventTitle}>{event.title}</p>
+                  <p className={styles.eventLocation}>{event.location}</p>
+                </div>
+              </li>
+            );
+          })}
+        </Stack>
+      )}
     </div>
   );
 }

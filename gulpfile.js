@@ -8,6 +8,14 @@ build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not came
 // a shared reset that isn't scoped to one component — so the sass task's
 // "should this be a .module.scss?" nudge doesn't apply here.
 build.addSuppression(`Warning - [sass] src/styles/global.scss: filename should end with module.sass or module.scss`);
+// Sprint 6: `Skeleton.module.scss`'s `@keyframes skeleton-pulse` is a kebab-case
+// animation name, not an exported CSS class — the sass task's camelCase check
+// doesn't distinguish the two. Same category of false positive as the
+// `ms-Grid` suppression above (a real, correct identifier the type-safety
+// nudge doesn't apply to).
+build.addSuppression(
+  `Warning - [sass] The local CSS class 'skeleton-pulse' is not camelCase and will not be type-safe.`
+);
 
 var getTasks = build.rig.getTasks;
 build.rig.getTasks = function () {

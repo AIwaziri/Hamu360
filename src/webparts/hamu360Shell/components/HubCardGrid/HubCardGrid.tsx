@@ -1,10 +1,9 @@
 import * as React from 'react';
 
+import { Grid } from '@components/Grid';
 import type { IHubTileConfig } from '@config/hubTiles';
-import { classNames } from '@utils/index';
 
 import { HubCard } from './HubCard';
-import styles from './HubCardGrid.module.scss';
 import type { IHubCardGridProps } from './IHubCardGridProps';
 
 /**
@@ -55,13 +54,26 @@ function isTileVisible(tile: IHubTileConfig, userGroups: string[]): boolean {
  * `isManagingPartner = true` (the exact anti-pattern this sprint's brief
  * calls out): visibility is a `.filter()` over data, not a flag anyone
  * ever sets.
+ *
+ * ## Sprint 7: now rendered via the shared `Grid` primitive, not a hand-rolled one
+ *
+ * This component used to render a local `<ul className={styles.grid}>` with
+ * its own hand-written `grid-template-columns` ramp, because `@components/Grid`
+ * didn't support a 5-column layout yet (see `DESIGN_TOKEN_DEBT.md` entry 4,
+ * now resolved). It now renders `<Grid as="ul" columns={5} gap="sm">`
+ * instead — same DOM shape (a `<ul>` of `<li>`s), same visual ramp (the new
+ * `columns5` step in `Grid.module.scss` was copied verbatim from the old
+ * local CSS), zero behavior change. `HubCardGrid.module.scss` (and its
+ * lone `.grid` class) has been deleted entirely — there is nothing local
+ * left for it to hold once the column layout itself moved to the shared
+ * primitive; `className` now passes straight through to `Grid`.
  */
 export function HubCardGrid(props: IHubCardGridProps): React.ReactElement {
   const { tiles, userGroups, onSelectTile, className } = props;
   const visibleTiles = tiles.filter((tile) => isTileVisible(tile, userGroups));
 
   return (
-    <ul className={classNames(styles.grid, className)}>
+    <Grid as="ul" columns={5} gap="sm" className={className}>
       {visibleTiles.map((tile) => (
         <li key={tile.id}>
           <HubCard
@@ -74,6 +86,6 @@ export function HubCardGrid(props: IHubCardGridProps): React.ReactElement {
           />
         </li>
       ))}
-    </ul>
+    </Grid>
   );
 }

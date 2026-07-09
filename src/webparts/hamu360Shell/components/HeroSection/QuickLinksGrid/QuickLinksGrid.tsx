@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Grid } from '@components/Grid';
 import { Icon } from '@components/Icon';
 import type { IQuickLink } from '@models/index';
@@ -27,6 +28,21 @@ function sortByOrder(items: IQuickLink[]): IQuickLink[] {
  * Sprint 6 has real URLs, this is a small, contained change (swap the
  * rendered tag, keep the same props) — not a reshape of `IQuickLink` or
  * this component's API.
+ *
+ * **That swap is deliberately NOT made in Sprint 6**, even though real
+ * `url` values now flow through `SharePointQuickLinksService`. This
+ * sprint's brief explicitly says not to change any `HeroSection` component
+ * "to accommodate the real data" — and while `<button>` -> `<a href>` is a
+ * one-line, props-compatible change, it is still exactly the kind of
+ * real-data-driven behavior change that instruction protects against
+ * making without a dedicated review. Flagged here as a known, deliberate
+ * follow-up rather than silently fixed or silently left unexplained.
+ *
+ * ## Sprint 6: empty state, no props change
+ *
+ * Same treatment as `AnnouncementsFeed` — `items` can legitimately be `[]`
+ * from a real, possibly-empty List; that's an internal branch on the same
+ * `IQuickLink[]` prop, not a signature change.
  */
 export function QuickLinksGrid(props: IQuickLinksGridProps): React.ReactElement {
   const { items, className } = props;
@@ -38,18 +54,22 @@ export function QuickLinksGrid(props: IQuickLinksGridProps): React.ReactElement 
         <Icon name="bolt" size="sm" />
         Quick links
       </p>
-      <Grid as="ul" columns={2} gap="xs">
-        {sortedItems.map((item) => (
-          <li key={item.id}>
-            <button type="button" className={styles.tile}>
-              <span className={styles.iconBox} aria-hidden="true">
-                <Icon name={item.icon} size="sm" />
-              </span>
-              <span className={styles.tileLabel}>{item.label}</span>
-            </button>
-          </li>
-        ))}
-      </Grid>
+      {sortedItems.length === 0 ? (
+        <EmptyState title="No quick links yet" />
+      ) : (
+        <Grid as="ul" columns={2} gap="xs">
+          {sortedItems.map((item) => (
+            <li key={item.id}>
+              <button type="button" className={styles.tile}>
+                <span className={styles.iconBox} aria-hidden="true">
+                  <Icon name={item.icon} size="sm" />
+                </span>
+                <span className={styles.tileLabel}>{item.label}</span>
+              </button>
+            </li>
+          ))}
+        </Grid>
+      )}
     </div>
   );
 }

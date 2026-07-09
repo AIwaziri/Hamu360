@@ -22,8 +22,8 @@
 }
 
 // Fixed component dimension, not spacing. Wireframe's 4px radius is an
-// exact match to `radius(small)` — no gap. Color treatment: see
-// DESIGN_TOKEN_DEBT.md #2, same technique as `EventsWidget.dateBox`.
+// exact match to `radius(small)` — no gap. Color: RESOLVED in Sprint 7, see
+// DESIGN_TOKEN_DEBT.md entry 2.
 .iconBox {
   width: 20px;
   height: 20px;
@@ -32,18 +32,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  color: $color-accent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-color: currentColor;
-    opacity: token-opacity(active-overlay);
-  }
+  background-color: $color-accent-background;
+  color: $color-accent-foreground;
 }
 
 .tag {
@@ -58,22 +48,10 @@
   @include typography(label);
   padding: space(none) space(xs);
   border-radius: radius(small);
-  // Color: see DESIGN_TOKEN_DEBT.md #2, same pale/dark-gold wash as
-  // `.iconBox` above, applied as a flat background rather than a
-  // pseudo-element here since this element has no icon glyph competing for
-  // the `color` property via `currentColor`.
-  position: relative;
-  color: $color-accent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-color: currentColor;
-    opacity: token-opacity(active-overlay);
-  }
+  // Color: RESOLVED in Sprint 7, same real token pair as `.iconBox` above —
+  // see DESIGN_TOKEN_DEBT.md entry 2.
+  background-color: $color-accent-background;
+  color: $color-accent-foreground;
 }
 
 .winTitle {

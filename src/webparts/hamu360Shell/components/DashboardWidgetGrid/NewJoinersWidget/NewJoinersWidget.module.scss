@@ -35,20 +35,11 @@
   // DESIGN_TOKEN_DEBT.md #3. `label`'s 600 weight is the nearest available,
   // not an exact match to the wireframe's 700 either.
   @include typography(label);
-  // Default pale/dark-gold treatment — see DESIGN_TOKEN_DEBT.md #2, same
-  // technique as `EventsWidget.dateBox`.
-  position: relative;
-  color: $color-accent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-color: currentColor;
-    opacity: token-opacity(active-overlay);
-  }
+  // RESOLVED in Sprint 7 — see DESIGN_TOKEN_DEBT.md entry 2. Same real
+  // token pair as `EventsWidget.dateBox`/`HubCard.iconAccentTint`, no more
+  // pseudo-element wash needed.
+  background-color: $color-accent-background;
+  color: $color-accent-foreground;
 }
 
 // The wireframe's one exception row ("IT Admin") — navy background, gold
@@ -59,10 +50,6 @@
 .avatarPrimary {
   background-color: $color-primary;
   color: $color-accent;
-
-  &::before {
-    content: none;
-  }
 }
 
 .info {

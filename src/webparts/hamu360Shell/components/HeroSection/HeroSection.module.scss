@@ -24,10 +24,57 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  // The wireframe's `.hero::before`/`::after` decorative background circles
-  // (translucent white/gold radial blobs) are omitted — both use rgba
-  // literals with no matching token, and are purely decorative with no
-  // data or functional significance. Flagged rather than approximated.
+}
+
+// Sprint 7: reproduces the wireframe's `.hero::before`/`::after` decorative
+// background circles (two soft, oversized radial blobs — white top-right,
+// gold bottom-right), previously omitted entirely. Purely decorative, no
+// data significance, and deliberately kept that way — `aria-hidden` isn't
+// even needed since pseudo-elements are already invisible to assistive
+// tech by construction.
+//
+// The wireframe's exact values are `rgba(255,255,255,.04)` and
+// `rgba(221,170,57,.06)` — both would be new raw literals outside
+// `colors.ts`, which this design system doesn't allow. Both round instead
+// to the nearest existing token pairing already used for washes elsewhere
+// in this file's family (`hoverOverlay`, 0.04): `$color-text-on-primary`
+// (white) at `token-opacity(hover-overlay)` is an exact match for the
+// first blob; `$color-accent` (gold) at the same opacity step is the
+// nearest existing approximation for the second (wireframe: 0.06) — see
+// DESIGN_TOKEN_DEBT.md entry 1 for why a bespoke 0.06 step isn't being
+// added just for this one decorative use.
+//
+// `z-index: -1` (not the default `auto`) is required, not optional: an
+// absolutely-positioned element with `z-index: auto` paints *after*
+// normal-flow content in the same stacking context, which would put these
+// circles on top of the eyebrow/title/cards instead of behind them.
+// `overflow: hidden` on `.root` (above) clips both to the band's edges,
+// matching the wireframe's own `.hero { overflow: hidden }`.
+.root::before,
+.root::after {
+  content: '';
+  position: absolute;
+  border-radius: radius(circle);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.root::before {
+  right: -60px;
+  top: -60px;
+  width: 260px;
+  height: 260px;
+  background-color: $color-text-on-primary;
+  opacity: token-opacity(hover-overlay);
+}
+
+.root::after {
+  right: 80px;
+  bottom: -40px;
+  width: 160px;
+  height: 160px;
+  background-color: $color-accent;
+  opacity: token-opacity(hover-overlay);
 }
 
 .eyebrow {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Icon } from '@components/Icon';
 import { Stack } from '@components/Stack';
 import { classNames, formatMonthYear, getInitials } from '@utils/index';
@@ -39,6 +40,13 @@ import styles from './NewJoinersWidget.module.scss';
  * private `Header.tsx` helper — see that util's docblock) rather than a
  * modeled `initials` field, since initials are trivially derivable from
  * `name` and the real List has no separate initials column to mirror.
+ *
+ * ## Sprint 6: empty state, no props change
+ *
+ * `newJoiners` can legitimately be `[]` (the 90-day window genuinely had no
+ * new hires) — rendering `EmptyState` in that case is an internal branch on
+ * the same `INewJoiner[]` prop. The "coming in V2" note still renders
+ * either way, since it's unrelated to whether there are any joiners to show.
  */
 export function NewJoinersWidget(props: INewJoinersWidgetProps): React.ReactElement {
   const { newJoiners, className } = props;
@@ -49,29 +57,33 @@ export function NewJoinersWidget(props: INewJoinersWidgetProps): React.ReactElem
         <Icon name="user-plus" size="sm" />
         New joiners
       </p>
-      <Stack as="ul" direction="column" gap="none">
-        {newJoiners.map((joiner) => (
-          <li key={joiner.id} className={styles.row}>
-            <span
-              className={classNames(styles.avatar, joiner.avatarVariant === 'primary' && styles.avatarPrimary)}
-              aria-hidden="true"
-            >
-              {getInitials(joiner.name)}
-            </span>
-            <div className={styles.info}>
-              <p className={styles.name}>{joiner.name}</p>
-              {/* Reproduces the wireframe's own inconsistency faithfully —
-                  two of three seed rows show "Department · Role", the third
-                  shows Department alone (no `role`). See `INewJoiner.role`'s
-                  docblock. */}
-              <p className={styles.roleLine}>
-                {joiner.role ? `${joiner.department} · ${joiner.role}` : joiner.department}
-              </p>
-            </div>
-            <span className={styles.badge}>{formatMonthYear(joiner.joinDate)}</span>
-          </li>
-        ))}
-      </Stack>
+      {newJoiners.length === 0 ? (
+        <EmptyState title="No new joiners in the last 90 days" />
+      ) : (
+        <Stack as="ul" direction="column" gap="none">
+          {newJoiners.map((joiner) => (
+            <li key={joiner.id} className={styles.row}>
+              <span
+                className={classNames(styles.avatar, joiner.avatarVariant === 'primary' && styles.avatarPrimary)}
+                aria-hidden="true"
+              >
+                {getInitials(joiner.name)}
+              </span>
+              <div className={styles.info}>
+                <p className={styles.name}>{joiner.name}</p>
+                {/* Reproduces the wireframe's own inconsistency faithfully —
+                    two of three seed rows show "Department · Role", the third
+                    shows Department alone (no `role`). See `INewJoiner.role`'s
+                    docblock. */}
+                <p className={styles.roleLine}>
+                  {joiner.role ? `${joiner.department} · ${joiner.role}` : joiner.department}
+                </p>
+              </div>
+              <span className={styles.badge}>{formatMonthYear(joiner.joinDate)}</span>
+            </li>
+          ))}
+        </Stack>
+      )}
 
       {/* Static, non-interactive placeholder — reproduces the wireframe's
           own "coming in V2" note verbatim. Not a real feature; explicitly

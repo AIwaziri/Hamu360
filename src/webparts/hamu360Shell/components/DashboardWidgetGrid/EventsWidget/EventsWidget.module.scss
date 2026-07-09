@@ -30,21 +30,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // See DESIGN_TOKEN_DEBT.md #2 (pale/dark-gold background-foreground pair)
-  // — same `currentColor` + opacity pseudo-element wash as `HubCard`'s
-  // `.iconAccentTint`, reused here rather than re-explained.
-  position: relative;
-  color: $color-accent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background-color: currentColor;
-    opacity: token-opacity(active-overlay);
-  }
+  // RESOLVED in Sprint 7 — see DESIGN_TOKEN_DEBT.md entry 2. `HubCard`'s
+  // `.iconAccentTint` used the same workaround this comment used to
+  // describe; both now use the real `accentBackground`/`accentForeground`
+  // pair instead.
+  background-color: $color-accent-background;
+  color: $color-accent-foreground;
 }
 
 .day {

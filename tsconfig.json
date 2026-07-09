@@ -68,7 +68,13 @@
     // in every Evergreen browser SPFx 1.23 targets (no IE11 support, no
     // polyfill needed), used by the design system's token->CSS-variable
     // flattening in src/theme/cssVariables.ts.
-    "lib": ["es5", "dom", "es2015.collection", "es2015.promise", "es2017.object"]
+    // es2020.promise adds Promise.allSettled typings only (no other es2020
+    // API surface) — same "natively available in every Evergreen browser
+    // SPFx 1.23 targets, no polyfill needed" justification as es2017.object
+    // above. Added in Sprint 6 for Hamu360ShellWebPart.onInit()'s use of
+    // Promise.allSettled to let non-critical widget data sources fail
+    // independently without one failure blocking the whole Home page.
+    "lib": ["es5", "dom", "es2015.collection", "es2015.promise", "es2017.object", "es2020.promise"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

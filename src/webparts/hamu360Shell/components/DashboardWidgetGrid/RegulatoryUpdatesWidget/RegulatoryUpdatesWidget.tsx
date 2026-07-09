@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Icon } from '@components/Icon';
 import { Stack } from '@components/Stack';
 import type { IRegulatoryUpdate } from '@models/index';
@@ -41,6 +42,11 @@ function selectRecentUpdates(items: IRegulatoryUpdate[]): IRegulatoryUpdate[] {
  * grouped view is trivial to add later) rather than the *layout* — flagged
  * explicitly here rather than silently picking one reading, per this
  * build's "flag rather than guess" discipline.
+ *
+ * ## Sprint 6: empty state, no props change
+ *
+ * `regulatoryUpdates` can legitimately be `[]` — rendering `EmptyState` in
+ * that case is an internal branch on the same `IRegulatoryUpdate[]` prop.
  */
 export function RegulatoryUpdatesWidget(props: IRegulatoryUpdatesWidgetProps): React.ReactElement {
   const { regulatoryUpdates, className } = props;
@@ -52,19 +58,23 @@ export function RegulatoryUpdatesWidget(props: IRegulatoryUpdatesWidgetProps): R
         <Icon name="news" size="sm" />
         Regulatory updates
       </p>
-      <Stack as="ul" direction="column" gap="none">
-        {recent.map((update) => (
-          <li key={update.id} className={styles.row}>
-            <span className={styles.dot} aria-hidden="true" />
-            <div>
-              <p className={styles.updateTitle}>{update.title}</p>
-              <p className={styles.meta}>
-                {formatMonthDay(update.date)} &middot; {update.practiceArea}
-              </p>
-            </div>
-          </li>
-        ))}
-      </Stack>
+      {recent.length === 0 ? (
+        <EmptyState title="No regulatory updates" />
+      ) : (
+        <Stack as="ul" direction="column" gap="none">
+          {recent.map((update) => (
+            <li key={update.id} className={styles.row}>
+              <span className={styles.dot} aria-hidden="true" />
+              <div>
+                <p className={styles.updateTitle}>{update.title}</p>
+                <p className={styles.meta}>
+                  {formatMonthDay(update.date)} &middot; {update.practiceArea}
+                </p>
+              </div>
+            </li>
+          ))}
+        </Stack>
+      )}
     </div>
   );
 }

@@ -17,10 +17,32 @@
   padding: space(md) space(sm);
   text-align: center;
   @include typography(body);
-  transition: border-color motion(hover);
+  transition:
+    border-color motion(hover),
+    transform motion(scale),
+    box-shadow motion(scale);
+
+  // Sprint 7 motion polish: a subtle lift + elevation on hover/keyboard
+  // focus, on top of the existing border-color change — the "premium SaaS"
+  // micro-interaction the brief asks for on interactive cards. `HubCard` is
+  // the only card-shaped component in this app that is genuinely
+  // interactive (a real `<button>`, per this file's own docblock); the
+  // non-interactive widget/hero cards deliberately do NOT get this
+  // treatment — see `_widgetCard.scss`'s docblock note on why elevation
+  // stays reserved for elements a user can actually act on, matching the
+  // wireframe's own restraint (its one observed `box-shadow` sits on the
+  // whole page frame, not on individual cards).
+  @include motion-safe {
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: shadow(elevation2);
+    }
+  }
 }
 
-.card:hover {
+.card:hover,
+.card:focus-visible {
   border-color: $color-accent;
 }
 
@@ -72,35 +94,16 @@
   color: $color-warning;
 }
 
-// FLAGGED TOKEN GAP: the wireframe's People & Culture tile uses two raw
-// wireframe variables with NO corresponding Sprint 1 semantic token at
-// all — not an approximation gap like elsewhere in this build, an actual
-// absence. `--gl` (a pale gold, `#f5e4b0`) and `--gd` (a dark gold,
-// `#b8861a`) exist in the wireframe's palette but were never carried into
-// `ISemanticColorTokens` (only `accent`, i.e. the mid gold `#ddaa39`, made
-// it in — see `src/theme/colors.ts`). Reusing `warningBackground`/`warning`
-// (already Operations' colors) would make two tiles look identical;
-// reusing `accent` alone (solid, full-strength gold) doesn't reproduce a
-// *pale* tinted background at all. This variant instead reuses the same
-// `currentColor` + opacity-token pseudo-element technique from Sprints 2-3
-// (see e.g. `src/layouts/NavigationItem`) with `accent` as the base color,
-// which is token-legal but is a genuine compromise, not a confident match.
-// Flagged for Sprint 1 stewards: this is the strongest case yet for adding
-// a real `accentBackground`/`accentForeground` pair alongside the
-// success/warning/danger/info background pairs that already exist.
+// RESOLVED in Sprint 7 — see DESIGN_TOKEN_DEBT.md entry 2 (now marked
+// resolved). `accentBackground`/`accentForeground` (`src/theme/colors.ts`)
+// reproduce the wireframe's `--gl`/`--gd` pale/dark gold pair directly —
+// the People & Culture tile's icon chip no longer needs the
+// `currentColor` + opacity pseudo-element workaround Sprints 2-4 relied on
+// for every gold-wash surface; a flat, faithful pastel background now
+// exists as a real token.
 .iconAccentTint {
-  position: relative;
-  color: $color-accent;
-}
-
-.iconAccentTint::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background-color: currentColor;
-  opacity: token-opacity(active-overlay);
+  background-color: $color-accent-background;
+  color: $color-accent-foreground;
 }
 
 .iconPrimary {

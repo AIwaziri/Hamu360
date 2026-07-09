@@ -1,0 +1,21 @@
+@import '../../styles/tokens';
+
+.root {
+  padding: space(lg) space(md);
+  text-align: center;
+}
+
+.icon {
+  color: $color-muted;
+}
+
+.title {
+  @include typography(body);
+  color: $color-text-secondary;
+  font-weight: 600;
+}
+
+.description {
+  @include typography(body-small);
+  color: $color-muted;
+}

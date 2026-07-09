@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Icon, type IconName } from '@components/Icon';
 import { Stack } from '@components/Stack';
 import type { IFirmWin } from '@models/index';
@@ -54,6 +55,11 @@ function selectRecentWins(items: IFirmWin[]): IFirmWin[] {
  * the full reasoning; this component makes the identical interpretive
  * choice for consistency between the two "grouped by X" widgets in this
  * sprint.
+ *
+ * ## Sprint 6: empty state, no props change
+ *
+ * `firmWins` can legitimately be `[]` — rendering `EmptyState` in that case
+ * is an internal branch on the same `IFirmWin[]` prop.
  */
 export function FirmWinsWidget(props: IFirmWinsWidgetProps): React.ReactElement {
   const { firmWins, className } = props;
@@ -65,19 +71,23 @@ export function FirmWinsWidget(props: IFirmWinsWidgetProps): React.ReactElement 
         <Icon name="trophy" size="sm" />
         Firm wins
       </p>
-      <Stack as="ul" direction="column" gap="none">
-        {recent.map((win) => (
-          <li key={win.id} className={styles.row}>
-            <span className={styles.iconBox} aria-hidden="true">
-              <Icon name={CATEGORY_ICON[win.category]} size="sm" />
-            </span>
-            <div>
-              <span className={styles.tag}>{CATEGORY_LABEL[win.category]}</span>
-              <p className={styles.winTitle}>{win.title}</p>
-            </div>
-          </li>
-        ))}
-      </Stack>
+      {recent.length === 0 ? (
+        <EmptyState title="No firm wins yet" />
+      ) : (
+        <Stack as="ul" direction="column" gap="none">
+          {recent.map((win) => (
+            <li key={win.id} className={styles.row}>
+              <span className={styles.iconBox} aria-hidden="true">
+                <Icon name={CATEGORY_ICON[win.category]} size="sm" />
+              </span>
+              <div>
+                <span className={styles.tag}>{CATEGORY_LABEL[win.category]}</span>
+                <p className={styles.winTitle}>{win.title}</p>
+              </div>
+            </li>
+          ))}
+        </Stack>
+      )}
     </div>
   );
 }

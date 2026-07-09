@@ -23,6 +23,15 @@
 // `padding: 11px` maps to `space(sm)` (8px) — nearest spacing step per
 // `spacing.ts`'s "components round to the scale, not the wireframe's literal
 // hand-tuned value" rule.
+// Sprint 7 note: this mixin deliberately does NOT add a `box-shadow`/hover
+// elevation, even though `HubCard` (a genuinely interactive `<button>`) got
+// exactly that treatment this sprint. These four dashboard widget cards are
+// static content, not controls — nothing inside them is clickable — so an
+// elevation-on-hover affordance would visually promise an interaction that
+// doesn't exist. This also matches the wireframe's own restraint: its one
+// observed `box-shadow` sits on the whole page frame, never on an
+// individual `.wc` card. Elevation stays reserved for elements a user can
+// actually act on.
 @mixin widget-card {
   background-color: $color-surface;
   border: 0.5px solid $color-border;

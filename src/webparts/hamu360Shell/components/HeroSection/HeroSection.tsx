@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EmptyState } from '@components/EmptyState';
 import { Grid } from '@components/Grid';
 import { classNames } from '@utils/index';
 
@@ -36,6 +37,25 @@ function getTodayEyebrow(): string {
  * `.root` docblock for why it fills 100% of whatever width its parent slot
  * (`MainLayout`'s own `Container`, normally) already provides, rather than
  * nesting a second one.
+ *
+ * ## Sprint 6 closeout: this file is now touched, deliberately
+ *
+ * Sprint 6's brief said `HeroSection` should not be changed to accommodate
+ * real data, with reshaping happening entirely in service files. The
+ * partner-message author-filter fix requires exactly one exception to that,
+ * flagged here rather than made silently: `SharePointPartnerMessageService`
+ * can now legitimately resolve to `undefined` ("no post from her this
+ * week" — see that service's docblock), and per the fix's own requirement,
+ * that must render the existing `EmptyState` component, never
+ * `PartnerMessageCard` with fabricated or stale content. `PartnerMessageCard`
+ * itself was explicitly off-limits and remains completely unchanged — its
+ * props still require a real, fully-populated `IPartnerMessage` whenever it
+ * renders at all. The rendering *decision* ("do we have a message to show
+ * or not") has to live somewhere, and `HeroSection` — the one component
+ * that already owns "which of these three cards go in this grid" — is the
+ * smallest-blast-radius place for it: one ternary, no new state, no change
+ * to `AnnouncementsFeed`/`QuickLinksGrid`/`PartnerMessageCard`'s own
+ * contracts.
  */
 export function HeroSection(props: IHeroSectionProps): React.ReactElement {
   const { partnerMessage, announcements, quickLinks, className } = props;
@@ -48,7 +68,11 @@ export function HeroSection(props: IHeroSectionProps): React.ReactElement {
       </h1>
 
       <Grid columns={3} gap="sm">
-        <PartnerMessageCard message={partnerMessage} />
+        {partnerMessage ? (
+          <PartnerMessageCard message={partnerMessage} />
+        ) : (
+          <EmptyState icon="message-circle" title="No message from Fali this week" />
+        )}
         <AnnouncementsFeed items={announcements} />
         <QuickLinksGrid items={quickLinks} />
       </Grid>

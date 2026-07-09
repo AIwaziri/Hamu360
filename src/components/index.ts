@@ -16,3 +16,11 @@ export * from './Spacer';
 export * from './Button';
 export * from './Icon';
 export * from './Typography';
+
+// Added in Sprint 6 (see README.md's "Sprint 6 additions" note) — real
+// network calls need real loading/empty/error UI, which nothing before this
+// sprint needed since mock services always resolved instantly and never
+// failed.
+export * from './Skeleton';
+export * from './EmptyState';
+export * from './ErrorState';

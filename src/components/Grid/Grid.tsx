@@ -11,6 +11,7 @@ const columnsClassNames: Record<GridColumns, string> = {
   2: styles.columns2,
   3: styles.columns3,
   4: styles.columns4,
+  5: styles.columns5,
   6: styles.columns6,
   12: styles.columns12
 };

@@ -33,6 +33,21 @@
   border-radius: inherit;
   background-color: currentColor;
   opacity: token-opacity(active-overlay);
+  transition: opacity motion(hover);
+}
+
+// Sprint 7: `.tile` is a real `<button>` (see this file's own docblock) but
+// previously had no hover/focus-visible feedback at all — every other
+// interactive element in this app (`NavigationItem`, `HubCard`, `Button`)
+// darkens or shifts on hover; this was the one silent exception. Deepens
+// the existing wash from `active-overlay` (0.08) to `full` opacity on
+// hover/keyboard focus — the exact same technique `NavigationItem.active:hover`
+// already established, reused here rather than inventing a second pattern.
+.tile:hover::before,
+.tile:focus-visible::before {
+  @include motion-safe {
+    opacity: token-opacity(full);
+  }
 }
 
 .tileLabel {

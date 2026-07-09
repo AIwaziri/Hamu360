@@ -76,11 +76,23 @@ const palette = {
  *   `primary`/`accent`-colored background (e.g. the wireframe's active
  *   selector chip: gold background, navy text — see `darkColors` below,
  *   where this exact pairing reappears).
+ * - `accentBackground` / `accentForeground` (Sprint 7): the wireframe's pale
+ *   gold / dark gold pairing (`--gl` / `--gd`) used for icon chips, category
+ *   tags, and avatar fills — the same pastel-pair pattern already
+ *   established for success/warning/danger/info, just for gold. Added in
+ *   Sprint 7 to resolve `DESIGN_TOKEN_DEBT.md` entry 2, the codebase's
+ *   longest-standing, highest-instance-count token gap (independently
+ *   reinvented via a `currentColor` + opacity pseudo-element workaround four
+ *   times across Sprints 4–5 before this pair existed). `palette.gold300`/
+ *   `palette.gold700` already existed for this exact purpose — they were
+ *   defined in Sprint 1 but never exposed through `ISemanticColorTokens`.
  */
 export interface ISemanticColorTokens {
   primary: string;
   secondary: string;
   accent: string;
+  accentBackground: string;
+  accentForeground: string;
   success: string;
   successBackground: string;
   warning: string;
@@ -110,6 +122,8 @@ export const lightColors: ISemanticColorTokens = {
   primary: palette.navy900,
   secondary: palette.navy700,
   accent: palette.gold500,
+  accentBackground: palette.gold300,
+  accentForeground: palette.gold700,
   success: palette.green800,
   successBackground: palette.green50,
   warning: palette.amber800,
@@ -152,6 +166,13 @@ export const darkColors: ISemanticColorTokens = {
   primary: palette.gold500,
   secondary: palette.navy500,
   accent: palette.gold300,
+  // Same "translucent wash of the light-mode foreground color" pattern as
+  // every other `*Background` token in this object (compare
+  // `successBackground`'s `rgba(59, 109, 17, 0.18)` below, which washes
+  // `green800`) — here washing `gold500` instead of reusing `gold300`
+  // directly, since `gold300` is already spoken for as this mode's `accent`.
+  accentBackground: 'rgba(221, 170, 57, 0.18)',
+  accentForeground: palette.gold300,
   success: '#6fa83a',
   successBackground: 'rgba(59, 109, 17, 0.18)',
   warning: '#e0ac4e',

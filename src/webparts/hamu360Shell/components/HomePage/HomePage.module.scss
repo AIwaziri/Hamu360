@@ -1,0 +1,37 @@
+@import '../../../../styles/tokens';
+@import '../../../../styles/mixins';
+
+.loadingRoot {
+  padding: space(xl) space(md);
+}
+
+.loadingBar {
+  margin-bottom: space(md);
+}
+
+// Sprint 7 fix: this class previously had no typography rule at all — the
+// "Team hubs" / "What's happening at Hamu Legal" `<h2>`s were falling back
+// to `global.scss`'s `h1..h6 { font-size: inherit; font-weight: inherit; }`,
+// which inherits from `body` (13px/400). The two section headers were
+// rendering visually identical to body copy, with zero heading hierarchy —
+// a real, unintended regression from the wireframe, not a documented
+// compromise, caught during this sprint's audit.
+//
+// Wireframe: `.slbl { font-size: 9px; font-weight: 700; color: var(--t3);
+// letter-spacing: .08em; text-transform: uppercase; }` — a small, bold,
+// uppercase eyebrow label, not a large heading. `label` (10px/600) is the
+// nearest existing role (size and weight both close); `text-transform` and
+// `color` are added as genuine new properties, not overrides of anything
+// `label` already sets, per this codebase's "never override a mixin's own
+// sub-properties" rule (see RegulatoryUpdatesWidget.module.scss's docblock
+// for the precedent this follows).
+.sectionHeading {
+  @include typography(label);
+  color: $color-muted;
+  text-transform: uppercase;
+  margin-bottom: space(sm);
+}
+
+.failedSectionsNotice {
+  border-bottom: 1px solid $color-border;
+}

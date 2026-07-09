@@ -1,0 +1,28 @@
+@import '../../styles/tokens';
+@import '../../styles/mixins';
+@import '../../styles/string-utils';
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: token-opacity(full);
+  }
+  50% {
+    opacity: token-opacity(muted);
+  }
+}
+
+.root {
+  display: inline-block;
+  background-color: $color-border;
+
+  @include motion-safe {
+    animation: skeleton-pulse duration(slower) ease(standard) infinite;
+  }
+}
+
+@each $key in $radius-keys {
+  .radius#{capitalize($key)} {
+    border-radius: radius($key);
+  }
+}

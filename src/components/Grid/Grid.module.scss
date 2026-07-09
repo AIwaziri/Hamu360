@@ -53,6 +53,21 @@
   }
 }
 
+// Added in Sprint 7 (`DESIGN_TOKEN_DEBT.md` entry 4) — ramp copied verbatim
+// from `HubCardGrid`'s former hand-rolled local grid, the only consumer
+// that ever needed 5 columns.
+.columns5 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include from-tablet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include from-laptop {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 .columns6 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 

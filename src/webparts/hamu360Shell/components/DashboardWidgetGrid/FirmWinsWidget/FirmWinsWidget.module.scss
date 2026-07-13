@@ -6,6 +6,11 @@
 
 .title {
   @include widget-card-title;
+}
+
+// Sprint A6: gold on the icon only — see EventsWidget.module.scss's note
+// (wireframe `.wt` is dark text; only `.wt i` is gold).
+.titleIcon {
   color: $color-accent;
 }
 
@@ -39,13 +44,16 @@
 .tag {
   display: inline-block;
   margin-bottom: space(xxs);
-  // Wireframe: 7px/700, padding 1px 5px, radius 3px. Size/weight: see
-  // DESIGN_TOKEN_DEBT.md #3. Padding: `1px` sits exactly between
+  // Sprint A4: wireframe `.wrtag` is 7px/700 — exact match to the new
+  // `badge` role. `text-transform: uppercase` reproduces the wireframe's
+  // all-caps tag text ("RANKING", "NEW CLIENT") in CSS so the data layer
+  // doesn't have to care about casing. Padding: `1px` sits exactly between
   // `space(none)` (0) and `space(xxs)` (2) — same round-down-on-a-tie
   // precedent as `_widgetCard.scss`'s 9px radius mapping; `5px` rounds to
   // `space(xs)` (4px). Radius: `3px` rounds up to `radius(small)` (4px),
   // the nearest existing step (no smaller option exists to round down to).
-  @include typography(label);
+  @include typography(badge);
+  text-transform: uppercase;
   padding: space(none) space(xs);
   border-radius: radius(small);
   // Color: RESOLVED in Sprint 7, same real token pair as `.iconBox` above —
@@ -55,8 +63,10 @@
 }
 
 .winTitle {
-  // Wireframe: 9.5px/1.45 line-height. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe `.wrtxt` is 9.5px/400, line-height 1.45 — `micro`
+  // is an exact size/weight match; line-height stays the wireframe's own
+  // per-site 1.45 vs the role's 1.5.
+  @include typography(micro);
   color: $color-text-primary;
   line-height: 1.45;
 }

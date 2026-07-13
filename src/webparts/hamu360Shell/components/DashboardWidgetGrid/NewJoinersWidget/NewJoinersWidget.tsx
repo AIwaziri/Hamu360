@@ -53,8 +53,11 @@ export function NewJoinersWidget(props: INewJoinersWidgetProps): React.ReactElem
 
   return (
     <div className={classNames(styles.card, className)}>
+      {/* Sprint A3: `size="md"` (13px) — wireframe's `.wt i` is 14px; `md`
+          is closer than the previous `size="sm"` (11px, off by 3px vs.
+          `md`'s 1px). Same fix across all four widget titles. */}
       <p className={styles.title}>
-        <Icon name="user-plus" size="sm" />
+        <Icon name="user-plus" size="md" className={styles.titleIcon} />
         New joiners
       </p>
       {newJoiners.length === 0 ? (

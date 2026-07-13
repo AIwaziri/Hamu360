@@ -17,7 +17,9 @@
   flex-shrink: 0;
   border-radius: radius(small);
   background-color: $color-accent;
-  @include typography(title);
+  // Wireframe `.lm` is 13px/700; `label-strong` (12px/600) is the nearest
+  // role — see DESIGN_TOKEN_DEBT.md #6 (monogram/initials family).
+  @include typography(label-strong);
   // Text-on-gold needs dark navy, not white — this reuses `primary` (navy)
   // as a foreground color rather than a surface color. There is no
   // dedicated "text-on-accent" token in the Sprint 1 palette (only
@@ -31,23 +33,24 @@
   line-height: 1.2;
 }
 
-// Both lines below use the `label` role — the smallest step the Sprint 1
-// type scale defines (10px). The wireframe's own hand-tuned values are 12px
-// (`.lt`) and 8px (`.ls`), i.e. a wordmark *larger* than `label` and a
-// tagline *smaller* than it; since inventing a new in-between or
-// below-`label` size isn't allowed ("flag rather than invent an ad hoc
-// value"), both lines share `label`'s single size and are differentiated by
-// color only (white wordmark, gold tagline) instead of by size. Flagged for
-// Sprint 1 stewards: a `micro` role below `label` would remove the need for
-// this compromise.
+// Sprint A4: both lines now use exact-fit roles from the extended type
+// scale (DESIGN_TOKEN_DEBT.md #3/#5, resolved this sprint) instead of
+// collapsing onto `label`'s single 10px step — the wordmark/tagline size
+// hierarchy the wireframe draws (12px over 8px) is finally reproduced
+// rather than flattened to color-only differentiation.
 .title {
   display: block;
-  @include typography(label);
+  // Wireframe `.lt`: 12px/600 — exact match to `label-strong`.
+  @include typography(label-strong);
   color: $color-text-on-primary;
 }
 
 .tagline {
   display: block;
-  @include typography(label);
+  // Wireframe `.ls`: 8px with 0.08em tracking — `micro-label` (8.5px/400)
+  // is the nearest role; tracking added per-site, exactly as the wireframe
+  // itself hand-tunes tracking per element.
+  @include typography(micro-label);
+  letter-spacing: 0.08em;
   color: $color-accent;
 }

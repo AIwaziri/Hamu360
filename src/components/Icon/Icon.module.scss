@@ -21,6 +21,13 @@
   font-size: var(--h360-font-body-size);
 }
 
+// Sprint A6: 17px (`heading-s`) — the wireframe's hub-tile icon size
+// (`.hub-ic i`), previously unreachable between `md` (13px) and the old
+// 26px `lg`. The former 26px step is now `xl`.
 .sizeLg {
+  font-size: var(--h360-font-heading-s-size);
+}
+
+.sizeXl {
   font-size: var(--h360-font-heading-xl-size);
 }

@@ -1,10 +1,35 @@
 @import '../../styles/tokens';
 @import '../../styles/mixins';
 
+// Sprint A5: the wireframe's `.hos` page frame — `background: var(--sf);
+// border: 0.5px solid var(--bd); border-radius: 0 8px 8px 8px;
+// box-shadow: 0 4px 24px rgba(13,31,60,.1); overflow: hidden` — the single
+// treatment that makes the whole intranet read as one elevated product
+// surface floating on the parchment canvas instead of content painted
+// straight onto a SharePoint page. Previously omitted entirely; its shadow
+// value has been sitting in `shadows.ts` verbatim as the `hover` token
+// ("the wireframe's one observed box-shadow") since Sprint 1, waiting for
+// exactly this element.
+//
+// Two deliberate deltas from the wireframe's literal CSS, both documented
+// rather than silent:
+// - Uniform `radius(large)` instead of `0 8px 8px 8px`: the wireframe's
+//   square top-left corner exists only so its mockup-chrome "frame label"
+//   tab (`.frame-label`, part of the wireframe-viewer scaffolding, not the
+//   product) can sit flush against it. No tab exists here.
+// - No `overflow: hidden`: an overflow-clipping ancestor disables
+//   `position: sticky` descendants (the sticky `Header` would silently stop
+//   sticking). The corner rounding the wireframe achieves by clipping is
+//   reproduced instead by matching top radii on `Header.root` and bottom
+//   radii on `Footer.root`.
 .root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: $color-surface-subtle;
+  border: 0.5px solid $color-border;
+  border-radius: radius(large);
+  box-shadow: shadow(hover);
 }
 
 // Standard skip-link pattern: hidden until it receives keyboard focus, then

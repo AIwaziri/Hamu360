@@ -54,8 +54,9 @@ export function RegulatoryUpdatesWidget(props: IRegulatoryUpdatesWidgetProps): R
 
   return (
     <div className={classNames(styles.card, className)}>
+      {/* Sprint A3: `size="md"` — see NewJoinersWidget.tsx's identical note. */}
       <p className={styles.title}>
-        <Icon name="news" size="sm" />
+        <Icon name="news" size="md" className={styles.titleIcon} />
         Regulatory updates
       </p>
       {recent.length === 0 ? (

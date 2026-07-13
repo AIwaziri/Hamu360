@@ -22,7 +22,9 @@
   padding: space(xs) space(sm);
   border-radius: radius(small);
   color: $color-text-on-primary;
-  @include typography(label);
+  // Sprint A4: wireframe `.ql` is 9.5px/400 — `micro` is an exact match
+  // (was `label`, 10px/600).
+  @include typography(micro);
 }
 
 .tile::before {
@@ -32,26 +34,35 @@
   z-index: -1;
   border-radius: inherit;
   background-color: currentColor;
+  // Sprint A2: wireframe's `.ql` also has `border: 0.5px solid
+  // rgba(255,255,255,.1)`, previously omitted here the same way
+  // `_heroCard.scss`'s `.hc` border was — see that file's docblock and
+  // DESIGN_TOKEN_DEBT.md #1. Same fix, same shared `active-overlay` step.
+  border: 0.5px solid currentColor;
   opacity: token-opacity(active-overlay);
   transition: opacity motion(hover);
 }
 
-// Sprint 7: `.tile` is a real `<button>` (see this file's own docblock) but
-// previously had no hover/focus-visible feedback at all — every other
-// interactive element in this app (`NavigationItem`, `HubCard`, `Button`)
-// darkens or shifts on hover; this was the one silent exception. Deepens
-// the existing wash from `active-overlay` (0.08) to `full` opacity on
-// hover/keyboard focus — the exact same technique `NavigationItem.active:hover`
-// already established, reused here rather than inventing a second pattern.
+// Sprint 7 added hover/focus feedback here; Sprint A5 fixes how far it
+// went: deepening the wash to `full` (1.0) painted the `currentColor`
+// (white) pseudo-element completely opaque — a solid white tile behind
+// white text, making the label unreadable for exactly as long as the user
+// hovered it. (Sprint 7 cited `NavigationItem.active:hover` as precedent,
+// but that rule raises the *element's* opacity, not its wash
+// pseudo-element's.) The wash now deepens 0.08 → `strong-overlay` (0.18),
+// the same premium step the active nav pill uses — clearly perceptible,
+// text stays legible.
 .tile:hover::before,
 .tile:focus-visible::before {
   @include motion-safe {
-    opacity: token-opacity(full);
+    opacity: token-opacity(strong-overlay);
   }
 }
 
 .tileLabel {
-  opacity: token-opacity(muted);
+  // Sprint A5: wireframe `.ql` text is white at 0.75 — `soft` (0.78) is the
+  // matching ladder step; `muted` (0.65) rendered it visibly duller.
+  opacity: token-opacity(soft);
 }
 
 .iconBox {

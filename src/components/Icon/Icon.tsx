@@ -9,7 +9,8 @@ import type { IconSize, IIconProps } from './IIconProps';
 const sizeClassNames: Record<IconSize, string> = {
   sm: styles.sizeSm,
   md: styles.sizeMd,
-  lg: styles.sizeLg
+  lg: styles.sizeLg,
+  xl: styles.sizeXl
 };
 
 /**

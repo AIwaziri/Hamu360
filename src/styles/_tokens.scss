@@ -46,6 +46,9 @@ $color-focus: var(--h360-color-focus);
 $spacing-keys: none, xxs, xs, sm, md, lg, xl, xxl, xxxl;
 
 @function space($key) {
+  @if not index($spacing-keys, $key) {
+    @error 'Unknown spacing key `#{$key}` — must be one of #{$spacing-keys}.';
+  }
   @return var(--h360-space-#{$key});
 }
 
@@ -53,13 +56,26 @@ $spacing-keys: none, xxs, xs, sm, md, lg, xl, xxl, xxxl;
 $radius-keys: small, medium, large, xl, pill, circle;
 
 @function radius($key) {
+  @if not index($radius-keys, $key) {
+    @error 'Unknown radius key `#{$key}` — must be one of #{$radius-keys}.';
+  }
   @return var(--h360-radius-#{$key});
 }
 
 // --- Shadow ---
 $shadow-keys: elevation-0, elevation-1, elevation-2, elevation-3, elevation-4, hover, dropdown, modal;
 
+// Sprint A5: the key-existence guards on `space()`/`radius()`/`shadow()`/
+// `token-opacity()` exist because this bridge is name-based — a typo'd key
+// used to compile happily into a `var(--h360-...)` that no ThemeProvider
+// ever defines, and the property silently computed to nothing at runtime
+// (exactly how HubCard's hover elevation shipped invisible in Sprint 7:
+// `shadow(elevation2)` instead of `shadow(elevation-2)`). `@error` turns
+// that whole bug class into a build failure.
 @function shadow($key) {
+  @if not index($shadow-keys, $key) {
+    @error 'Unknown shadow key `#{$key}` — must be one of #{$shadow-keys}.';
+  }
   @return var(--h360-shadow-#{$key});
 }
 
@@ -82,14 +98,22 @@ $shadow-keys: elevation-0, elevation-1, elevation-2, elevation-3, elevation-4, h
 }
 
 // --- Opacity ---
+// Keys mirror the exported keys of src/theme/opacity.ts's `opacity` object
+// (kebab-cased by cssVariables.ts's `toKebabCase`).
+$opacity-keys: transparent, hover-overlay, active-overlay, strong-overlay, faint, disabled, subtle, muted, soft,
+  backdrop, full;
+
 @function token-opacity($key) {
+  @if not index($opacity-keys, $key) {
+    @error 'Unknown opacity key `#{$key}` — must be one of #{$opacity-keys}.';
+  }
   @return var(--h360-opacity-#{$key});
 }
 
 // --- Typography ---
 // Roles mirror the exported keys of src/theme/typography.ts's `typography` object.
-$typography-roles: display, heading-xl, heading-l, heading-m, heading-s, title, body-large, body, body-small, caption,
-  label, button, code;
+$typography-roles: display, heading-xl, heading-l, heading-m, heading-s, title, body-large, body, body-small,
+  caption-strong, caption, label-strong, label, micro, micro-label, badge, button, code;
 
 @mixin typography($role) {
   font-family: var(--h360-font-#{$role}-family);

@@ -66,7 +66,13 @@ export function AnnouncementsFeed(props: IAnnouncementsFeedProps): React.ReactEl
       {topItems.length === 0 ? (
         <EmptyState title="No announcements yet" />
       ) : (
-        <Stack as="ul" direction="column" gap="sm">
+        // Sprint A2: `gap="none"` — the wireframe's rows (`.anr`) get their
+        // vertical rhythm entirely from each row's own `padding-block` plus
+        // the divider line between them (see `AnnouncementsFeed.module.scss`'s
+        // `.item` docblock), not from a separate list-level gap on top of
+        // that. Keeping the old `gap="sm"` here would have stacked both,
+        // producing a noticeably larger row-to-row gap than the wireframe.
+        <Stack as="ul" direction="column" gap="none">
           {topItems.map((item) => (
             <li key={item.id} className={styles.item}>
               <span className={styles.dot} aria-hidden="true" />

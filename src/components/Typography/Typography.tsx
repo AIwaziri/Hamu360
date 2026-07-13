@@ -16,8 +16,13 @@ const roleClassNames: Record<TypographyRole, string> = {
   bodyLarge: styles.roleBodyLarge,
   body: styles.roleBody,
   bodySmall: styles.roleBodySmall,
+  captionStrong: styles.roleCaptionStrong,
   caption: styles.roleCaption,
+  labelStrong: styles.roleLabelStrong,
   label: styles.roleLabel,
+  micro: styles.roleMicro,
+  microLabel: styles.roleMicroLabel,
+  badge: styles.roleBadge,
   button: styles.roleButton,
   code: styles.roleCode
 };

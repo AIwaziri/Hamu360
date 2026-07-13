@@ -37,7 +37,10 @@ export function HubCard(props: IHubCardProps): React.ReactElement {
       onClick={onSelect}
     >
       <span className={classNames(styles.iconBox, iconBoxClassNames[iconVariant])} aria-hidden="true">
-        <Icon name={icon} size="md" />
+        {/* Sprint A6: `lg` (17px) — exact match to the wireframe's
+            `.hub-ic i { font-size: 17px }`; `md` (13px) left these tiles'
+            icons visibly undersized in their 34px boxes. */}
+        <Icon name={icon} size="lg" />
       </span>
       <span className={styles.title}>{title}</span>
       <span className={styles.subtitle}>{subtitle}</span>

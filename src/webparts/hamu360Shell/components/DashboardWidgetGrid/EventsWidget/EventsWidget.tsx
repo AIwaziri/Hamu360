@@ -61,8 +61,9 @@ export function EventsWidget(props: IEventsWidgetProps): React.ReactElement {
 
   return (
     <div className={classNames(styles.card, className)}>
+      {/* Sprint A3: `size="md"` — see NewJoinersWidget.tsx's identical note. */}
       <p className={styles.title}>
-        <Icon name="calendar" size="sm" />
+        <Icon name="calendar" size="md" className={styles.titleIcon} />
         Upcoming events
       </p>
       {upcoming.length === 0 ? (

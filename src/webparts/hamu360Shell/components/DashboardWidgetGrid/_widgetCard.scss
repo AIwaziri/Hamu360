@@ -43,11 +43,14 @@
 // var(--g); }` — an exact match to the `label` typography role (10px/600),
 // no compromise needed here (contrast this with the many below-`label`
 // sizes elsewhere in these widgets — see DESIGN_TOKEN_DEBT.md #3).
+// Sprint A3: wireframe's `.wt { gap: 5px; }` — `space(xs)` (4px) is a
+// closer match than the previous `space(xxs)` (2px, off by 3px vs. `xs`'s
+// 1px).
 @mixin widget-card-title {
   @include typography(label);
   @include flex-center(row);
   justify-content: flex-start;
-  gap: space(xxs);
+  gap: space(xs);
   color: $color-text-primary;
   margin-bottom: space(sm);
 }

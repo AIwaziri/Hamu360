@@ -32,7 +32,9 @@ export function ErrorState(props: IErrorStateProps): React.ReactElement {
     // passed through to `Stack`.
     <div role="alert" className={classNames(styles.root, className)}>
       <Stack direction="column" gap="xs" align="center">
-        <Icon name="alert-triangle" size="lg" className={styles.icon} />
+        {/* Sprint A6: `xl` — same 26px rendering as before; see
+            EmptyState.tsx's identical note. */}
+        <Icon name="alert-triangle" size="xl" className={styles.icon} />
         <p className={styles.title}>{title}</p>
         {description ? <p className={styles.description}>{description}</p> : null}
         {onRetry ? (

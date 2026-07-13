@@ -78,7 +78,10 @@
 }
 
 .eyebrow {
-  @include typography(label);
+  // Sprint A4: wireframe `.hgreet` is 9px/400 with 0.12em tracking —
+  // `micro` (9.5px/400) replaces `label` (10px/600); the wireframe's
+  // regular weight is what makes this eyebrow read as a whisper, not a tag.
+  @include typography(micro);
   color: $color-text-on-primary;
   // Wireframe's `.hgreet` is `rgba(255,255,255,.4)` — matches `disabled`
   // (0.4) exactly.

@@ -6,6 +6,11 @@
 
 .title {
   @include widget-card-title;
+}
+
+// Sprint A6: gold on the icon only — see EventsWidget.module.scss's note
+// (wireframe `.wt` is dark text; only `.wt i` is gold).
+.titleIcon {
   color: $color-accent;
 }
 
@@ -33,23 +38,17 @@
 }
 
 .updateTitle {
-  // Wireframe: 9.5px/400/1.5 line-height. See DESIGN_TOKEN_DEBT.md #3 — as
-  // with every other below-floor instance, this reuses `label` wholesale
-  // (including its 600 weight, heavier than the wireframe's regular-weight
-  // `.rrtxt`) rather than overriding individual sub-properties of the
-  // mixin, which would just be inventing a new ad hoc combination by
-  // another route. `line-height` is the one property this file overrides,
-  // since line-height isn't part of what makes a role's *size* identity —
-  // it's adjusted per-usage elsewhere in this codebase too (e.g. this same
-  // pattern in `EventsWidget.day`).
-  @include typography(label);
+  // Sprint A4: wireframe `.rrtxt` is 9.5px/400/1.5 — an exact match to
+  // `micro` on all three axes; the old `label` fallback (10px/600, with a
+  // per-site line-height override) and the "wrong weight, no ad hoc
+  // override" compromise it carried are both gone.
+  @include typography(micro);
   color: $color-text-primary;
-  line-height: 1.5;
 }
 
 .meta {
-  // Wireframe: 8px. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe `.rrdate` is 8px/400 — `micro-label` (8.5px/400).
+  @include typography(micro-label);
   color: $color-muted;
   margin-top: space(xxs);
 }

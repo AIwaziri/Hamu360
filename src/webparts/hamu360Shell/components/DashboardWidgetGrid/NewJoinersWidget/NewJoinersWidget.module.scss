@@ -6,6 +6,11 @@
 
 .title {
   @include widget-card-title;
+}
+
+// Sprint A6: gold on the icon only — see EventsWidget.module.scss's note
+// (wireframe `.wt` is dark text; only `.wt i` is gold).
+.titleIcon {
   color: $color-accent;
 }
 
@@ -31,9 +36,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // Wireframe: 8.5px/700 — below `label`'s 10px floor, see
-  // DESIGN_TOKEN_DEBT.md #3. `label`'s 600 weight is the nearest available,
-  // not an exact match to the wireframe's 700 either.
+  // Wireframe `.jav`: 8.5px/700 avatar initials — kept on `label` (10px/600)
+  // deliberately in Sprint A4; see DESIGN_TOKEN_DEBT.md #6 (the
+  // monogram/initials family: `.lm` 13/700, `.nav-av` 9/700, `.jav` 8.5/700).
   @include typography(label);
   // RESOLVED in Sprint 7 — see DESIGN_TOKEN_DEBT.md entry 2. Same real
   // token pair as `EventsWidget.dateBox`/`HubCard.iconAccentTint`, no more
@@ -64,8 +69,9 @@
 }
 
 .roleLine {
-  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe `.jrole` is 8.5px/400 — exact match to
+  // `micro-label` (was `label`, 10px/600).
+  @include typography(micro-label);
   color: $color-muted;
   margin-top: space(xxs);
 }
@@ -79,8 +85,9 @@
   // "Pinned" treatment doesn't need, but this widget's badge does).
   background-color: $color-success-background;
   color: $color-success;
-  // Wireframe: 7px/700. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe `.jbadge` is 7px/700 — exact match to the new
+  // `badge` role (was `label`, 10px/600).
+  @include typography(badge);
   padding: space(xxs) space(xs);
   // Wireframe: 3px. `radius(small)` (4px) is the nearest existing step.
   border-radius: radius(small);
@@ -97,7 +104,7 @@
   display: flex;
   align-items: center;
   gap: space(xs);
-  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe is 8.5px/400 — exact match to `micro-label`.
+  @include typography(micro-label);
   color: $color-muted;
 }

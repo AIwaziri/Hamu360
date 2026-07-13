@@ -20,7 +20,10 @@ export function EmptyState(props: IEmptyStateProps): React.ReactElement {
 
   return (
     <Stack direction="column" gap="xs" align="center" className={classNames(styles.root, className)}>
-      <Icon name={icon} size="lg" className={styles.icon} />
+      {/* Sprint A6: `xl` — same 26px rendering as before; `lg` was re-anchored
+          to 17px when the icon ladder gained the wireframe's hub-icon step
+          (see IIconProps.ts). */}
+      <Icon name={icon} size="xl" className={styles.icon} />
       <p className={styles.title}>{title}</p>
       {description ? <p className={styles.description}>{description}</p> : null}
     </Stack>

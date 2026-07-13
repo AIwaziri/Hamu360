@@ -39,12 +39,6 @@
   transition: outline-offset motion(focus);
 }
 
-// Applies a shadow elevation token consistently instead of components
-// writing `box-shadow: shadow(elevation-2);` by hand everywhere.
-@mixin elevation($level) {
-  box-shadow: shadow($level);
-}
-
 // Wraps a transition/animation declaration so it's automatically skipped
 // under `prefers-reduced-motion: reduce`, for the rare component-level
 // case that needs a *different* fallback than global.scss's blanket

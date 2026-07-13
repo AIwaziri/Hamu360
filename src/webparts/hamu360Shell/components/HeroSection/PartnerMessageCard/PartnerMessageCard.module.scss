@@ -16,6 +16,7 @@
 
 .avatar {
   @include flex-center(row);
+  position: relative;
   // Fixed component dimension, not spacing — same precedent noted in
   // Sprint 2's `Header.module.scss` (`.avatar`).
   width: 40px;
@@ -24,39 +25,74 @@
   border-radius: radius(circle);
   background-color: $color-accent;
   // Navy-on-gold — see Sprint 2's `Logo.module.scss` docblock on the
-  // missing "text-on-accent" token. The wireframe also rings this avatar
-  // with a `2px solid rgba(255,255,255,.2)` border; omitted here rather
-  // than approximated with an unrelated token — a translucent-white border
-  // stroke has no token equivalent and a solid substitute would look
-  // wrong, so this is a small, flagged, accepted visual simplification.
+  // missing "text-on-accent" token.
   color: $color-primary;
   @include typography(title);
 }
 
+// Sprint A3: the wireframe's `2px solid rgba(255,255,255,.2)` ring around
+// this avatar, previously omitted as a "small, flagged, accepted visual
+// simplification" (Sprint 3) because a translucent-white stroke has no
+// direct token and the avatar's own `color` is already committed to navy
+// (for the initials' contrast against the gold fill), so a plain
+// `border: ... currentColor` wasn't available here the way it was for
+// `_heroCard.scss`'s cards. A separate `::after` ring, sized slightly
+// larger than the avatar itself (`inset: -2px` = the ring's own width) and
+// carrying its own explicit white color, sidesteps that: it doesn't touch
+// `.avatar`'s `currentColor`/text contrast at all. Opacity reuses
+// `active-overlay` (0.08) — the nearest existing step to the wireframe's
+// 0.2, same family as every other translucent-wash instance; see
+// DESIGN_TOKEN_DEBT.md #1.
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid $color-text-on-primary;
+  // Sprint A5: `strong-overlay` (0.18) — the wireframe's ring is
+  // `rgba(255,255,255,.2)`; the previous `active-overlay` (0.08) rendered
+  // it at under half strength. See DESIGN_TOKEN_DEBT.md #1 (resolved).
+  opacity: token-opacity(strong-overlay);
+  pointer-events: none;
+}
+
+// Sprint A4 typography pass: all four text roles below now map to
+// exact-fit roles from the extended scale (see DESIGN_TOKEN_DEBT.md #3,
+// resolved this sprint) instead of collapsing onto `caption`/`label`.
 .name {
-  @include typography(caption);
+  // Wireframe `.mp-name`: 11px/600 — exact match to `caption-strong`.
+  @include typography(caption-strong);
   color: $color-text-on-primary;
   margin-bottom: space(xxs);
 }
 
 .role {
-  @include typography(label);
+  // Wireframe `.mp-role`: 8px/400 — `micro-label` (8.5px/400).
+  @include typography(micro-label);
   color: $color-text-on-primary;
   opacity: token-opacity(disabled);
   margin-bottom: space(sm);
 }
 
 .message {
-  @include typography(label);
+  // Wireframe `.mp-msg`: 9.5px/400, line-height 1.6, italic — `micro` is an
+  // exact size/weight match; line-height stays a per-site override (1.6 vs
+  // the role's 1.5), same as the wireframe hand-tunes it here.
+  @include typography(micro);
   color: $color-text-on-primary;
-  opacity: token-opacity(muted);
+  // Sprint A5: wireframe `.mp-msg` is white at 0.78 — exact match to the
+  // new `soft` step; `muted` (0.65) read visibly duller than the wireframe.
+  opacity: token-opacity(soft);
   font-style: italic;
   line-height: 1.6;
 }
 
 .date {
-  @include typography(label);
+  // Wireframe `.mp-date`: 8px/400 — `micro-label` (8.5px/400).
+  @include typography(micro-label);
   color: $color-text-on-primary;
-  opacity: token-opacity(disabled);
+  // Sprint A5: wireframe renders this at 0.32 white — `faint` (0.33), not
+  // `disabled` (0.4, slightly too bright).
+  opacity: token-opacity(faint);
   margin-top: space(xs);
 }

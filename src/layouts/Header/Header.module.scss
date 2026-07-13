@@ -10,6 +10,10 @@
   z-index: z(sticky);
   background-color: $color-primary;
   box-shadow: shadow(elevation-1);
+  // Sprint A5: rounds the navy bar into `AppShell`'s new page-frame corners
+  // (the wireframe clips this via `.hos { overflow: hidden }`, which is
+  // unavailable here — see AppShell.module.scss's docblock on sticky).
+  border-radius: radius(large) radius(large) 0 0;
   // NOTE: this bar is styled with `primary`/`accent`/`textOnPrimary` tokens
   // so it currently renders correctly only in light mode. In dark mode
   // `primary` resolves to gold (see `src/theme/colors.ts`), which would
@@ -61,6 +65,80 @@
   flex-shrink: 0;
 }
 
+// Sprint A2: matches the wireframe's `.srch { background: rgba(255,255,255,.09);
+// border: 0.5px solid rgba(255,255,255,.15); border-radius: 5px;
+// padding: 4px 9px; color: rgba(255,255,255,.5); font-size: 10px; width: 120px; }`.
+// Three different alpha values on one element (0.09 background, 0.15
+// border, 0.5 text) against a single available `active-overlay` (0.08)
+// step — the same recurring gap `_heroCard.scss` documents (see
+// DESIGN_TOKEN_DEBT.md #1). Background+border share the pseudo-element
+// technique already established there; text color uses `disabled` (0.4),
+// the nearer of the two opacity tokens to the wireframe's 0.5. Hidden below
+// `tablet`: the wireframe has no responsive spec for this element (it's a
+// static desktop-only mockup), and competing for space with the avatar and
+// hamburger toggle on a narrow nav bar would crowd out both — a reasonable,
+// documented interpretation rather than a silent omission.
+.search {
+  display: none;
+  position: relative;
+  align-items: center;
+  gap: space(xxs);
+  width: 120px;
+  padding: space(xs) space(sm);
+  border-radius: radius(small);
+  color: $color-text-on-primary;
+  flex-shrink: 0;
+
+  @include from-tablet {
+    display: flex;
+  }
+}
+
+// Sprint A5: the wireframe's `.srch` uses two different alphas for fill
+// (0.09) and border (0.15) — previously both rode a single pseudo-element
+// at `active-overlay` (0.08), leaving the border visibly weaker than the
+// wireframe's. Split across the two pseudo-elements this element wasn't
+// using: `::before` keeps the fill at `active-overlay` (0.08 ≈ 0.09),
+// `::after` carries the border at `strong-overlay` (0.18 ≈ 0.15 — the
+// nearest step in the extended ladder; see DESIGN_TOKEN_DEBT.md #1).
+.search::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: token-opacity(active-overlay);
+}
+
+.search::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  border: 0.5px solid currentColor;
+  opacity: token-opacity(strong-overlay);
+  pointer-events: none;
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  opacity: token-opacity(disabled);
+}
+
+.searchText {
+  // Sprint A4: wireframe `.srch` is 10px/400 — `micro` (9.5px/400) matches
+  // the regular weight that `label`'s 600 didn't; 0.5px size residual.
+  @include typography(micro);
+  // Sprint A5: wireframe placeholder text is white at 0.5 — exact match to
+  // `subtle` (was `disabled`, 0.4, a step too dim).
+  opacity: token-opacity(subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .userMenu {
   position: relative;
   display: flex;
@@ -105,13 +183,18 @@
   // Navy-on-gold — see `Logo.module.scss`'s docblock on the missing
   // "text-on-accent" token.
   color: $color-primary;
+  // Wireframe `.nav-av`: 9px/700 avatar initials — kept on `label`
+  // (10px/600) in Sprint A4; see DESIGN_TOKEN_DEBT.md #6 (monogram family).
   @include typography(label);
 }
 
+// Sprint A2: visually hidden, not deleted — see `Header.tsx`'s docblock on
+// `.userMenu` for why (the button's own `aria-label` already carries this
+// text as the accessible name; a visible second copy both mismatched the
+// wireframe's avatar-only `.nav-av` and would have been announced twice by
+// assistive tech).
 .userName {
-  @include typography(caption);
-  color: $color-text-on-primary;
-  white-space: nowrap;
+  @include visually-hidden;
 }
 
 // Hidden at `tablet` and up — this is the one control the desktop layout

@@ -67,8 +67,11 @@ export function FirmWinsWidget(props: IFirmWinsWidgetProps): React.ReactElement 
 
   return (
     <div className={classNames(styles.card, className)}>
+      {/* Sprint A3: `size="md"` — see NewJoinersWidget.tsx's identical note.
+          (The per-row category icon below, `.wric i` in the wireframe, is
+          already an exact 11px match at `size="sm"` and is left unchanged.) */}
       <p className={styles.title}>
-        <Icon name="trophy" size="sm" />
+        <Icon name="trophy" size="md" className={styles.titleIcon} />
         Firm wins
       </p>
       {recent.length === 0 ? (

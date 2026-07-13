@@ -50,12 +50,32 @@
   @include typography(body-small);
 }
 
+.roleCaptionStrong {
+  @include typography(caption-strong);
+}
+
 .roleCaption {
   @include typography(caption);
 }
 
+.roleLabelStrong {
+  @include typography(label-strong);
+}
+
 .roleLabel {
   @include typography(label);
+}
+
+.roleMicro {
+  @include typography(micro);
+}
+
+.roleMicroLabel {
+  @include typography(micro-label);
+}
+
+.roleBadge {
+  @include typography(badge);
 }
 
 .roleButton {

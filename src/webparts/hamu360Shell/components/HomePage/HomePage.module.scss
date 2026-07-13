@@ -19,19 +19,67 @@
 //
 // Wireframe: `.slbl { font-size: 9px; font-weight: 700; color: var(--t3);
 // letter-spacing: .08em; text-transform: uppercase; }` — a small, bold,
-// uppercase eyebrow label, not a large heading. `label` (10px/600) is the
-// nearest existing role (size and weight both close); `text-transform` and
-// `color` are added as genuine new properties, not overrides of anything
-// `label` already sets, per this codebase's "never override a mixin's own
-// sub-properties" rule (see RegulatoryUpdatesWidget.module.scss's docblock
-// for the precedent this follows).
+// uppercase eyebrow label, not a large heading. `label` (10px/600) remains
+// the nearest role (1px / one weight step off). Sprint A4 adds the
+// wireframe's 0.08em tracking, previously missing entirely — the tracking
+// is what gives this eyebrow its wide, quiet rhythm; per-site tracking is
+// how the wireframe itself differentiates its uppercase labels.
 .sectionHeading {
   @include typography(label);
+  letter-spacing: 0.08em;
   color: $color-muted;
   text-transform: uppercase;
   margin-bottom: space(sm);
+  // Sprint A6: the wireframe's `.slbl` is a flex row whose `::after` draws
+  // a hairline rule filling the rest of the row (`flex: 1; height: 0.5px;
+  // background: var(--bd)`) — the "eyebrow + trailing line" rhythm both
+  // section headers carry, previously missing entirely. Rendered at 1px
+  // per the in-codebase precedent for horizontal hairlines
+  // (AnnouncementsFeed's row divider, Sprint A2).
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+}
+
+.sectionHeading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: $color-border;
 }
 
 .failedSectionsNotice {
   border-bottom: 1px solid $color-border;
+}
+
+// Sprint A1 (global layout pass): matches the wireframe's `.body` exactly —
+// `padding: 14px 18px; display: flex; flex-direction: column; gap: 13px;`,
+// the flex wrapper directly beneath the hero band holding the "Team hubs"
+// and "What's happening" blocks. `14px`/`18px`/`13px` all round to the same
+// nearest scale step, `md` (16px) — a 2–3px difference on every axis, well
+// inside this sprint's ±4px tolerance.
+//
+// Replaces what was previously two independent
+// `<Section spacing="lg"><Container maxWidth="desktop">` blocks — a real,
+// measured regression this sprint's audit found and fixed:
+//   1. `Section spacing="lg"` applies `padding-block: space(lg)` (24px) on
+//      BOTH the top and bottom of each section independently. Two adjacent
+//      sections therefore produced a 24px + 24px = 48px gap between the hub
+//      row and the widget row — nearly 4x the wireframe's 13px, far outside
+//      tolerance.
+//   2. Each of those sections also wrapped itself in its own
+//      `Container maxWidth="desktop"`, nested *inside* the one `Container`
+//      `MainLayout` already applies to all of `AppShell`'s children (see
+//      `MainLayout.tsx`) — a redundant second max-width assertion that did
+//      nothing to actual rendered width (already narrower than 1180px) but
+//      added a second horizontal gutter on top of the first, misaligning
+//      this content against `HeroSection`'s own single-inset padding.
+// This class is the single, correct replacement for both: one wrapper, one
+// padding, one gap, matching `.body`'s own flat structure with no extra
+// nested `Container`.
+.sectionsBody {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+  padding: space(md);
 }

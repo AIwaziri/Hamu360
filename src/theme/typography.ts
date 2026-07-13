@@ -17,8 +17,18 @@
  * of what page this app is embedded into.
  */
 
-/** Segoe UI first: matches native Windows/Microsoft 365 rendering (most Hamu360 users are on managed Windows devices) without loading a webfont — no new dependency, no FOUT/FOIT. */
-export const fontFamilyBase = "'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif";
+/**
+ * Arial first — Sprint A4. The approved wireframe's one and only font-family
+ * declaration is `body { font-family: Arial, sans-serif; }`, and Sprint A4's
+ * mandate ("the HTML wireframe is the Platform of Truth; replicate
+ * typography faithfully") makes the family the first thing to match: Arial
+ * and Segoe UI differ visibly in x-height, letterform width, and terminal
+ * shapes at the small sizes this design leans on. Arial ships on every
+ * Windows/macOS device Hamu360 targets, so the original rationale for Segoe
+ * UI (no webfont, no FOUT/FOIT) holds just as well for Arial. Helvetica is
+ * the metric-compatible fallback on platforms where Arial is aliased.
+ */
+export const fontFamilyBase = "Arial, 'Helvetica Neue', Helvetica, sans-serif";
 
 /** Reserved for the `code` role only — numeric/log/identifier display, not used for prose. */
 export const fontFamilyMono = "'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace";
@@ -41,8 +51,13 @@ export type TypographyRole =
   | 'bodyLarge'
   | 'body'
   | 'bodySmall'
+  | 'captionStrong'
   | 'caption'
+  | 'labelStrong'
   | 'label'
+  | 'micro'
+  | 'microLabel'
+  | 'badge'
   | 'button'
   | 'code';
 
@@ -119,21 +134,81 @@ export const typography: Record<TypographyRole, ITypographyToken> = {
     lineHeight: 1.45,
     letterSpacing: '0'
   },
-  // Matches the wireframe's frequent 11/11.5px meta-text size.
+  // Sprint A4 — matches `.mp-name`/`.hub-name` exactly (11px / 600): the
+  // wireframe's small-but-emphatic name/title style (Partner name, Hub Card
+  // title). Same size as `caption`, at the wireframe's actual 600 weight.
+  captionStrong: {
+    fontFamily: fontFamilyBase,
+    fontSize: '11px',
+    fontWeight: 600,
+    lineHeight: 1.3,
+    letterSpacing: '0'
+  },
+  // Matches the wireframe's frequent 11/10.5px meta-text size. Sprint A4:
+  // weight corrected 500 → 400 and letter-spacing 0.01em → 0 to match the
+  // wireframe's `.ni` (nav items, 10.5px / regular / no tracking) — the
+  // role's remaining call sites all wanted regular weight; the emphatic
+  // 11px sites moved to `captionStrong` above.
   caption: {
     fontFamily: fontFamilyBase,
     fontSize: '11px',
-    fontWeight: 500,
+    fontWeight: 400,
     lineHeight: 1.4,
-    letterSpacing: '0.01em'
+    letterSpacing: '0'
   },
-  // Matches `.v-badge` (10px / 600) — the wireframe's smallest, all-caps-style chip text.
+  // Sprint A4 — matches `.lt` (logo wordmark) and `.ev-d` (event date-box
+  // day numeral) exactly (12px / 600). Closes DESIGN_TOKEN_DEBT.md entry 5.
+  labelStrong: {
+    fontFamily: fontFamilyBase,
+    fontSize: '12px',
+    fontWeight: 600,
+    lineHeight: 1.3,
+    letterSpacing: '0'
+  },
+  // Matches `.wt`/`.ev-title`/`.jname`/`.dn` exactly (10px / 600) — the
+  // wireframe's widget-title and row-title style. Sprint A4: letter-spacing
+  // 0.03em → 0; none of the wireframe's 10px/600 sites set any tracking
+  // (uppercase eyebrow uses override tracking per-site, as the wireframe
+  // itself does).
   label: {
     fontFamily: fontFamilyBase,
     fontSize: '10px',
     fontWeight: 600,
     lineHeight: 1.3,
-    letterSpacing: '0.03em'
+    letterSpacing: '0'
+  },
+  // Sprint A4 — the wireframe's small body copy cluster (9.5px / 400:
+  // `.mp-msg`, `.anr-t`, `.ql`, `.rrtxt`, `.wrtxt`; `.hgreet`/`.srch` sit
+  // within 0.5px). Closes the larger half of DESIGN_TOKEN_DEBT.md entry 3.
+  micro: {
+    fontFamily: fontFamilyBase,
+    fontSize: '9.5px',
+    fontWeight: 400,
+    lineHeight: 1.5,
+    letterSpacing: '0'
+  },
+  // Sprint A4 — the wireframe's metadata cluster (8–8.5px / 400:
+  // `.ev-sub`, `.jrole`, `.hub-sub`, `.hcl`, `.mp-role`, `.mp-date`,
+  // `.anr-dt`, `.rrdate`, `.ls`, `.ft`). 8.5px is the cluster's mode; the
+  // 7.5–8px members land within 1px. Closes the smaller half of
+  // DESIGN_TOKEN_DEBT.md entry 3.
+  microLabel: {
+    fontFamily: fontFamilyBase,
+    fontSize: '8.5px',
+    fontWeight: 400,
+    lineHeight: 1.4,
+    letterSpacing: '0'
+  },
+  // Sprint A4 — matches `.jbadge`/`.wrtag` exactly (7px / 700): the
+  // wireframe's tiny bold chip/tag style. Decorative, always paired with a
+  // tinted background and redundant adjacent text — never the sole carrier
+  // of information (see accessibility note in Sprint A4's report).
+  badge: {
+    fontFamily: fontFamilyBase,
+    fontSize: '7px',
+    fontWeight: 700,
+    lineHeight: 1.3,
+    letterSpacing: '0'
   },
   // Deliberately larger/bolder than the wireframe's compact `.sel-btn` chip
   // text (11.5px / 500): the wireframe's chips are miniature UI chrome, but

@@ -3,10 +3,18 @@
 
 .root {
   @include flex-center(row);
+  // Sprint A4: `caption` itself was corrected to 11px/400 (was 500 with
+  // 0.01em tracking) — the wireframe's `.ni` is 10.5px/400 with no
+  // tracking, so this now matches on weight and tracking with a 0.5px size
+  // residual, instead of mismatching weight.
   @include typography(caption);
   position: relative;
   gap: space(xxs);
-  padding: space(xxs) space(sm);
+  // Sprint A2: wireframe's `.ni { padding: 5px 9px; }` — `space(xs)` (4px)
+  // is a closer vertical match than the previous `space(xxs)` (2px, off by
+  // 3px vs. `xs`'s 1px); `space(sm)` (8px) was already the nearest
+  // horizontal step and is unchanged.
+  padding: space(xs) space(sm);
   border-radius: radius(small);
   color: $color-text-on-primary;
   // The wireframe's inactive nav items render at ~60% white
@@ -31,16 +39,12 @@
 
 // --- Active state ---
 // Wireframe: `background: rgba(221,170,57,.18); color: var(--g);` — a pale
-// gold wash behind gold text. There is no pre-mixed "accent-tinted
-// background" token (only the navy-tinted `hover`/`active` overlay tokens
-// exist, meant for light surfaces), so the wash is built from the token
-// that *is* available: `currentColor` (already `$color-accent`, set below)
-// layered behind the content via a pseudo-element at `opacity(active-overlay)`
-// (0.08 — the nearest existing overlay token, not literally wireframe's
-// 0.18). Flagged for Sprint 1 stewards: an `accentBackground` token, mirroring
-// the `success`/`warning`/`danger`/`info` background-tint pattern that
-// already exists for status colors, would remove the need for this
-// approximation entirely.
+// gold wash behind gold text, built as `currentColor` (already
+// `$color-accent`) layered behind the content via a pseudo-element.
+// Sprint A5: the wash now uses `strong-overlay` (0.18) — an *exact* match
+// for the wireframe's alpha, replacing the `active-overlay` (0.08)
+// approximation that rendered the active pill at less than half strength
+// since Sprint 2. Resolves this instance of DESIGN_TOKEN_DEBT.md #1.
 .active {
   color: $color-accent;
   opacity: token-opacity(full);
@@ -53,7 +57,7 @@
   z-index: -1;
   border-radius: inherit;
   background-color: currentColor;
-  opacity: token-opacity(active-overlay);
+  opacity: token-opacity(strong-overlay);
 }
 
 .active:hover {

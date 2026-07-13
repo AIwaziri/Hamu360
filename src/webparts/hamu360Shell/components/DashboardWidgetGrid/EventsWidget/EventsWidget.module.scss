@@ -6,15 +6,23 @@
 
 .title {
   @include widget-card-title;
+}
 
-  // Wireframe: `.wt i { color: var(--g); }` — the widget-title icon is
-  // gold, matching every other widget's title icon in this dashboard.
+// Sprint A6 fix: the gold used to be set on `.title` itself, which colored
+// the *entire* title row — but the wireframe's `.wt` is dark text
+// (`var(--t1)`) with only the icon gold (`.wt i { color: var(--g) }`).
+// Scoping the accent to the icon restores the wireframe's two-tone title.
+.titleIcon {
   color: $color-accent;
 }
 
+// Sprint A3: wireframe's `.ev-row { gap: 7px; }` — `space(sm)` (8px) is a
+// closer match than the previous `space(xs)` (4px, off by 3px vs. `sm`'s
+// 1px). (The three sibling widgets' equivalent row gap, wireframe 6px, is
+// an exact tie between `xs`/`sm` and is left unchanged.)
 .row {
   display: flex;
-  gap: space(xs);
+  gap: space(sm);
   align-items: flex-start;
 }
 
@@ -39,20 +47,22 @@
 }
 
 .day {
-  // Wireframe: 12px/600. `caption` (11px/500) is the nearest existing role
-  // by size, but doesn't match on weight either — see DESIGN_TOKEN_DEBT.md
-  // #5, a new entry this sprint for exactly this gap.
-  @include typography(caption);
+  // Sprint A4: wireframe `.ev-d` is 12px/600 — exact match to the new
+  // `label-strong` role (DESIGN_TOKEN_DEBT.md #5, resolved this sprint).
+  // Line-height 1 stays the wireframe's own per-site value.
+  @include typography(label-strong);
   line-height: 1;
 }
 
 .month {
-  // Wireframe: 6.5px, well below `label`'s 10px floor — mapped to `label`
-  // like every other below-floor value in this sprint (no raw px override;
-  // see DESIGN_TOKEN_DEBT.md #3), differentiated from `.day` by opacity
-  // instead of by size.
-  @include typography(label);
-  opacity: token-opacity(muted);
+  // Sprint A4: wireframe `.ev-m` is 6.5px/400 with 0.04em tracking —
+  // `micro-label` (8.5px/400) is the closest role and the scale's floor;
+  // the residual 2px is logged in DESIGN_TOKEN_DEBT.md #3's resolution.
+  // The old opacity workaround (differentiating from `.day` by opacity
+  // because both shared one size) is gone: the wireframe's `.ev-m` is
+  // full-strength dark gold, and size now does the differentiating.
+  @include typography(micro-label);
+  letter-spacing: 0.04em;
 }
 
 .eventTitle {
@@ -62,7 +72,8 @@
 }
 
 .eventLocation {
-  // Wireframe: 8.5px. See DESIGN_TOKEN_DEBT.md #3.
-  @include typography(label);
+  // Sprint A4: wireframe `.ev-sub` is 8.5px/400 — exact match to
+  // `micro-label` (was `label`, 10px/600).
+  @include typography(micro-label);
   color: $color-muted;
 }

@@ -74,12 +74,15 @@ export type IconName = (typeof ICON_NAMES)[number];
 
 /**
  * Maps to the type scale's own font-size steps rather than a new bespoke
- * icon scale — `sm`/`md`/`lg` borrow `caption`/`body`/`headingXl`'s sizes
- * (11px/13px/26px), which already span the exact range the wireframe uses
- * for inline nav icons up through its large stat-card icon emphasis. See
+ * icon scale — `sm`/`md`/`lg`/`xl` borrow `caption`/`body`/`headingS`/
+ * `headingXl`'s sizes (11px/13px/17px/26px). Sprint A6 inserted `lg` (17px
+ * — the wireframe's `.hub-ic i` hub-tile icon size, previously
+ * unreachable: the old three-step ladder jumped 13px → 26px straight over
+ * it) and moved the former `lg` consumers (EmptyState/ErrorState's 26px
+ * state icons) to the new `xl`, keeping the t-shirt ladder monotonic. See
  * `Icon.module.scss`.
  */
-export type IconSize = 'sm' | 'md' | 'lg';
+export type IconSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface IIconProps {
   name: IconName;

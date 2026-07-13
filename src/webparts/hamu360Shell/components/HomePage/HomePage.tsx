@@ -134,8 +134,20 @@ export default function HomePage(props: IHomePageProps): React.ReactElement {
       >
         <HeroSection partnerMessage={partnerMessage} announcements={announcements} quickLinks={quickLinks} />
 
-        <Section spacing="lg">
-          <Container maxWidth="desktop">
+        {/*
+          Sprint A1: matches the wireframe's `.body { padding: 14px 18px;
+          display: flex; flex-direction: column; gap: 13px; }` — the single
+          flex wrapper holding the "Team hubs" and "What's happening" blocks
+          directly below the hero band. See `HomePage.module.scss`'s
+          `.sectionsBody` docblock for why this replaced two independent
+          `<Section spacing="lg"><Container maxWidth="desktop">` blocks (a
+          real, measured spacing regression fixed this sprint): those
+          produced a ~48px gap between the two rows against the wireframe's
+          13px, and nested a redundant second `Container` inside the one
+          `MainLayout` already provides.
+        */}
+        <div className={styles.sectionsBody}>
+          <div>
             <h2 className={styles.sectionHeading}>Team hubs — go to your workspace</h2>
             {/*
               No `onSelectTile` handler yet — there is still no router in
@@ -147,11 +159,9 @@ export default function HomePage(props: IHomePageProps): React.ReactElement {
               optional) rather than kept as unused placeholder state.
             */}
             <HubCardGrid tiles={HUB_TILES} userGroups={userGroups} />
-          </Container>
-        </Section>
+          </div>
 
-        <Section spacing="lg">
-          <Container maxWidth="desktop">
+          <div>
             <h2 className={styles.sectionHeading}>What&apos;s happening at Hamu Legal</h2>
             <DashboardWidgetGrid
               events={events}
@@ -159,8 +169,8 @@ export default function HomePage(props: IHomePageProps): React.ReactElement {
               regulatoryUpdates={regulatoryUpdates}
               firmWins={firmWins}
             />
-          </Container>
-        </Section>
+          </div>
+        </div>
       </AppShell>
     </>
   );

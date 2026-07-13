@@ -24,10 +24,17 @@ This is the permanent UI quality checklist for Hamu360, established in Sprint 7.
 ## Hero
 
 - [ ] Typography hierarchy matches wireframe — eyebrow (date, all-caps, 40% opacity white) → title ("Good morning, Hamu Legal.", 20px/600) → three cards' own internal hierarchy (label → name/title → body → meta).
-- [ ] Partner Message card verified — when a message exists: avatar initials, name, role, italic quoted message, date all render; when no message exists (`partnerMessage === undefined`): `EmptyState` ("No message from Fali this week") renders in its place, not a blank or broken card.
-- [ ] Announcements card verified — pinned items visually distinguished (per real `Pinned` List value, not position); empty state renders when `announcements.length === 0`.
+- [ ] Partner Message card verified — when a message exists: avatar initials, name, role, italic quoted message, date all render; when no message exists (`partnerMessage === undefined`): `EmptyState` ("No message from Fali this week") renders in its place, not a blank or broken card. Avatar shows a faint translucent ring around its edge (Sprint A3, new — previously absent).
+- [ ] Announcements card verified — pinned items visually distinguished (per real `Pinned` List value, not position); empty state renders when `announcements.length === 0`; each row shows a faint bottom divider (Sprint A2) except the last.
 - [ ] Quick Links verified — every tile is a real, keyboard-focusable `<button>`; hover AND keyboard-focus both visibly deepen the tile's background wash (Sprint 7 fix — previously no interactive feedback existed at all); empty state renders when `quickLinks.length === 0`.
 - [ ] Hero band's two decorative background circles (soft white top-right, soft gold bottom-right) are visible and clipped to the band's edges, sitting behind all text/card content, never on top of it.
+- [ ] All three hero cards (Partner Message, Announcements, Quick Links) and every Quick Links tile show a faint translucent border outline (Sprint A2 — previously all borderless).
+
+## Navigation Bar
+
+- [ ] Decorative search box ("Search HOS…") renders between the primary nav and the user menu at `tablet`+ width, hidden below `tablet` (Sprint A2, new). It is inert (`aria-hidden`, not a real control) — do not flag "search does nothing" as a bug; there is no search service in this codebase yet.
+- [ ] User menu shows the avatar only, no visible name text beside it (Sprint A2 — name is now screen-reader-only via the button's own `aria-label`, matching the wireframe's `.nav-av`).
+- [ ] Nav item padding, logo, and active-state wash match the wireframe within the same documented token-rounding tolerances as every other spacing/color approximation in this checklist (see `DESIGN_TOKEN_DEBT.md` #1).
 
 ## Hub Cards
 
@@ -35,16 +42,17 @@ This is the permanent UI quality checklist for Hamu360, established in Sprint 7.
 - [ ] Equal spacing — consistent `gap` between cards in every row and between rows, using `Grid`'s shared `columns5` step (migrated from a hand-rolled local grid in Sprint 7 — verify the visual ramp is unchanged: 2 columns mobile → 3 tablet → 5 laptop+).
 - [ ] Hover behavior — mouse hover AND keyboard focus both show: border color shifts to accent gold, AND the card lifts (`translateY(-2px)`) with a subtle shadow (Sprint 7 addition). Confirm this does NOT happen on the four dashboard widget cards (deliberately non-interactive, no lift).
 - [ ] Responsive stacking — resize through every breakpoint below and confirm the column count steps down cleanly with no partial/orphaned column, no horizontal scroll.
-- [ ] Icon alignment — icon box is centered above the title on every tile; People & Culture tile's icon chip uses a flat pale-gold background with dark-gold icon color (Sprint 7: real tokens, no visible pseudo-element/wash artifact).
+- [ ] Icon alignment — icon box is centered above the title on every tile; People & Culture tile's icon chip uses a flat pale-gold background with dark-gold icon color (Sprint 7: real tokens, no visible pseudo-element/wash artifact); icon-to-label margin below the icon box reads as a visible gap, not cramped (Sprint A3: `space(sm)`, previously `space(xs)`).
 - [ ] MP Command Centre tile is completely absent from the DOM (not hidden via CSS) for a non-Managing-Partner account — inspect the rendered HTML, not just visual absence.
 
 ## Dashboard Widgets
 
 For **each** of Events, New Joiners, Regulatory Updates, and Firm Wins, verify identically:
 
-- [ ] Header spacing — icon + title row uses the same gap/margin-bottom as every other widget (`widget-card-title` shared mixin).
+- [ ] Header spacing — icon + title row uses the same gap/margin-bottom as every other widget (`widget-card-title` shared mixin, `gap: space(xs)` as of Sprint A3, previously `space(xxs)`); title icon renders at `size="md"` (13px, Sprint A3 — previously `size="sm"`/11px, a noticeable size mismatch against the wireframe's 14px `.wt i`). Firm Wins' per-row category icon (`.wric i`) stays `size="sm"` — that one was already an exact match, not part of this fix.
 - [ ] Padding — card padding is identical across all four (`widget-card` shared mixin, `space(sm)`).
 - [ ] Border radius — identical across all four (`radius(large)`, shared mixin).
+- [ ] Events' icon-to-text row gap reads slightly more open than the other three widgets' row gap (Sprint A3: `space(sm)`, a closer match to the wireframe's `.ev-row` 7px than the other widgets' 6px — this is a deliberate, wireframe-driven difference, not an inconsistency).
 - [ ] Shadow — none of the four widget cards have a box-shadow, on hover or otherwise (deliberate — see `_widgetCard.scss`'s Sprint 7 docblock note; these are static content, not controls).
 - [ ] Empty state — each widget shows `EmptyState` with its own specific copy ("No upcoming events", "No new joiners in the last 90 days", "No regulatory updates", "No firm wins yet") when its data array is empty, using the same `EmptyState` component, not a bespoke inline message.
 - [ ] Loading state — confirmed page-level only (a full-page `Skeleton`), NOT per-widget. This is intentional, documented architecture debt (`ARCHITECTURE_DEBT.md` entry 1), not a defect — do not flag "each widget doesn't show its own skeleton" as a new bug.

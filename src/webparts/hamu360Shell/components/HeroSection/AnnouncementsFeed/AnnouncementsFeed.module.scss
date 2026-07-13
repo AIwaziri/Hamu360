@@ -8,10 +8,32 @@
   @include hero-card-label;
 }
 
+// Sprint A2: wireframe's `.anr { padding: 4px 0; border-bottom: 0.5px solid
+// rgba(255,255,255,.07); }` (`:last-child` has none) — a subtle divider
+// between rows that this component previously had no equivalent of at all
+// (rows were separated only by the parent `Stack`'s `gap="sm"`, with no
+// line). `padding-block: space(xxs)` (2px) is the nearest step to the
+// wireframe's 4px; the divider itself reuses the same `currentColor` +
+// `active-overlay` pseudo-element technique as `_heroCard.scss`'s own
+// border addition, rather than a fourth one-off alpha value — see
+// DESIGN_TOKEN_DEBT.md #1.
 .item {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: space(xs);
+  padding-block: space(xxs);
+}
+
+.item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: $color-text-on-primary;
+  opacity: token-opacity(active-overlay);
 }
 
 .dot {
@@ -26,15 +48,23 @@
 }
 
 .title {
-  @include typography(label);
+  // Sprint A4: wireframe `.anr-t` is 9.5px/400, line-height 1.45 — `micro`
+  // is an exact size/weight match (was `label`, 10px/600); line-height
+  // stays the wireframe's own per-site 1.45 vs the role's 1.5.
+  @include typography(micro);
   color: $color-text-on-primary;
-  opacity: token-opacity(muted);
+  // Sprint A5: wireframe `.anr-t` is white at 0.78 — exact match to `soft`;
+  // `muted` (0.65) rendered announcement text duller than the wireframe.
+  opacity: token-opacity(soft);
   line-height: 1.45;
 }
 
 .meta {
-  @include typography(label);
+  // Sprint A4: wireframe `.anr-dt` is 8px/400 — `micro-label` (8.5px/400).
+  @include typography(micro-label);
   color: $color-text-on-primary;
-  opacity: token-opacity(disabled);
+  // Sprint A5: wireframe renders this at 0.33 white — exact match to
+  // `faint` (was `disabled`, 0.4).
+  opacity: token-opacity(faint);
   margin-top: space(xxs);
 }

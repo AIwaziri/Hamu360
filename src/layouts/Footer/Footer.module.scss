@@ -3,6 +3,10 @@
 
 .root {
   background-color: $color-primary;
+  // Sprint A5: rounds the navy bar into `AppShell`'s new page-frame corners
+  // — same reasoning as `Header.root`'s top radii (the wireframe clips via
+  // `.hos { overflow: hidden }`; see AppShell.module.scss).
+  border-radius: 0 0 radius(large) radius(large);
   padding: space(sm) space(md);
   display: flex;
   flex-wrap: wrap;
@@ -12,7 +16,10 @@
 }
 
 .line {
-  @include typography(label);
+  // Sprint A4: wireframe `.ft` is 7.5px/400 with 0.04em tracking —
+  // `micro-label` (8.5px/400) replaces the old `label` (10px/600) fallback;
+  // 1px size residual noted in DESIGN_TOKEN_DEBT.md #3's resolution.
+  @include typography(micro-label);
   letter-spacing: 0.04em;
 }
 
@@ -22,14 +29,13 @@
 // couldn't actually render brighter than the parent's own opacity. Applying
 // it to sibling `<span>`s instead sidesteps that entirely.
 //
-// Wireframe's `.ft` is 7.5px at 32% white opacity — below `label`'s 10px
-// floor (the type scale's smallest role) and below any single opacity
-// token (`disabled` at 0.4 is the nearest of the six defined steps, not an
-// exact 0.32 match). Both flagged for Sprint 1 stewards, same as
-// `Logo.module.scss`'s tagline.
+// Sprint A5: wireframe's `.ft` renders at 32% white — `faint` (0.33) is the
+// matching step from the extended opacity ladder (was `disabled`, 0.4).
+// This closes the opacity half of the flag Sprint 2 first raised here
+// (Sprint A4 already closed the size half with `micro-label`).
 .dim {
   color: $color-text-on-primary;
-  opacity: token-opacity(disabled);
+  opacity: token-opacity(faint);
 }
 
 .accent {
